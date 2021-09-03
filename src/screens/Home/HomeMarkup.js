@@ -5,7 +5,6 @@ import {
   ScrollView,
   ImageBackground,
   FlatList,
-  Button,
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -19,6 +18,7 @@ import RentIcon from 'react-native-vector-icons/AntDesign';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import FurnitureIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TShirtIcon from 'react-native-vector-icons/Ionicons';
+import {HomeStyles} from './HomeStyles';
 
 const HomeMarkup = () => {
   const dummyData = [
@@ -117,83 +117,28 @@ const HomeMarkup = () => {
 
   const renderItems = ({item}) => {
     return (
-      <View style={{width: 140, marginHorizontal: 20, alignItems: 'center'}}>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderRadius: 1,
-            width: 165,
-            height: 190,
-          }}>
-          <ImageBackground
-            source={item.image}
-            style={{width: '100%', height: 100}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginHorizontal: 7,
-                marginVertical: 7,
-              }}>
-              <View
-                style={{
-                  backgroundColor: 'orange',
-                  width: 50,
-                  height: 20,
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    textAlign: 'center',
-                  }}>
-                  {item.featured}
-                </Text>
+      <View style={HomeStyles.renderItemContainer}>
+        <View style={HomeStyles.renderItemContent}>
+          <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
+            <View style={HomeStyles.insideContainer}>
+              <View style={HomeStyles.featuredTextContainer}>
+                <Text style={HomeStyles.featuredText}>{item.featured}</Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: 'black',
-                    borderRadius: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+              <View style={HomeStyles.iconContainer}>
+                <View style={HomeStyles.iconMain}>
                   <MyAdsIcon name="heart-outlined" size={16} color="white" />
                 </View>
               </View>
             </View>
           </ImageBackground>
 
-          <View>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                paddingTop: 6,
-                marginHorizontal: 5,
-              }}>
-              Rs {item.rs}
-            </Text>
-          </View>
-          <View style={{flex: 1, justifyContent: 'space-around'}}>
-            <Text style={{fontSize: 12, marginHorizontal: 5, maxWidth: 200}}>
-              {item.description}
-            </Text>
-            <View style={{flexDirection: 'row', marginHorizontal: 5}}>
-              <Text style={{fontSize: 11}}>{item.location}</Text>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}>
-                <Text style={{fontSize: 11}}>{item.date}</Text>
+          <Text style={HomeStyles.rsStyle}>Rs {item.rs}</Text>
+          <View style={HomeStyles.flexContainer}>
+            <Text style={HomeStyles.description}>{item.description}</Text>
+            <View style={HomeStyles.rowContainer}>
+              <Text style={HomeStyles.locationStyle}>{item.location}</Text>
+              <View style={HomeStyles.dateContainer}>
+                <Text style={HomeStyles.locationStyle}>{item.date}</Text>
               </View>
             </View>
           </View>
@@ -204,53 +149,15 @@ const HomeMarkup = () => {
 
   const renderItemsTwo = ({item}) => {
     return (
-      <View style={{width: 140, marginHorizontal: 20, alignItems: 'center'}}>
-        <View
-          style={{
-            borderWidth: 0.2,
-            borderRadius: 1,
-            width: 165,
-            height: 190,
-          }}>
-          <ImageBackground
-            source={item.image}
-            style={{width: '100%', height: 100}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginHorizontal: 7,
-                marginVertical: 7,
-              }}>
-              <View
-                style={{
-                  backgroundColor: 'orange',
-                  width: 50,
-                  height: 20,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 8,
-                  }}>
-                  {item.featured}
-                </Text>
+      <View style={HomeStyles.renderItemContainer}>
+        <View style={HomeStyles.renderItemContent}>
+          <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
+            <View style={HomeStyles.insideContainer}>
+              <View style={HomeStyles.featuredTextContainer}>
+                <Text style={HomeStyles.featuredText}>{item.featured}</Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
-                <View
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: 'black',
-                    borderRadius: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+              <View style={HomeStyles.iconContainer}>
+                <View style={HomeStyles.iconMain}>
                   <MyAdsIcon name="heart-outlined" size={16} color="white" />
                 </View>
               </View>
@@ -258,29 +165,14 @@ const HomeMarkup = () => {
           </ImageBackground>
 
           <View>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                paddingTop: 6,
-                marginHorizontal: 5,
-              }}>
-              Rs {item.rs}
-            </Text>
+            <Text style={HomeStyles.rsStyle}>Rs {item.rs}</Text>
           </View>
-          <View style={{flex: 1, justifyContent: 'space-around'}}>
-            <Text style={{fontSize: 12, marginHorizontal: 5, maxWidth: 200}}>
-              {item.description}
-            </Text>
-            <View style={{flexDirection: 'row', marginHorizontal: 5}}>
-              <Text style={{fontSize: 11}}>{item.location}</Text>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}>
-                <Text style={{fontSize: 11}}>{item.date}</Text>
+          <View style={HomeStyles.flexContainer}>
+            <Text style={HomeStyles.description}>{item.description}</Text>
+            <View style={HomeStyles.rowContainer}>
+              <Text style={HomeStyles.locationStyle}>{item.location}</Text>
+              <View style={HomeStyles.dateContainer}>
+                <Text style={HomeStyles.locationStyle}>{item.date}</Text>
               </View>
             </View>
           </View>
@@ -291,137 +183,88 @@ const HomeMarkup = () => {
 
   return (
     <ScrollView>
-      <View
-        style={{marginHorizontal: 20, marginVertical: 7, flexDirection: 'row'}}>
+      <View style={HomeStyles.areaContainer}>
         <LocationIcon name="location-outline" size={20} />
-        <Text style={{marginHorizontal: 10, marginVertical: 3}}>
-          Karachi, Sindh
-        </Text>
-        <View
-          style={{flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+        <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
+        <View style={HomeStyles.topIconsContainer}>
           <DropIcon name="keyboard-arrow-down" size={20} />
         </View>
       </View>
 
-      <View
-        style={{marginHorizontal: 20, marginVertical: 7, flexDirection: 'row'}}>
+      <View style={HomeStyles.areaContainer}>
         <SearchIcon name="search" size={20} />
-        <Text style={{marginHorizontal: 10, marginVertical: 3}}>
-          Karachi, Sindh
-        </Text>
-        <View
-          style={{flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+        <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
+        <View style={HomeStyles.topIconsContainer}>
           <SearchIcon name="bell" size={20} />
         </View>
       </View>
 
-      <View
-        style={{
-          marginHorizontal: 15,
-          marginVertical: 10,
-          flexDirection: 'row',
-        }}>
+      <View style={HomeStyles.categoriesContainer}>
         <Text>Browse Categories</Text>
-        <View
-          style={{flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-          <Text style={{borderBottomWidth: 1}}>Sell all</Text>
+        <View style={HomeStyles.topIconsContainer}>
+          <Text style={HomeStyles.sellAll}>Sell all</Text>
         </View>
       </View>
 
       <ScrollView horizontal={true}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={HomeStyles.iconsHorizontalContainer}>
           <View>
             <MobileIcon
               name="mobile-alt"
               size={20}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: 'lightblue',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: 'lightblue'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Mobiles</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Mobiles</Text>
             </View>
           </View>
           <View>
             <LocationIcon
               name="car-outline"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#ae5858',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: '#ae5858'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Vehicales</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Vehicales</Text>
             </View>
           </View>
           <View>
             <SaleIcon
               name="burst-sale"
               size={25}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: 'lightblue',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: 'lightblue'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 5}}>
-              <Text style={{maxWidth: 50, fontSize: 12, textAlign: 'center'}}>
-                Property for Sale
-              </Text>
+            <View style={HomeStyles.bigTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Property for Sale</Text>
             </View>
           </View>
           <View>
             <RentIcon
               name="trademark"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: 'yellow',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'yellow'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 5}}>
-              <Text style={{maxWidth: 50, fontSize: 12, textAlign: 'center'}}>
-                Property for Rent
-              </Text>
+            <View style={HomeStyles.bigTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Property for Rent</Text>
             </View>
           </View>
           <View>
             <TvIcon
               name="tv"
               size={22}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#3333919c',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: '#3333919c'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 5}}>
-              <Text style={{maxWidth: 60, fontSize: 12, textAlign: 'center'}}>
+            <View style={HomeStyles.bigTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>
                 Electronics & Home A...
               </Text>
             </View>
@@ -430,18 +273,10 @@ const HomeMarkup = () => {
             <DropIcon
               name="pedal-bike"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: '#b3b3b3'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Bikes</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Bikes</Text>
             </View>
           </View>
 
@@ -449,18 +284,10 @@ const HomeMarkup = () => {
             <FurnitureIcon
               name="table-furniture"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: 'brown',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'brown'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, maxWidth: 60, textAlign: 'center'}}>Furniture & Home D...</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Furniture & Home D...</Text>
             </View>
           </View>
 
@@ -468,18 +295,10 @@ const HomeMarkup = () => {
             <TShirtIcon
               name="shirt-outline"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: 'grey',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'grey'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, maxWidth: 60, textAlign: 'center'}}>Fashion & Beauty</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Fashion & Beauty</Text>
             </View>
           </View>
 
@@ -487,38 +306,24 @@ const HomeMarkup = () => {
             <FurnitureIcon
               name="piano"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'yellow'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, maxWidth: 60, textAlign: 'center'}}>Books, Sports &...</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Books, Sports &...</Text>
             </View>
           </View>
-
 
           <View>
             <FurnitureIcon
               name="pencil"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: 'lightblue'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Kids</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Kids</Text>
             </View>
           </View>
 
@@ -526,18 +331,12 @@ const HomeMarkup = () => {
             <TvIcon
               name="industry"
               size={22}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'orange'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, maxWidth: 60, textAlign: 'center'}}>Business, industrial...</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>
+                Business, industrial...
+              </Text>
             </View>
           </View>
 
@@ -545,18 +344,10 @@ const HomeMarkup = () => {
             <FurnitureIcon
               name="room-service-outline"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[HomeStyles.horizontalIcons, {backgroundColor: 'red'}]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Services</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Services</Text>
             </View>
           </View>
 
@@ -564,18 +355,13 @@ const HomeMarkup = () => {
             <MobileIcon
               name="journal-whills"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: 'lightblue'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Jobs</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Jobs</Text>
             </View>
           </View>
 
@@ -583,28 +369,20 @@ const HomeMarkup = () => {
             <FurnitureIcon
               name="dog"
               size={24}
-              style={{
-                width: 45,
-                height: 45,
-                backgroundColor: '#b3b3b3',
-                borderRadius: 25,
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                textAlign: 'center',
-              }}
+              style={[
+                HomeStyles.horizontalIcons,
+                {backgroundColor: 'lightgrey'},
+              ]}
             />
-            <View style={{alignItems: 'center', marginVertical: 10}}>
-              <Text style={{fontSize: 12, textAlign: 'center'}}>Animals</Text>
+            <View style={HomeStyles.smallTextContainer}>
+              <Text style={HomeStyles.allTextStyle}>Animals</Text>
             </View>
           </View>
         </View>
       </ScrollView>
 
       <View>
-        <Text
-          style={{paddingHorizontal: 10, fontWeight: 'bold', paddingBottom: 5}}>
-          Based on your search
-        </Text>
+        <Text style={HomeStyles.basedHeading}>Based on your search</Text>
 
         <FlatList
           data={dummyData}
@@ -612,15 +390,7 @@ const HomeMarkup = () => {
           horizontal={true}
         />
 
-        <Text
-          style={{
-            paddingHorizontal: 10,
-            fontWeight: 'bold',
-            paddingBottom: 5,
-            paddingTop: 10,
-          }}>
-          Fresh recommendations
-        </Text>
+        <Text style={HomeStyles.freshHeading}>Fresh recommendations</Text>
 
         <FlatList
           data={dummyDataTwo}
@@ -629,23 +399,15 @@ const HomeMarkup = () => {
         />
       </View>
 
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{paddingTop: 15, paddingBottom: 5}}>
+      <View style={HomeStyles.arrowAndButtonContainer}>
+        <View style={HomeStyles.arrowMain}>
           <Image
             source={require('../../Components/Utility/Images/home.png')}
-            style={{width: 30, height: 30}}
+            style={HomeStyles.arrow}
           />
         </View>
-        <TouchableOpacity
-          style={{
-            width: 200,
-            height: 50,
-            backgroundColor: 'green',
-            borderRadius: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: 'white', fontSize: 20}}>START</Text>
+        <TouchableOpacity style={HomeStyles.startButton}>
+          <Text style={HomeStyles.start}>START</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
