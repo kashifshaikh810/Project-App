@@ -76,6 +76,7 @@ export const HomeStyles = StyleSheet.create({
   },
   locationStyle: {
     fontSize: responsiveFontSize(1.5),
+    maxWidth: responsiveScreenWidth(40),
   },
   areaContainer: {
     marginHorizontal: responsiveHeight(3),

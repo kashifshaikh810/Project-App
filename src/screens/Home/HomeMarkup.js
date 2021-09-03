@@ -134,9 +134,13 @@ const HomeMarkup = () => {
 
           <Text style={HomeStyles.rsStyle}>Rs {item.rs}</Text>
           <View style={HomeStyles.flexContainer}>
-            <Text style={HomeStyles.description}>{item.description}</Text>
+            <Text style={HomeStyles.description} numberOfLines={1}>
+              {item.description}
+            </Text>
             <View style={HomeStyles.rowContainer}>
-              <Text style={HomeStyles.locationStyle}>{item.location}</Text>
+              <Text style={HomeStyles.locationStyle} numberOfLines={1}>
+                {item.location}
+              </Text>
               <View style={HomeStyles.dateContainer}>
                 <Text style={HomeStyles.locationStyle}>{item.date}</Text>
               </View>
@@ -168,9 +172,13 @@ const HomeMarkup = () => {
             <Text style={HomeStyles.rsStyle}>Rs {item.rs}</Text>
           </View>
           <View style={HomeStyles.flexContainer}>
-            <Text style={HomeStyles.description}>{item.description}</Text>
+            <Text style={HomeStyles.description} numberOfLines={1}>
+              {item.description}
+            </Text>
             <View style={HomeStyles.rowContainer}>
-              <Text style={HomeStyles.locationStyle}>{item.location}</Text>
+              <Text style={HomeStyles.locationStyle} numberOfLines={1}>
+                {item.location}
+              </Text>
               <View style={HomeStyles.dateContainer}>
                 <Text style={HomeStyles.locationStyle}>{item.date}</Text>
               </View>
@@ -202,7 +210,7 @@ const HomeMarkup = () => {
       <View style={HomeStyles.categoriesContainer}>
         <Text>Browse Categories</Text>
         <View style={HomeStyles.topIconsContainer}>
-          <Text style={HomeStyles.sellAll}>Sell all</Text>
+          <Text style={HomeStyles.sellAll}>See all</Text>
         </View>
       </View>
 

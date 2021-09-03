@@ -5,7 +5,7 @@ import Nav from './src/screens/Navigation/Nav';
 const App = () => {
   return (
     <View style={{flex: 1}}>
-      <StatusBar barStyle="light-content" backgroundColor="grey" />
+      <StatusBar barStyle="dark-content" backgroundColor="grey" />
       <Nav />
     </View>
   );
