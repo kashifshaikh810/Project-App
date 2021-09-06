@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const ChatsMarkup = () => {
+const SellingMarkup = () => {
   return (
     <View>
-      <Text>Chats</Text>
+      <Text>Selling page</Text>
     </View>
   );
 };
 
-export default ChatsMarkup;
+export default SellingMarkup;
