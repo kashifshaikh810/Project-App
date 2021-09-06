@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import AllMarkup from './AllMarkup';
 
 const All = () => {
+  const [showColor, setShowColor] = useState('all');
+
+  const ChangePageOnClick = para => {
+    setShowColor(para);
+  };
+
   return (
     <View>
-      <AllMarkup />
+      <AllMarkup showColor={showColor} ChangePageOnClick={ChangePageOnClick} />
     </View>
   );
 };

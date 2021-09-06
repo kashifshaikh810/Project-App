@@ -9,20 +9,21 @@ import All from './All/All';
 import Buying from './Buying/Buying';
 import Selling from './Selling/Selling';
 import {Text, View} from 'react-native';
+import {Styles} from './Styles';
 
 const Tab = createMaterialTopTabNavigator();
 
 const Chats = () => {
   return (
     <>
-      <View style={{height: 50, width: 80, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold', color: 'black', fontSize: 18}}>Chats</Text>
+      <View style={Styles.chatHeader}>
+        <Text style={Styles.chat}>Chats</Text>
       </View>
       <Tab.Navigator
         screenOptions={{
-          tabBarIndicatorStyle: {borderWidth: 2.5, borderRadius: 5},
-          tabBarLabelStyle: {color: 'black'},
-          tabBarStyle: {elevation: 0, backgroundColor: '#f1f1f1'}
+          tabBarIndicatorStyle: Styles.tabBarIndicator,
+          tabBarLabelStyle: Styles.tabBarLabel,
+          tabBarStyle: Styles.tabBar,
         }}>
         <Tab.Screen name={All_Page} component={All} />
         <Tab.Screen name={Buying_Page} component={Buying} />

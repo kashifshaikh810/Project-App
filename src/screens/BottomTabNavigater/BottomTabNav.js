@@ -26,7 +26,7 @@ const BottomTabNav = () => {
   const [showTopLine, setShowTopLine] = useState('');
   return (
     <Tab.Navigator
-      screenOptions={{headerShown: false, tabBarItemStyle: {paddingBottom: 5}}}>
+      screenOptions={{headerShown: false, tabBarItemStyle: {paddingBottom: 5}, tabBarStyle: {backgroundColor: '#f1f1f1'}}}>
       <Tab.Screen
         name={Home_Page}
         component={Home}
