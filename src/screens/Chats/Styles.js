@@ -108,16 +108,42 @@ export const Styles = StyleSheet.create({
   },
   message: {
     marginVertical: responsiveHeight(2),
-    maxWidth: responsiveScreenWidth(80),
+    maxWidth: responsiveScreenWidth(60),
+    minWidth: responsiveScreenWidth(60),
     fontSize: responsiveFontSize(2),
   },
   iconsContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: responsiveScreenWidth(20),
+    alignItems: 'center',
+  },
+  iconsContainerTwo: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: responsiveScreenWidth(39),
+    alignItems: 'center',
   },
   threeDotsContainer: {
-    width: responsiveScreenWidth(12),
-    height: responsiveScreenHeight(10),
+    width: responsiveScreenWidth(93),
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  messageCount: {
+    position: 'absolute',
+    top: responsiveScreenHeight(3.5),
+    left: responsiveScreenWidth(65),
+  },
+  title: {
+    maxWidth: responsiveScreenWidth(50),
+    minWidth: responsiveScreenWidth(50),
+    fontSize: responsiveFontSize(2),
+  },
+  count: {
+    backgroundColor: 'lightblue',
+    width: responsiveHeight(2.5),
+    height: responsiveHeight(2.5),
+    borderRadius: 10,
+    textAlign: 'center',
   },
 });

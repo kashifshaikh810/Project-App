@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     bottom: responsiveHeight(0.5),
-    backgroundColor: 'white',
+    backgroundColor: '#f1f1f1',
   },
   TopLine: {
     paddingTop: responsiveScreenFontSize(1),
