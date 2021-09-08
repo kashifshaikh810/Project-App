@@ -6,12 +6,12 @@ import {Styles} from '../Styles';
 import {
   allDummyData,
   unreadChatDummyData,
-  importantDummyData,
+  importantChatDummyData,
 } from './DummyData';
 import {
   renderItems,
   unReadChatrenderItems,
-  importantRenderItems,
+  importantChatrenderItems,
 } from './AllRenderListData';
 
 const AllMarkup = props => {
@@ -60,17 +60,33 @@ const AllMarkup = props => {
 
       {/* All route data */}
       {props.showColor === 'all' && (
-        <FlatList data={allDummyData} renderItem={item => renderItems(item)} />
+        <View style={Styles.allChatStyle}>
+          <FlatList
+            data={allDummyData}
+            renderItem={item => renderItems(item, props)}
+          />
+        </View>
       )}
 
       {/* unread route data */}
       {props.showColor === 'unreadchat' && (
-        <FlatList
-          data={unreadChatDummyData}
-          renderItem={item => unReadChatrenderItems(item)}
-        />
+        <View style={Styles.allChatStyle}>
+          <FlatList
+            data={unreadChatDummyData}
+            renderItem={item => unReadChatrenderItems(item, props)}
+          />
+        </View>
       )}
 
+      {/* important route data */}
+      {props.showColor === 'important' && (
+        <View style={Styles.allChatStyle}>
+          <FlatList
+            data={importantChatDummyData}
+            renderItem={item => importantChatrenderItems(item, props)}
+          />
+        </View>
+      )}
     </View>
   );
 };

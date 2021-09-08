@@ -4,6 +4,7 @@ import AllMarkup from './AllMarkup';
 
 const All = () => {
   const [showColor, setShowColor] = useState('all');
+  const [showModal, setShowModal] = useState(false);
 
   const ChangePageOnClick = para => {
     setShowColor(para);
@@ -11,7 +12,12 @@ const All = () => {
 
   return (
     <View>
-      <AllMarkup showColor={showColor} ChangePageOnClick={ChangePageOnClick} />
+      <AllMarkup
+        showColor={showColor}
+        ChangePageOnClick={ChangePageOnClick}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </View>
   );
 };

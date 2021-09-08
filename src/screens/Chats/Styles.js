@@ -67,7 +67,7 @@ export const Styles = StyleSheet.create({
   },
   renderContainer: {
     flex: 1,
-    paddingBottom: responsiveHeight(1.5),
+    paddingBottom: responsiveHeight(1),
   },
   renderContentContainer: {
     flex: 1,
@@ -145,5 +145,65 @@ export const Styles = StyleSheet.create({
     height: responsiveHeight(2.5),
     borderRadius: 10,
     textAlign: 'center',
+  },
+  importanatContainer: {
+    height: responsiveScreenHeight(2.5),
+    width: responsiveScreenWidth(19),
+    backgroundColor: 'red',
+    alignItems: 'center',
+    borderRadius: responsiveHeight(0.5),
+    marginVertical: responsiveHeight(1),
+  },
+  importanat: {
+    fontSize: responsiveFontSize(2),
+    color: 'white',
+  },
+  main: {
+    width: responsiveScreenWidth(65),
+    alignItems: 'center',
+  },
+  renderContainerChild: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: responsiveScreenWidth(95),
+  },
+  allChatStyle: {
+    height: responsiveScreenHeight(60),
+  },
+  sellingContainer: {
+    height: responsiveScreenHeight(70),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    height: responsiveScreenHeight(38),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  noMessageImg: {
+    width: responsiveScreenWidth(35),
+    height: responsiveScreenHeight(17),
+    borderRadius: responsiveHeight(15),
+  },
+  button: {
+    fontSize: responsiveFontSize(2.3),
+    fontWeight: 'bold',
+  },
+  noMessageTxt: {
+    fontSize: responsiveFontSize(2.8),
+    fontWeight: 'bold',
+  },
+  titileText: {
+    fontSize: responsiveFontSize(1.9),
+    maxWidth: responsiveScreenWidth(65),
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: responsiveScreenWidth(90),
+    height: responsiveScreenHeight(6),
+    backgroundColor: 'purple',
+    borderRadius: responsiveHeight(0.8),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

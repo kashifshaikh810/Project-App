@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import ThreeDotsIcon from 'react-native-vector-icons/Feather';
 import PhoneIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -14,9 +13,9 @@ import CheckSingleIcon from 'react-native-vector-icons/Ionicons';
 import SmsIcon from 'react-native-vector-icons/AntDesign';
 
 import {Styles} from '../Styles';
-import UnreadChatModal from '../../../Components/Modals/UnreadChatModal/UnreadChatModal';
-import AllChatModal from '../../../Components/Modals/AllChatModal/AllChatModal';
-import ImportantChatModal from '../../../Components/Modals/ImportantChatModal/ImportantChatModal';
+import UnreadChatBuyingModal from '../../../Components/Modals/UnreadChatBuyingModal/UnreadChatBuyingModal';
+import AllChatBuyingModal from '../../../Components/Modals/AllChatBuyingModal/AllChatBuyingModal';
+import ImportantChatBuyingModal from '../../../Components/Modals/ImportantChatBuyingModal/ImportantChatBuyingModal';
 
 export const renderItems = ({item}, props) => {
   return (
@@ -76,7 +75,7 @@ export const renderItems = ({item}, props) => {
           />
         </View>
 
-        <AllChatModal {...item} {...props} />
+        <AllChatBuyingModal {...item} {...props} />
       </View>
       <View style={Styles.line} />
     </>
@@ -126,7 +125,7 @@ export const unReadChatrenderItems = ({item}, props) => {
           <ThreeDotsIcon name="more-vertical" size={20} />
         </TouchableOpacity>
 
-        <UnreadChatModal {...item} {...props} />
+        <UnreadChatBuyingModal {...item} {...props} />
       </View>
       <View style={Styles.line} />
     </>
@@ -200,7 +199,7 @@ export const importantChatrenderItems = ({item}, props) => {
           <ThreeDotsIcon name="more-vertical" size={20} />
         </TouchableOpacity>
 
-        <ImportantChatModal {...item} {...props} />
+        <ImportantChatBuyingModal {...item} {...props} />
       </View>
       <View style={Styles.line} />
     </>

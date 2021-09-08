@@ -1,6 +1,7 @@
 //Stack navigation titiles
 export const SignIn_Page = 'SignIn';
 export const SignUp_Page = 'SignUp';
+export const Categories_Page = 'Categories';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';
