@@ -19,11 +19,13 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
   },
   tabBarIndicator: {
-    borderWidth: responsiveScreenHeight(0.3),
-    borderRadius: responsiveScreenWidth(1.5),
+    height: responsiveScreenHeight(0.6),
+    borderRadius: responsiveScreenWidth(1),
+    color: '#012022',
+    backgroundColor: '#012022',
   },
   tabBarLabel: {
-    color: 'black',
+    color: '#132524',
   },
   tabBar: {
     elevation: 0,
@@ -105,6 +107,7 @@ export const Styles = StyleSheet.create({
   userName: {
     maxWidth: responsiveScreenWidth(80),
     fontSize: responsiveFontSize(2),
+    fontWeight: 'bold',
   },
   message: {
     marginVertical: responsiveHeight(2),
@@ -138,9 +141,11 @@ export const Styles = StyleSheet.create({
     maxWidth: responsiveScreenWidth(50),
     minWidth: responsiveScreenWidth(50),
     fontSize: responsiveFontSize(2),
+    fontWeight: 'bold',
+    color: '#011614',
   },
   count: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#12bfb4',
     width: responsiveHeight(2.5),
     height: responsiveHeight(2.5),
     borderRadius: 10,
@@ -192,16 +197,18 @@ export const Styles = StyleSheet.create({
   noMessageTxt: {
     fontSize: responsiveFontSize(2.8),
     fontWeight: 'bold',
+    color: '#143836',
   },
   titileText: {
     fontSize: responsiveFontSize(1.9),
     maxWidth: responsiveScreenWidth(65),
     textAlign: 'center',
+    color: '#95a9aa',
   },
   buttonContainer: {
     width: responsiveScreenWidth(90),
     height: responsiveScreenHeight(6),
-    backgroundColor: 'purple',
+    backgroundColor: '#023034',
     borderRadius: responsiveHeight(0.8),
     justifyContent: 'center',
     alignItems: 'center',

@@ -28,7 +28,7 @@ export const HomeStyles = StyleSheet.create({
     marginVertical: responsiveHeight(1),
   },
   featuredTextContainer: {
-    backgroundColor: 'orange',
+    backgroundColor: '#ffce38',
     width: responsiveScreenWidth(13),
     height: responsiveScreenHeight(2.6),
     justifyContent: 'center',
@@ -64,6 +64,7 @@ export const HomeStyles = StyleSheet.create({
     fontSize: responsiveFontSize(1.6),
     marginHorizontal: responsiveHeight(0.7),
     maxWidth: responsiveScreenWidth(50),
+    color: '#2a4b4e',
   },
   rowContainer: {
     flexDirection: 'row',
@@ -77,6 +78,7 @@ export const HomeStyles = StyleSheet.create({
   locationStyle: {
     fontSize: responsiveFontSize(1.5),
     maxWidth: responsiveScreenWidth(40),
+    color: '#2a4b4e',
   },
   areaContainer: {
     marginHorizontal: responsiveHeight(3),
@@ -117,17 +119,18 @@ export const HomeStyles = StyleSheet.create({
   },
   bigTextContainer: {
     alignItems: 'center',
-    marginVertical: responsiveHeight(1.5),
+    marginVertical: responsiveHeight(0.7),
   },
   allTextStyle: {
-    maxWidth: responsiveScreenWidth(17),
-    fontSize: responsiveFontSize(1.6),
+    maxWidth: responsiveScreenWidth(14.5),
+    fontSize: responsiveFontSize(1.5),
     textAlign: 'center',
   },
   basedHeading: {
     paddingHorizontal: responsiveHeight(1.5),
     fontWeight: 'bold',
     paddingBottom: responsiveHeight(0.7),
+    color: '#0e383c',
   },
   freshHeading: {
     paddingHorizontal: responsiveHeight(1.5),
@@ -151,7 +154,7 @@ export const HomeStyles = StyleSheet.create({
   startButton: {
     width: responsiveScreenWidth(55),
     height: responsiveScreenHeight(7),
-    backgroundColor: 'green',
+    backgroundColor: '#499f4c',
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
@@ -159,5 +162,6 @@ export const HomeStyles = StyleSheet.create({
   start: {
     color: 'white',
     fontSize: responsiveFontSize(2.5),
+    fontWeight: 'bold',
   },
 });

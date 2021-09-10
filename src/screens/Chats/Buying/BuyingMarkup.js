@@ -23,7 +23,7 @@ const BuyingMarkup = props => {
             Styles.allStyle,
             {
               backgroundColor:
-                props.showColor === 'all' ? 'lightblue' : '#f1f1f1',
+                props.showColor === 'all' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'all' ? 1 : 0,
             },
           ]}
@@ -35,7 +35,7 @@ const BuyingMarkup = props => {
             Styles.unreadChatStyle,
             {
               backgroundColor:
-                props.showColor === 'unreadchat' ? 'lightblue' : '#f1f1f1',
+                props.showColor === 'unreadchat' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'unreadchat' ? 1 : 0,
             },
           ]}
@@ -47,7 +47,7 @@ const BuyingMarkup = props => {
             Styles.importantStyle,
             {
               backgroundColor:
-                props.showColor === 'important' ? 'lightblue' : '#f1f1f1',
+                props.showColor === 'important' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'important' ? 1 : 0,
             },
           ]}

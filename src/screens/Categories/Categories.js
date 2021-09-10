@@ -1,39 +1,43 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
+
+import {renderIcons} from './RenderItem';
+import {iconsData} from './Data';
+import {Styles} from './Styles';
 
 const Categories = () => {
   const navigation = useNavigation();
   return (
     <View>
-      <View style={{justifyContent: 'center', alignItems: 'flex-start'}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 60,
-            width: 320,
-            justifyContent: 'space-around',
-            alignItems: 'center',
-          }}>
+      <View style={Styles.container}>
+        <View style={Styles.iconContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('SELLING')}>
             <CloseIcon name="close" size={25} />
           </TouchableOpacity>
-          <Text style={{fontWeight: 'bold', fontSize: 25}}>
-            What are you offering?
-          </Text>
+          <Text style={Styles.offeringTxt}>What are you offering?</Text>
         </View>
       </View>
 
-      <View style={{flexDirection: 'row'}}>
-        <View>
-          <Text>Browse Categories</Text>
-        </View>
+      <View style={Styles.textContainer}>
+        <View style={Styles.contentContainer}>
+          <View>
+            <Text style={Styles.browseTxt}>Browse Categories</Text>
+          </View>
 
-        <View style={{flex: 1, alignItems: 'flex-end'}}>
-          <Text>See all</Text>
+          <View style={Styles.seeAllContainer}>
+            <Text style={Styles.seeAll}>See all</Text>
+          </View>
         </View>
       </View>
+
+      <FlatList
+        data={iconsData}
+        renderItem={item => renderIcons(item)}
+        numColumns={3}
+        style={Styles.flatList}
+      />
     </View>
   );
 };
