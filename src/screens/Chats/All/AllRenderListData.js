@@ -50,7 +50,7 @@ export const renderItems = ({item}, props) => {
                 <CheckSingleIcon
                   name="checkmark-done"
                   size={12}
-                  color="lightgreen"
+                  color="#3f978b"
                 />
                 <PhoneIcon name="phone" size={13} color="grey" />
                 <Text>{item.addTime}</Text>
@@ -175,7 +175,7 @@ export const importantChatrenderItems = ({item}, props) => {
                 <CheckSingleIcon
                   name="checkmark-done"
                   size={12}
-                  color="lightgreen"
+                  color="#3f978b"
                 />
                 <PhoneIcon name="phone" size={13} color="grey" />
                 <Text>{item.addTime}</Text>
