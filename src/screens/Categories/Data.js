@@ -30,7 +30,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#d2b981'}]}
       />
     ),
-    iconName: 'Vehicales',
+    iconName: 'Vehicles',
   },
 
   {

@@ -26,9 +26,11 @@ const Categories = () => {
             <Text style={Styles.browseTxt}>Browse Categories</Text>
           </View>
 
-          <View style={Styles.seeAllContainer}>
+          <TouchableOpacity
+            style={Styles.seeAllContainer}
+            onPress={() => navigation.navigate('AllCategories')}>
             <Text style={Styles.seeAll}>See all</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
 
