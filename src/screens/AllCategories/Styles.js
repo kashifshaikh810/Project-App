@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {
+  responsiveFontSize,
   responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -18,7 +19,7 @@ export const Styles = StyleSheet.create({
     marginHorizontal: responsiveHeight(1.6),
   },
   flatList: {
-    height: responsiveScreenHeight(83),
+    height: responsiveScreenHeight(81),
   },
   horizontalIcons: {
     width: responsiveScreenHeight(5),
@@ -27,5 +28,17 @@ export const Styles = StyleSheet.create({
     marginHorizontal: responsiveWidth(2.5),
     textAlignVertical: 'center',
     textAlign: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    height: responsiveScreenHeight(10),
+    width: responsiveScreenWidth(47),
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  categoriesStyle: {
+    color: '#0b2a2e',
+    fontSize: responsiveFontSize(2.5),
+    fontWeight: 'bold',
   },
 });

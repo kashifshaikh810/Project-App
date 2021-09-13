@@ -1,10 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
+import {Styles} from './Styles';
 
-export const testRenderItem = ({item}) => {
+export const testRenderItem = ({item}, props) => {
   return (
-    <View>
-      <Text>{item.name}</Text>
-    </View>
+    <TouchableOpacity
+      style={Styles.renderContainer}
+      onPress={() => props.navigate('IncludesDetails', {routeData: item})}>
+      <Text style={Styles.renderText}>{item.name}</Text>
+    </TouchableOpacity>
   );
 };

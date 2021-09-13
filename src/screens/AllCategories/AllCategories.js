@@ -10,13 +10,11 @@ const AllCategories = () => {
   const navigation = useNavigation();
   return (
     <View>
-      <View style={{flexDirection: 'row', height: 60, width: 170, justifyContent: 'space-evenly', alignItems: 'center', }}>
+      <View style={Styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
-        <IconLeft name="chevron-left" size={25} color="#0b2a2e" />
+          <IconLeft name="chevron-left" size={25} color="#0b2a2e" />
         </TouchableOpacity>
-        <Text style={{color: '#0b2a2e', fontSize: 18, fontWeight: 'bold'}}>
-          All categories
-        </Text>
+        <Text style={Styles.categoriesStyle}>All categories</Text>
       </View>
 
       <FlatList

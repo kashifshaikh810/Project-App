@@ -4,6 +4,7 @@ export const SignUp_Page = 'SignUp';
 export const Categories_Page = 'Categories';
 export const All_Categories_Page = 'AllCategories';
 export const Selected_Categories_Page = 'SelectedCategories';
+export const Includes_Details_Page = 'IncludesDetails';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';
