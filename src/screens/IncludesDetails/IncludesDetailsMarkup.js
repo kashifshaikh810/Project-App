@@ -7,13 +7,19 @@ import {
   TextInput,
   FlatList,
   ScrollView,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import PlusIcon from 'react-native-vector-icons/SimpleLineIcons';
 import {useNavigation} from '@react-navigation/native';
 import {Picker} from '@react-native-community/picker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
 
+import {tabletsData, accessoriesData} from './Data';
 import {Styles} from '../SelectedCategories/Styles';
+import AddImagesModal from '../../Components/Modals/AddImagesModal/AddImagesModal';
+import AllMobilePhonesModal from '../../Components/Modals/AllMobilePhonesModal/AllMobilePhonesModal';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -22,30 +28,64 @@ import {
 } from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
 const IncludesMarkup = props => {
-  const {selectedLocation, setSelectedLocation} = props;
+  const {
+    selectedLocation,
+    setSelectedLocation,
+    setItemCondition,
+    itemCondition,
+    itemType,
+    setItemType,
+    showModal,
+    setShowModal,
+    showPhonesModal,
+    setShowPhonesModal,
+  } = props;
+  let routeName = 'Mobile Phones';
+  // props.route.params.routeData.name ||
   const navigation = useNavigation();
-
-  const renderItem = ({item}) => {
+  // console.log(props.route.params);
+  const renderItem = ({item, index}) => {
     return (
-      <TouchableOpacity style={{width: 150}}>
+      <TouchableOpacity
+        style={{width: 170}}
+        onPress={() => setItemType(item.id)}>
         <View
-          style={{
-            borderWidth: 1,
-            borderColor: '#183338',
-            width: 140,
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 3,
-          }}>
-          <Text style={{color: '#183338', fontSize: 16}}>{item.typeName}</Text>
+          style={
+            itemType === item.id
+              ? {
+                  borderWidth: 1,
+                  borderColor: '#279e94',
+                  width: 160,
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 3,
+                }
+              : {
+                  borderWidth: 1,
+                  borderColor: '#183338',
+                  width: 160,
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 3,
+                }
+          }>
+          <Text
+            style={
+              itemType === item.id
+                ? {color: '#279e94', fontSize: 16}
+                : {color: '#183338', fontSize: 16}
+            }>
+            {item.typeName}
+          </Text>
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <>
+    <KeyboardAwareScrollView>
       <View
         style={[Styles.routeNameContainer, {width: responsiveScreenWidth(66)}]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -71,30 +111,36 @@ const IncludesMarkup = props => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <View
-                style={{
-                  backgroundColor: '#218386',
-                  height: 150,
-                  width: 300,
-                  borderRadius: 70,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <TouchableOpacity
+              <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
+                <View
                   style={{
-                    flexDirection: 'row',
-                    height: 50,
+                    backgroundColor: '#218386',
+                    height: 150,
+                    width: 300,
+                    borderRadius: 70,
+                    justifyContent: 'center',
                     alignItems: 'center',
-                    width: 140,
-                    justifyContent: 'space-evenly',
                   }}>
-                  <PlusIcon name="plus" size={25} color="white" />
-                  <Text
-                    style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>
-                    Add images
-                  </Text>
-                </TouchableOpacity>
-              </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      height: 50,
+                      alignItems: 'center',
+                      width: 140,
+                      justifyContent: 'space-evenly',
+                    }}>
+                    <PlusIcon name="plus" size={25} color="white" />
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                        color: 'white',
+                      }}>
+                      Add images
+                    </Text>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </ImageBackground>
         </View>
@@ -121,32 +167,85 @@ const IncludesMarkup = props => {
           />
         </View>
 
-        <View style={{height: 60, justifyContent: 'flex-end'}}>
-          <Text
-            style={{
-              width: 70,
-              textAlign: 'center',
-              height: 23,
-              color: '#183338',
-              fontWeight: 'bold',
-            }}>
-            Type *
-          </Text>
-        </View>
+        {routeName === 'Mobile Phones' ? null : (
+          <View style={{height: 60, justifyContent: 'flex-end'}}>
+            <Text
+              style={{
+                width: 70,
+                textAlign: 'center',
+                height: 23,
+                color: '#183338',
+                fontWeight: 'bold',
+              }}>
+              Type *
+            </Text>
+          </View>
+        )}
 
         <FlatList
-          data={[
-            {typeName: 'TABLET-APPLE'},
-            {typeName: 'DANNY-TABS'},
-            {typeName: 'SAMSUNG-TABS'},
-            {typeName: 'Q-MOBILE-TABS'},
-          ]}
+          extraData={itemType}
+          data={
+            (routeName === 'Tablets' && tabletsData) ||
+            (routeName === 'Accessories' && accessoriesData) ||
+            []
+          }
           renderItem={item => renderItem(item)}
           horizontal={true}
           style={{width: 340, marginHorizontal: 15}}
         />
 
-        <View style={{height: 50, justifyContent: 'flex-end'}}>
+        <AddImagesModal showModal={showModal} setShowModal={setShowModal} />
+        <AllMobilePhonesModal
+          showPhonesModal={showPhonesModal}
+          setShowPhonesModal={setShowPhonesModal}
+          {...props}
+        />
+
+        {routeName === 'Mobile Phones' ? (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 155,
+            }}>
+            <View
+              style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+              <TouchableOpacity
+                style={{flexDirection: 'row'}}
+                onPress={() => setShowPhonesModal(true)}>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    width: 82,
+                    height: 78,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
+                  <Text style={{fontSize: 16, marginVertical: 3, width: 35}}>
+                    {props.route.params.data
+                      ? props.route.params.data.name
+                      : 'Any'}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 230,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}>
+                  <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : null}
+
+        <View
+          style={{
+            height: routeName === 'Mobile Phones' ? 15 : 50,
+            justifyContent: 'flex-end',
+          }}>
           <Text
             style={{
               width: 100,
@@ -171,24 +270,36 @@ const IncludesMarkup = props => {
             style={[
               Styles.conditions,
               {
-                backgroundColor: '#f1f1f1',
                 borderWidth: 1,
+                borderColor: itemCondition === 'NEW' ? '#279e94' : 'black',
               },
             ]}
-            onPress={() => {}}>
-            <Text style={{color: '#183338', fontWeight: 'bold'}}>NEW</Text>
+            onPress={() => setItemCondition('NEW')}>
+            <Text
+              style={{
+                color: itemCondition === 'NEW' ? '#279e94' : '#183338',
+                fontWeight: 'bold',
+              }}>
+              NEW
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               Styles.conditions,
               {
-                backgroundColor: '#f1f1f1',
                 borderWidth: 1,
+                borderColor: itemCondition === 'USED' ? '#279e94' : 'black',
               },
             ]}
-            onPress={() => {}}>
-            <Text style={{color: '#183338', fontWeight: 'bold'}}>USED</Text>
+            onPress={() => setItemCondition('USED')}>
+            <Text
+              style={{
+                color: itemCondition === 'USED' ? '#279e94' : '#183338',
+                fontWeight: 'bold',
+              }}>
+              USED
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -244,6 +355,7 @@ const IncludesMarkup = props => {
           style={{justifyContent: 'center', alignItems: 'center', height: 150}}>
           <View
             style={{
+              height: 75,
               width: 325,
               justifyContent: 'center',
               borderWidth: 1,
@@ -251,14 +363,17 @@ const IncludesMarkup = props => {
             }}>
             <Text
               style={{
-                height: 20,
+                // height: 20,
+                fontSize: 17,
                 textAlignVertical: 'center',
                 textAlign: 'center',
-                width: 70,
+                width: 77,
+                fontWeight: 'bold',
               }}>
               Location
             </Text>
             <Picker
+              style={{height: 30}}
               selectedValue={selectedLocation}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLocation(itemValue)
@@ -279,12 +394,12 @@ const IncludesMarkup = props => {
             style={{
               width: responsiveScreenWidth(90),
               height: responsiveScreenHeight(6),
-              backgroundColor: '#023034',
+              backgroundColor: '#e4e7ee',
               borderRadius: responsiveHeight(0.8),
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            disabled={true}
+            // disabled={true}
             onPress={() => {}}>
             <Text
               style={[
@@ -296,7 +411,7 @@ const IncludesMarkup = props => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 
