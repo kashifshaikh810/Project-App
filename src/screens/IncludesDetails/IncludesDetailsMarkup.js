@@ -16,10 +16,11 @@ import {Picker} from '@react-native-community/picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
 
-import {tabletsData, accessoriesData} from './Data';
+import {tabletsData, accessoriesData, carsData} from './Data';
 import {Styles} from '../SelectedCategories/Styles';
 import AddImagesModal from '../../Components/Modals/AddImagesModal/AddImagesModal';
 import AllMobilePhonesModal from '../../Components/Modals/AllMobilePhonesModal/AllMobilePhonesModal';
+import AllCarsModal from '../../Components/Modals/AllCarsModal/AllCarsModal';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -39,11 +40,13 @@ const IncludesMarkup = props => {
     setShowModal,
     showPhonesModal,
     setShowPhonesModal,
+    showCarsModal,
+    setShowCarsModal,
   } = props;
-  let routeName = 'Mobile Phones';
-  // props.route.params.routeData.name ||
+  let routeName = props.route.params.routeData.name;
+
   const navigation = useNavigation();
-  // console.log(props.route.params);
+
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -82,6 +85,225 @@ const IncludesMarkup = props => {
         </View>
       </TouchableOpacity>
     );
+  };
+
+  const typeText = () => {
+    if (routeName === 'Tablets' || routeName === 'Accessories') {
+      return (
+        <View style={{height: 60, justifyContent: 'flex-end'}}>
+          <Text
+            style={{
+              width: 70,
+              textAlign: 'center',
+              height: 23,
+              color: '#183338',
+              fontWeight: 'bold',
+            }}>
+            Type *
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  const dropDown = () => {
+    if (routeName === 'Mobile Phones') {
+      return (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: routeName === 'Cars' ? 140 : 155,
+          }}>
+          <View
+            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+            <TouchableOpacity
+              onPress={() =>
+                setShowPhonesModal({shown: true, routeData: routeName})
+              }
+              style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  height: 78,
+                  justifyContent: 'center',
+                  marginHorizontal: 20,
+                }}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
+                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+                  {(showPhonesModal && showPhonesModal?.data?.name) || 'Any'}
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 20,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const carsDropDown = () => {
+    if (routeName === 'Cars') {
+      return (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: routeName === 'Cars' ? 140 : 155,
+          }}>
+          <View
+            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+            <TouchableOpacity
+              onPress={() =>
+                setShowCarsModal({shown: true, routeData: routeName})
+              }
+              style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  height: 78,
+                  justifyContent: 'center',
+                  marginHorizontal: 20,
+                }}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
+                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+                  {(showCarsModal && showCarsModal?.data?.name) || 'Any'}
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 20,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const registerDropDown = () => {
+    if (routeName === 'Cars') {
+      return (
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: routeName === 'Cars' ? 140 : 155,
+          }}>
+          <View
+            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+            <TouchableOpacity
+              onPress={() =>
+                setShowPhonesModal({shown: true, routeData: routeName})
+              }
+              style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  height: 78,
+                  justifyContent: 'center',
+                  marginHorizontal: 20,
+                }}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>
+                  Register in
+                </Text>
+                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+                  {(showPhonesModal && showPhonesModal?.data?.name) || 'Any'}
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 20,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const twoTextInput = () => {
+    if (routeName === 'Cars') {
+      return (
+        <>
+          <Text
+            style={{
+              width: 70,
+              textAlign: 'center',
+              height: 30,
+              textAlignVertical: 'bottom',
+              color: '#889897',
+              fontWeight: 'bold',
+            }}>
+            Year *
+          </Text>
+          <View style={{alignItems: 'center'}}>
+            <TextInput
+              style={{
+                width: 330,
+                height: 55,
+                borderRadius: 6,
+                borderWidth: 1,
+                borderColor: '#183338',
+                textAlignVertical: 'center',
+              }}
+            />
+          </View>
+          <Text
+            style={{
+              width: 110,
+              textAlign: 'center',
+              textAlignVertical: 'bottom',
+              height: 50,
+              color: '#889897',
+              fontWeight: 'bold',
+            }}>
+            KM's driven *
+          </Text>
+          <View style={{alignItems: 'center'}}>
+            <TextInput
+              style={{
+                width: 330,
+                height: 55,
+                borderRadius: 6,
+                borderWidth: 1,
+                borderColor: '#183338',
+                textAlignVertical: 'center',
+              }}
+            />
+          </View>
+        </>
+      );
+    }
+  };
+
+  const feulData = () => {
+    if (routeName === 'Cars') {
+      return (
+        <FlatList
+          extraData={itemType}
+          data={carsData || []}
+          renderItem={item => renderItem(item)}
+          horizontal={true}
+          style={{width: 340, marginHorizontal: 15}}
+        />
+      );
+    }
   };
 
   return (
@@ -144,11 +366,17 @@ const IncludesMarkup = props => {
             </View>
           </ImageBackground>
         </View>
+
+        {twoTextInput()}
+
+        {routeName === 'Cars' ? <></> : null}
+
         <Text
           style={{
             width: 70,
             textAlign: 'center',
-            height: 22,
+            textAlignVertical: 'bottom',
+            height: routeName === 'Cars' ? 50 : 22,
             color: '#889897',
             fontWeight: 'bold',
           }}>
@@ -167,20 +395,7 @@ const IncludesMarkup = props => {
           />
         </View>
 
-        {routeName === 'Mobile Phones' ? null : (
-          <View style={{height: 60, justifyContent: 'flex-end'}}>
-            <Text
-              style={{
-                width: 70,
-                textAlign: 'center',
-                height: 23,
-                color: '#183338',
-                fontWeight: 'bold',
-              }}>
-              Type *
-            </Text>
-          </View>
-        )}
+        {typeText()}
 
         <FlatList
           extraData={itemType}
@@ -200,50 +415,37 @@ const IncludesMarkup = props => {
           setShowPhonesModal={setShowPhonesModal}
           {...props}
         />
+        <AllCarsModal
+          showCarsModal={showCarsModal}
+          setShowCarsModal={setShowCarsModal}
+          {...props}
+        />
 
-        {routeName === 'Mobile Phones' ? (
-          <View
+        {dropDown()}
+
+        {carsDropDown()}
+
+        {routeName === 'Cars' && (
+          <Text
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 155,
+              width: 70,
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
             }}>
-            <View
-              style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
-              <TouchableOpacity
-                style={{flexDirection: 'row'}}
-                onPress={() => setShowPhonesModal(true)}>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    width: 82,
-                    height: 78,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
-                  <Text style={{fontSize: 16, marginVertical: 3, width: 35}}>
-                    {props.route.params.data
-                      ? props.route.params.data.name
-                      : 'Any'}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: 230,
-                    justifyContent: 'center',
-                    alignItems: 'flex-end',
-                  }}>
-                  <ArrowRightIcon name="keyboard-arrow-right" size={22} />
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ) : null}
+            Feul *
+          </Text>
+        )}
+        {feulData()}
+
+        {registerDropDown()}
 
         <View
           style={{
-            height: routeName === 'Mobile Phones' ? 15 : 50,
+            height:
+              routeName === 'Mobile Phones' || routeName === 'Mobile Phones'
+                ? 15
+                : 50,
             justifyContent: 'flex-end',
           }}>
           <Text

@@ -10,14 +10,13 @@ import {
 import {Styles} from './Styles';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import SearchIcon from 'react-native-vector-icons/EvilIcons';
-import {data, registerData} from './Data';
-import {responsiveScreenWidth} from '../../Utility/ResponsiveDimensions/Responsive';
+import {data} from './Data';
 
-const AddImagesModal = props => {
+const AllCarsModal = props => {
   const routeName = props.route.params.routeData.name;
 
   const click = item => {
-    props.setShowPhonesModal({
+    props.setShowCarsModal({
       shown: false,
       routeData: props.route.params.routeData.name,
       data: item,
@@ -35,38 +34,16 @@ const AddImagesModal = props => {
   };
 
   return (
-    <Modal visible={props.showPhonesModal.shown} transparent>
+    <Modal visible={props.showCarsModal.shown} transparent>
       <View style={Styles.modalContainer}>
         <View style={Styles.modalMain}>
           <View style={Styles.container}>
-            <View
-              style={[
-                Styles.iconContainer,
-                {
-                  width:
-                    routeName === 'Cars'
-                      ? responsiveScreenWidth(100)
-                      : responsiveScreenWidth(55),
-                },
-              ]}>
+            <View style={Styles.iconContainer}>
               <TouchableOpacity
-                onPress={() => props.setShowPhonesModal({shown: false})}>
+                onPress={() => props.setShowCarsModal({shown: false})}>
                 <CloseIcon name="close" size={25} />
               </TouchableOpacity>
-              <Text
-                style={[
-                  Styles.offeringTxt,
-                  {
-                    width:
-                      routeName === 'Cars'
-                        ? responsiveScreenWidth(75)
-                        : responsiveScreenWidth(40),
-                  },
-                ]}>
-                {routeName === 'Cars'
-                  ? 'Choose Installment plan'
-                  : 'Choose Make'}
-              </Text>
+              <Text style={Styles.offeringTxt}>Choose Make</Text>
             </View>
             <View style={Styles.headerContainer}>
               <View style={Styles.headerContent}>
@@ -78,11 +55,7 @@ const AddImagesModal = props => {
 
           <FlatList
             style={Styles.flatList}
-            data={
-              (routeName === 'Mobile Phones' && data) ||
-              (routeName === 'Cars' && registerData) ||
-              []
-            }
+            data={(routeName === 'Cars' && data) || []}
             renderItem={item => renderItems(item)}
           />
         </View>
@@ -91,4 +64,4 @@ const AddImagesModal = props => {
   );
 };
 
-export default AddImagesModal;
+export default AllCarsModal;

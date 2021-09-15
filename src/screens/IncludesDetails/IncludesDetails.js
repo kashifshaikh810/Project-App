@@ -5,10 +5,19 @@ import IncludesDetailsMarkup from './IncludesDetailsMarkup';
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [showPhonesModal, setShowPhonesModal] = useState(false);
+  const [showPhonesModal, setShowPhonesModal] = useState({
+    shown: false,
+    routeData: '',
+    data: '',
+  });
+  const [showCarsModal, setShowCarsModal] = useState({
+    shown: false,
+    routeData: '',
+    data: '',
+  });
   const [itemCondition, setItemCondition] = useState('');
   const [itemType, setItemType] = useState(null);
-  console.log(props);
+
   return (
     <View>
       <IncludesDetailsMarkup
@@ -23,6 +32,8 @@ const IncludesDetails = props => {
         setShowModal={setShowModal}
         showPhonesModal={showPhonesModal}
         setShowPhonesModal={setShowPhonesModal}
+        setShowCarsModal={setShowCarsModal}
+        showCarsModal={showCarsModal}
       />
     </View>
   );
