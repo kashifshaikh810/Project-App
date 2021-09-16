@@ -5,6 +5,7 @@ import IncludesDetailsMarkup from './IncludesDetailsMarkup';
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [showPhonesModal, setShowPhonesModal] = useState({
     shown: false,
     routeData: '',
@@ -34,6 +35,8 @@ const IncludesDetails = props => {
         setShowPhonesModal={setShowPhonesModal}
         setShowCarsModal={setShowCarsModal}
         showCarsModal={showCarsModal}
+        showLeaveModal={showLeaveModal}
+        setShowLeaveModal={setShowLeaveModal}
       />
     </View>
   );

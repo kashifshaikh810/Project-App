@@ -18,3 +18,13 @@ export const carsData = [
   {typeName: 'LPG', id: 4},
   {typeName: 'PETROL', id: 5},
 ];
+
+export const installmentData = [
+  {typeName: 'AUTOMATIC', id: 1},
+  {typeName: 'MANUAL', id: 2},
+];
+
+export const spearPartsData = [
+  {typeName: 'CAR-PARTS', id: 1},
+  {typeName: 'OTHER-PARTS', id: 2},
+];

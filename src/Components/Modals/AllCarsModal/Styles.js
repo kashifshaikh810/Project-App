@@ -50,7 +50,7 @@ export const Styles = StyleSheet.create({
     color: '#7a888a',
   },
   headerContainer: {
-    height: responsiveScreenHeight(10),
+    height: responsiveScreenHeight(7.9),
     width: responsiveScreenWidth(100),
     justifyContent: 'center',
     alignItems: 'center',
@@ -69,7 +69,11 @@ export const Styles = StyleSheet.create({
     width: responsiveScreenWidth(100),
   },
   flatList: {
-    maxHeight: responsiveScreenHeight(70),
-    marginVertical: responsiveScreenHeight(1),
+    maxHeight: responsiveScreenHeight(74.2),
+  },
+  iconRight: {
+    flex: 1,
+    alignItems: 'flex-end',
+    marginHorizontal: responsiveScreenWidth(6.2),
   },
 });

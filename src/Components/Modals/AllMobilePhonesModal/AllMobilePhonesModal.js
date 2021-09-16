@@ -13,7 +13,7 @@ import SearchIcon from 'react-native-vector-icons/EvilIcons';
 import {data, registerData} from './Data';
 import {responsiveScreenWidth} from '../../Utility/ResponsiveDimensions/Responsive';
 
-const AddImagesModal = props => {
+const AllMobilePhonesModal = props => {
   const routeName = props.route.params.routeData.name;
 
   const click = item => {
@@ -81,6 +81,7 @@ const AddImagesModal = props => {
             data={
               (routeName === 'Mobile Phones' && data) ||
               (routeName === 'Cars' && registerData) ||
+              (routeName === 'Cars on Installments' && registerData) ||
               []
             }
             renderItem={item => renderItems(item)}
@@ -91,4 +92,4 @@ const AddImagesModal = props => {
   );
 };
 
-export default AddImagesModal;
+export default AllMobilePhonesModal;

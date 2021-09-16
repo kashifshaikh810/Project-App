@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -16,14 +17,19 @@ import {Picker} from '@react-native-community/picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
 
-import {tabletsData, accessoriesData, carsData} from './Data';
+import {
+  tabletsData,
+  accessoriesData,
+  carsData,
+  installmentData,
+  spearPartsData,
+} from './Data';
 import {Styles} from '../SelectedCategories/Styles';
 import AddImagesModal from '../../Components/Modals/AddImagesModal/AddImagesModal';
 import AllMobilePhonesModal from '../../Components/Modals/AllMobilePhonesModal/AllMobilePhonesModal';
+import LeaveModal from '../../Components/Modals/LeaveModal/LeaveModal';
 import AllCarsModal from '../../Components/Modals/AllCarsModal/AllCarsModal';
 import {
-  responsiveFontSize,
-  responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from '../../Components/Utility/ResponsiveDimensions/Responsive';
@@ -42,6 +48,8 @@ const IncludesMarkup = props => {
     setShowPhonesModal,
     showCarsModal,
     setShowCarsModal,
+    showLeaveModal,
+    setShowLeaveModal,
   } = props;
   let routeName = props.route.params.routeData.name;
 
@@ -53,32 +61,12 @@ const IncludesMarkup = props => {
         style={{width: 170}}
         onPress={() => setItemType(item.id)}>
         <View
-          style={
-            itemType === item.id
-              ? {
-                  borderWidth: 1,
-                  borderColor: '#279e94',
-                  width: 160,
-                  height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 3,
-                }
-              : {
-                  borderWidth: 1,
-                  borderColor: '#183338',
-                  width: 160,
-                  height: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 3,
-                }
-          }>
+          style={itemType === item.id ? Styles.colorBlue : Styles.colorBlack}>
           <Text
             style={
               itemType === item.id
-                ? {color: '#279e94', fontSize: 16}
-                : {color: '#183338', fontSize: 16}
+                ? Styles.itemBlueColor
+                : Styles.itemBlackColor
             }>
             {item.typeName}
           </Text>
@@ -88,19 +76,14 @@ const IncludesMarkup = props => {
   };
 
   const typeText = () => {
-    if (routeName === 'Tablets' || routeName === 'Accessories') {
+    if (
+      routeName === 'Tablets' ||
+      routeName === 'Accessories' ||
+      routeName === 'Spear Parts'
+    ) {
       return (
-        <View style={{height: 60, justifyContent: 'flex-end'}}>
-          <Text
-            style={{
-              width: 70,
-              textAlign: 'center',
-              height: 23,
-              color: '#183338',
-              fontWeight: 'bold',
-            }}>
-            Type *
-          </Text>
+        <View style={Styles.typeContainer}>
+          <Text style={Styles.typeTxt}>Type *</Text>
         </View>
       );
     }
@@ -110,36 +93,28 @@ const IncludesMarkup = props => {
     if (routeName === 'Mobile Phones') {
       return (
         <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: routeName === 'Cars' ? 140 : 155,
-          }}>
-          <View
-            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+          style={[
+            Styles.mobilePhonesDropDownContainer,
+            {
+              height:
+                routeName === 'Cars'
+                  ? responsiveScreenHeight(20)
+                  : responsiveScreenHeight(22),
+            },
+          ]}>
+          <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
             <TouchableOpacity
               onPress={() =>
                 setShowPhonesModal({shown: true, routeData: routeName})
               }
               style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  height: 78,
-                  justifyContent: 'center',
-                  marginHorizontal: 20,
-                }}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
-                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+              <View style={Styles.mobilePhonesDropDownTextContainer}>
+                <Text style={Styles.make}>Make</Text>
+                <Text style={Styles.mobilePhonesDropDownSelectedValue}>
                   {(showPhonesModal && showPhonesModal?.data?.name) || 'Any'}
                 </Text>
               </View>
-              <View
-                style={{
-                  width: 20,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
+              <View style={Styles.mobilePhonesDropDownIconContainer}>
                 <ArrowRightIcon name="keyboard-arrow-right" size={22} />
               </View>
             </TouchableOpacity>
@@ -153,36 +128,54 @@ const IncludesMarkup = props => {
     if (routeName === 'Cars') {
       return (
         <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: routeName === 'Cars' ? 140 : 155,
-          }}>
-          <View
-            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+          style={[
+            Styles.mobilePhonesDropDownContainer,
+            {
+              height:
+                routeName === 'Cars'
+                  ? responsiveScreenHeight(20)
+                  : responsiveScreenHeight(25),
+            },
+          ]}>
+          <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
             <TouchableOpacity
               onPress={() =>
                 setShowCarsModal({shown: true, routeData: routeName})
               }
               style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  height: 78,
-                  justifyContent: 'center',
-                  marginHorizontal: 20,
-                }}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Make</Text>
-                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+              <View style={Styles.mobilePhonesDropDownTextContainer}>
+                <Text style={Styles.make}>Make</Text>
+                <Text style={Styles.mobilePhonesDropDownSelectedValue}>
                   {(showCarsModal && showCarsModal?.data?.name) || 'Any'}
                 </Text>
               </View>
-              <View
-                style={{
-                  width: 20,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
+              <View style={Styles.mobilePhonesDropDownIconContainer}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const installmentsPlanDropDown = () => {
+    if (routeName === 'Cars on Installments') {
+      return (
+        <View style={Styles.installmentDropDownContainer}>
+          <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
+            <TouchableOpacity
+              onPress={() =>
+                setShowPhonesModal({shown: true, routeData: routeName})
+              }
+              style={{flexDirection: 'row'}}>
+              <View style={Styles.mobilePhonesDropDownTextContainer}>
+                <Text style={Styles.make}>Register in</Text>
+                <Text style={Styles.mobilePhonesDropDownSelectedValue}>
+                  {(showPhonesModal && showPhonesModal?.data?.name) || 'Any'}
+                </Text>
+              </View>
+              <View style={Styles.mobilePhonesDropDownIconContainer}>
                 <ArrowRightIcon name="keyboard-arrow-right" size={22} />
               </View>
             </TouchableOpacity>
@@ -196,38 +189,28 @@ const IncludesMarkup = props => {
     if (routeName === 'Cars') {
       return (
         <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: routeName === 'Cars' ? 140 : 155,
-          }}>
-          <View
-            style={{borderWidth: 1, width: 330, height: 80, borderRadius: 5}}>
+          style={[
+            Styles.mobilePhonesDropDownContainer,
+            {
+              height:
+                routeName === 'Cars'
+                  ? responsiveScreenHeight(20)
+                  : responsiveScreenHeight(25),
+            },
+          ]}>
+          <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
             <TouchableOpacity
               onPress={() =>
                 setShowPhonesModal({shown: true, routeData: routeName})
               }
               style={{flexDirection: 'row'}}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  height: 78,
-                  justifyContent: 'center',
-                  marginHorizontal: 20,
-                }}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>
-                  Register in
-                </Text>
-                <Text style={{fontSize: 16, marginVertical: 3, width: 250}}>
+              <View style={Styles.mobilePhonesDropDownTextContainer}>
+                <Text style={Styles.make}>Register in</Text>
+                <Text style={Styles.mobilePhonesDropDownSelectedValue}>
                   {(showPhonesModal && showPhonesModal?.data?.name) || 'Any'}
                 </Text>
               </View>
-              <View
-                style={{
-                  width: 20,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
+              <View style={Styles.mobilePhonesDropDownIconContainer}>
                 <ArrowRightIcon name="keyboard-arrow-right" size={22} />
               </View>
             </TouchableOpacity>
@@ -237,55 +220,99 @@ const IncludesMarkup = props => {
     }
   };
 
+  const installmentDropDown = () => {
+    if (routeName === 'Cars on Installments') {
+      return (
+        <View
+          style={[
+            Styles.mobilePhonesDropDownContainer,
+            {
+              height: responsiveScreenHeight(20),
+            },
+          ]}>
+          <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
+            <TouchableOpacity
+              onPress={() =>
+                setShowCarsModal({shown: true, routeData: routeName})
+              }
+              style={{flexDirection: 'row'}}>
+              <View style={Styles.mobilePhonesDropDownTextContainer}>
+                <Text style={Styles.make}>Make</Text>
+                <Text style={Styles.mobilePhonesDropDownSelectedValue}>
+                  {(showCarsModal && showCarsModal?.data?.name) || 'Any'}
+                </Text>
+              </View>
+              <View style={Styles.mobilePhonesDropDownIconContainer}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const installmentConditionSelecter = () => {
+    if (routeName === 'Cars on Installments') {
+      return (
+        <>
+          <View>
+            <Text style={Styles.registerTxt}>Registered *</Text>
+
+            <View style={Styles.installmentTxtSelectorContainer}>
+              <TouchableOpacity
+                style={[
+                  Styles.conditions,
+                  {
+                    borderWidth: 1,
+                    borderColor: itemCondition === 'YES' ? '#279e94' : 'black',
+                  },
+                ]}
+                onPress={() => setItemCondition('YES')}>
+                <Text
+                  style={{
+                    color: itemCondition === 'YES' ? '#279e94' : '#183338',
+                    fontWeight: 'bold',
+                  }}>
+                  YES
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[
+                  Styles.conditions,
+                  {
+                    borderWidth: 1,
+                    borderColor: itemCondition === 'NO' ? '#279e94' : 'black',
+                  },
+                ]}
+                onPress={() => setItemCondition('NO')}>
+                <Text
+                  style={{
+                    color: itemCondition === 'NO' ? '#279e94' : '#183338',
+                    fontWeight: 'bold',
+                  }}>
+                  NO
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      );
+    }
+  };
+
   const twoTextInput = () => {
     if (routeName === 'Cars') {
       return (
         <>
-          <Text
-            style={{
-              width: 70,
-              textAlign: 'center',
-              height: 30,
-              textAlignVertical: 'bottom',
-              color: '#889897',
-              fontWeight: 'bold',
-            }}>
-            Year *
-          </Text>
-          <View style={{alignItems: 'center'}}>
-            <TextInput
-              style={{
-                width: 330,
-                height: 55,
-                borderRadius: 6,
-                borderWidth: 1,
-                borderColor: '#183338',
-                textAlignVertical: 'center',
-              }}
-            />
+          <Text style={Styles.yearTxt}>Year *</Text>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
           </View>
-          <Text
-            style={{
-              width: 110,
-              textAlign: 'center',
-              textAlignVertical: 'bottom',
-              height: 50,
-              color: '#889897',
-              fontWeight: 'bold',
-            }}>
-            KM's driven *
-          </Text>
-          <View style={{alignItems: 'center'}}>
-            <TextInput
-              style={{
-                width: 330,
-                height: 55,
-                borderRadius: 6,
-                borderWidth: 1,
-                borderColor: '#183338',
-                textAlignVertical: 'center',
-              }}
-            />
+          <Text style={Styles.drivenTxt}>KM's driven *</Text>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
           </View>
         </>
       );
@@ -300,8 +327,62 @@ const IncludesMarkup = props => {
           data={carsData || []}
           renderItem={item => renderItem(item)}
           horizontal={true}
-          style={{width: 340, marginHorizontal: 15}}
+          style={Styles.mainFlatList}
         />
+      );
+    }
+  };
+
+  const installmentFlatList = () => {
+    if (routeName === 'Cars on Installments') {
+      return (
+        <>
+          <FlatList
+            extraData={itemType}
+            data={installmentData}
+            renderItem={item => renderItem(item)}
+            horizontal={true}
+            style={Styles.mainFlatList}
+          />
+        </>
+      );
+    }
+  };
+
+  const spearPartsFlatList = () => {
+    if (routeName === 'Spear Parts') {
+      return (
+        <>
+          <FlatList
+            extraData={itemType}
+            data={spearPartsData}
+            renderItem={item => renderItem(item)}
+            horizontal={true}
+            style={Styles.mainFlatList}
+          />
+        </>
+      );
+    }
+  };
+
+  const installmentsRouteTextInput = () => {
+    if (routeName === 'Cars on Installments') {
+      return (
+        <>
+          <View style={Styles.downTxtContainer}>
+            <Text style={Styles.downTxt}>Down payment *</Text>
+          </View>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
+          </View>
+
+          <View style={Styles.downTxtContainer}>
+            <Text style={Styles.monthTxt}>Monthly installment *</Text>
+          </View>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
+          </View>
+        </>
       );
     }
   };
@@ -310,56 +391,23 @@ const IncludesMarkup = props => {
     <KeyboardAwareScrollView>
       <View
         style={[Styles.routeNameContainer, {width: responsiveScreenWidth(66)}]}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => setShowLeaveModal(true)}>
           <IconLeft name="chevron-left" size={23} color="#0b2a2e" />
         </TouchableOpacity>
         <Text style={Styles.routeName}>Include some details</Text>
       </View>
 
-      <ScrollView style={{height: 620}}>
-        <View
-          style={{height: 180, justifyContent: 'center', alignItems: 'center'}}>
+      <ScrollView style={Styles.scrollView}>
+        <View style={Styles.imgBackContainer}>
           <ImageBackground
             source={require('../../Components/Utility/Images/backgroundForRent.jpg')}
-            style={{
-              width: 320,
-              height: 150,
-              overflow: 'hidden',
-              borderRadius: 9,
-            }}>
-            <View
-              style={{
-                backgroundColor: '#3ae5da',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+            style={Styles.imgBack}>
+            <View style={Styles.addImgesContainer}>
               <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
-                <View
-                  style={{
-                    backgroundColor: '#218386',
-                    height: 150,
-                    width: 300,
-                    borderRadius: 70,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      height: 50,
-                      alignItems: 'center',
-                      width: 140,
-                      justifyContent: 'space-evenly',
-                    }}>
+                <View style={Styles.main}>
+                  <View style={Styles.iconContainer}>
                     <PlusIcon name="plus" size={25} color="white" />
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        color: 'white',
-                      }}>
-                      Add images
-                    </Text>
+                    <Text style={Styles.addImg}>Add images</Text>
                   </View>
                 </View>
               </TouchableWithoutFeedback>
@@ -369,33 +417,24 @@ const IncludesMarkup = props => {
 
         {twoTextInput()}
 
-        {routeName === 'Cars' ? <></> : null}
-
         <Text
-          style={{
-            width: 70,
-            textAlign: 'center',
-            textAlignVertical: 'bottom',
-            height: routeName === 'Cars' ? 50 : 22,
-            color: '#889897',
-            fontWeight: 'bold',
-          }}>
+          style={[
+            Styles.price,
+            {
+              height:
+                routeName === 'Cars'
+                  ? responsiveScreenHeight(6)
+                  : responsiveScreenHeight(5),
+            },
+          ]}>
           Price *
         </Text>
-        <View style={{alignItems: 'center'}}>
-          <TextInput
-            style={{
-              width: 330,
-              height: 55,
-              borderRadius: 6,
-              borderWidth: 1,
-              borderColor: '#183338',
-              textAlignVertical: 'center',
-            }}
-          />
+        <View style={Styles.inputContainer}>
+          <TextInput style={Styles.input} />
         </View>
 
         {typeText()}
+        {spearPartsFlatList()}
 
         <FlatList
           extraData={itemType}
@@ -406,7 +445,7 @@ const IncludesMarkup = props => {
           }
           renderItem={item => renderItem(item)}
           horizontal={true}
-          style={{width: 340, marginHorizontal: 15}}
+          style={Styles.tabletsFlatList}
         />
 
         <AddImagesModal showModal={showModal} setShowModal={setShowModal} />
@@ -420,54 +459,35 @@ const IncludesMarkup = props => {
           setShowCarsModal={setShowCarsModal}
           {...props}
         />
+        <LeaveModal
+          showLeaveModal={showLeaveModal}
+          setShowLeaveModal={setShowLeaveModal}
+          navigation={navigation}
+        />
 
         {dropDown()}
 
         {carsDropDown()}
 
-        {routeName === 'Cars' && (
-          <Text
-            style={{
-              width: 70,
-              textAlign: 'center',
-              color: 'black',
-              fontWeight: 'bold',
-            }}>
-            Feul *
-          </Text>
-        )}
+        {routeName === 'Cars' && <Text style={Styles.feulTxt}>Feul *</Text>}
         {feulData()}
 
         {registerDropDown()}
 
         <View
-          style={{
-            height:
-              routeName === 'Mobile Phones' || routeName === 'Mobile Phones'
-                ? 15
-                : 50,
-            justifyContent: 'flex-end',
-          }}>
-          <Text
-            style={{
-              width: 100,
-              textAlign: 'center',
-              height: 18,
-              color: '#183338',
-              fontWeight: 'bold',
-            }}>
-            Condition *
-          </Text>
+          style={[
+            Styles.conditionTxtContainer,
+            {
+              height:
+                routeName === 'Mobile Phones' || routeName === 'Cars'
+                  ? responsiveScreenHeight(2)
+                  : responsiveScreenHeight(5),
+            },
+          ]}>
+          <Text style={Styles.conditionTxt}>Condition *</Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            width: responsiveScreenWidth(55),
-            height: responsiveScreenHeight(7),
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
+        <View style={Styles.conditionSelector}>
           <TouchableOpacity
             style={[
               Styles.conditions,
@@ -505,77 +525,39 @@ const IncludesMarkup = props => {
           </TouchableOpacity>
         </View>
 
-        <View style={{height: 60, justifyContent: 'flex-end'}}>
-          <Text
-            style={{
-              width: 83,
-              textAlign: 'center',
-              height: 23,
-              color: '#889897',
-            }}>
-            Ad title *
-          </Text>
+        {routeName === 'Cars on Installments' && (
+          <View style={Styles.transTxt}>
+            <Text style={Styles.transmission}>Transmission *</Text>
+          </View>
+        )}
+
+        {installmentFlatList()}
+        {installmentDropDown()}
+        {installmentConditionSelecter()}
+        {installmentsRouteTextInput()}
+        {installmentsPlanDropDown()}
+
+        <View style={Styles.adTitileContainer}>
+          <Text style={Styles.adTitile}>Ad title *</Text>
         </View>
-        <View style={{alignItems: 'center'}}>
-          <TextInput
-            style={{
-              width: 330,
-              height: 55,
-              borderRadius: 6,
-              borderWidth: 1,
-              borderColor: '#183338',
-              textAlignVertical: 'center',
-            }}
-          />
+        <View style={Styles.inputContainer}>
+          <TextInput style={Styles.input} />
         </View>
 
-        <View style={{height: 60, justifyContent: 'flex-end'}}>
-          <Text
-            style={{
-              width: 210,
-              textAlign: 'center',
-              height: 23,
-              color: '#889897',
-            }}>
+        <View style={Styles.describeTxtContainer}>
+          <Text style={Styles.describeTxt}>
             Describe what you are selling *
           </Text>
         </View>
-        <View style={{alignItems: 'center'}}>
-          <TextInput
-            style={{
-              width: 330,
-              height: 55,
-              borderRadius: 6,
-              borderWidth: 1,
-              borderColor: '#183338',
-              textAlignVertical: 'center',
-            }}
-          />
+        <View style={Styles.inputContainer}>
+          <TextInput style={Styles.input} />
         </View>
 
-        <View
-          style={{justifyContent: 'center', alignItems: 'center', height: 150}}>
-          <View
-            style={{
-              height: 75,
-              width: 325,
-              justifyContent: 'center',
-              borderWidth: 1,
-              borderRadius: 5,
-            }}>
-            <Text
-              style={{
-                // height: 20,
-                fontSize: 17,
-                textAlignVertical: 'center',
-                textAlign: 'center',
-                width: 77,
-                fontWeight: 'bold',
-              }}>
-              Location
-            </Text>
+        <View style={Styles.pickerContainer}>
+          <View style={Styles.pickerContainerChild}>
+            <Text style={Styles.locationTxt}>Location</Text>
             <Picker
-              style={{height: 30}}
+              style={Styles.pickerMain}
               selectedValue={selectedLocation}
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedLocation(itemValue)
@@ -590,26 +572,9 @@ const IncludesMarkup = props => {
           </View>
         </View>
 
-        <View
-          style={{height: 50, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity
-            style={{
-              width: responsiveScreenWidth(90),
-              height: responsiveScreenHeight(6),
-              backgroundColor: '#e4e7ee',
-              borderRadius: responsiveHeight(0.8),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            // disabled={true}
-            onPress={() => {}}>
-            <Text
-              style={[
-                {fontSize: responsiveFontSize(2.3), fontWeight: 'bold'},
-                {color: 'white'},
-              ]}>
-              Next
-            </Text>
+        <View style={Styles.buttonContainer}>
+          <TouchableOpacity style={Styles.buttonTouchAble} onPress={() => {}}>
+            <Text style={Styles.buttonTxt}>Next</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

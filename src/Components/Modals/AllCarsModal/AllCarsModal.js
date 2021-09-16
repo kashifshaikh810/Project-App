@@ -11,23 +11,32 @@ import {Styles} from './Styles';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import SearchIcon from 'react-native-vector-icons/EvilIcons';
 import {data} from './Data';
+import RightIcon from 'react-native-vector-icons/Entypo';
 
 const AllCarsModal = props => {
   const routeName = props.route.params.routeData.name;
 
   const click = item => {
-    props.setShowCarsModal({
-      shown: false,
-      routeData: props.route.params.routeData.name,
-      data: item,
-    });
+    // props.setShowCarsModal({
+    //   shown: false,
+    //   routeData: props.route.params.routeData.name,
+    //   data: item,
+    // });
+
+    console.log('routeData', props.route.params.routeData.name, 'data', item);
   };
 
   const renderItems = ({item}) => {
     return (
       <View style={Styles.renderItemContainer}>
         <TouchableOpacity style={Styles.touchAble} onPress={() => click(item)}>
-          <Text style={Styles.itemTxt}>{item.name}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={Styles.itemTxt}>{item.name}</Text>
+
+            <View style={Styles.iconRight}>
+              <RightIcon name="chevron-small-right" size={23} />
+            </View>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -55,7 +64,11 @@ const AllCarsModal = props => {
 
           <FlatList
             style={Styles.flatList}
-            data={(routeName === 'Cars' && data) || []}
+            data={
+              routeName === 'Cars' || routeName === 'Cars on Installments'
+                ? data
+                : []
+            }
             renderItem={item => renderItems(item)}
           />
         </View>
