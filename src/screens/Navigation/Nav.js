@@ -10,6 +10,7 @@ import {
   Bottom_Tab,
   Selected_Categories_Page,
   Includes_Details_Page,
+  Private_Message_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -18,6 +19,7 @@ import Categories from '../Categories/Categories';
 import AllCategories from '../AllCategories/AllCategories';
 import SelectedCategories from '../SelectedCategories/SelectedCategories';
 import IncludesDetails from '../IncludesDetails/IncludesDetails';
+import PrivateMessages from '../PrivateMessages/PrivateMessages';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +38,7 @@ const Nav = () => {
           name={Selected_Categories_Page}
           component={SelectedCategories}
         />
+        <Stack.Screen name={Private_Message_Page} component={PrivateMessages} />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>

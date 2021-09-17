@@ -18,9 +18,16 @@ import UnreadChatModal from '../../../Components/Modals/UnreadChatModal/UnreadCh
 import AllChatModal from '../../../Components/Modals/AllChatModal/AllChatModal';
 import ImportantChatModal from '../../../Components/Modals/ImportantChatModal/ImportantChatModal';
 
-export const renderItems = ({item}, props) => {
+export const renderItems = ({item}, props, navigation) => {
   return (
-    <>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('PrivateMessages', {
+          itemData: item,
+          propsData: props,
+          navigation: navigation,
+        })
+      }>
       <View style={Styles.renderContainer}>
         <View style={Styles.renderContentContainer}>
           <Text>{item.date}</Text>
@@ -79,7 +86,7 @@ export const renderItems = ({item}, props) => {
         <AllChatModal {...item} {...props} />
       </View>
       <View style={Styles.line} />
-    </>
+    </TouchableOpacity>
   );
 };
 

@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {Styles} from '../Styles';
 import {
@@ -15,6 +16,7 @@ import {
 } from './AllRenderListData';
 
 const AllMarkup = props => {
+  const navigation = useNavigation();
   return (
     <View>
       <View style={Styles.allContainer}>
@@ -63,7 +65,7 @@ const AllMarkup = props => {
         <View style={Styles.allChatStyle}>
           <FlatList
             data={allDummyData}
-            renderItem={item => renderItems(item, props)}
+            renderItem={item => renderItems(item, props, navigation)}
           />
         </View>
       )}
@@ -73,7 +75,7 @@ const AllMarkup = props => {
         <View style={Styles.allChatStyle}>
           <FlatList
             data={unreadChatDummyData}
-            renderItem={item => unReadChatrenderItems(item, props)}
+            renderItem={item => unReadChatrenderItems(item, props, navigation)}
           />
         </View>
       )}
@@ -83,7 +85,7 @@ const AllMarkup = props => {
         <View style={Styles.allChatStyle}>
           <FlatList
             data={importantChatDummyData}
-            renderItem={item => importantChatrenderItems(item, props)}
+            renderItem={item => importantChatrenderItems(item, props, navigation)}
           />
         </View>
       )}
