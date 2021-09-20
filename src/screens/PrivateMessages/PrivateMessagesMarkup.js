@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import ThreeDotsIcon from 'react-native-vector-icons/Feather';
@@ -16,8 +18,8 @@ import MicIcon from 'react-native-vector-icons/Feather';
 import QuestionIcon from 'react-native-vector-icons/Octicons';
 import HandIcon from 'react-native-vector-icons/FontAwesome5';
 import SendIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import {responsiveScreenHeight} from '../../Components/Utility/ResponsiveDimensions/Responsive';
+import {Styles} from './Styles';
+import CheckSingleIcon from 'react-native-vector-icons/Ionicons';
 
 import ChatDeleteModal from '../../Components/Modals/ChatDeleteModal/ChatDeleteModal';
 
@@ -25,51 +27,41 @@ const PrivateMessagesMarkup = props => {
   const itemData = props.route.params.itemData;
 
   return (
-    <View style={{flex: 1, backgroundColor: '#f2f2f2'}}>
-      <KeyboardAwareScrollView>
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' && 'padding'}
+      style={Styles.keyboad}
+      >
         <View
-          style={{
-            backgroundColor: 'white',
-            flexDirection: 'row',
-            height: 68,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderBottomWidth: 0.3,
-            borderColor: '#b3b3b3',
-          }}>
+          style={Styles.profileAndNameContainer}>
           <TouchableOpacity
-            style={{justifyContent: 'center', width: 35}}
+            style={Styles.backButton}
             onPress={() => props.navigation.goBack()}>
             <IconLeft name="chevron-left" size={24} color="#0b2a2e" />
           </TouchableOpacity>
-          <View style={{flexDirection: 'column'}}>
+          <View style={Styles.imgBackContainer}>
             <ImageBackground
               source={itemData.contentImg}
-              style={{width: 50, height: 50}}
+              style={Styles.imgBack}
               imageStyle={{borderRadius: 6}}>
               <View
-                style={{
-                  alignItems: 'flex-end',
-                  height: 50,
-                  justifyContent: 'flex-end',
-                }}>
+                style={Styles.profileImgContainer}>
                 <Image
                   source={itemData.profileImg}
-                  style={{width: 25, height: 25}}
+                  style={Styles.profileImg}
                 />
               </View>
             </ImageBackground>
           </View>
-          <View style={{flexDirection: 'column', marginHorizontal: 8}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#4a6164'}}>
+          <View style={Styles.userNameContainer}>
+            <Text style={Styles.userName}>
               {itemData.userName}
             </Text>
-            <Text style={{fontSize: 14, color: '#b3b3b3'}}>
-              Last active 4 Sep
+            <Text style={Styles.lastActive}>
+              {props.inputMessage.length > 5 ? 'Typing...' : 'Last active 4 Sep'}
             </Text>
           </View>
           <TouchableOpacity
-            style={{width: 100, alignItems: 'flex-end'}}
+            style={Styles.dotsIconContainer}
             onPress={() => props.setShowModal(true)}>
             <ThreeDotsIcon name="more-vertical" size={20} />
           </TouchableOpacity>
@@ -103,19 +95,65 @@ const PrivateMessagesMarkup = props => {
 
         <View
           style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            marginHorizontal: 20,
-            marginVertical: 10,
-            height: responsiveScreenHeight(60.5),
-          }}>
-          <ScrollView style={{flex: 1}}>
+            flex: 10,
+            backgroundColor: '#eaeeef'
+}}>
+          <ScrollView style={{flex: 1,}} showsVerticalScrollIndicator={false}
+          >
             {props.arr.map((message, index) => {
               return (
-                <View key={index}>
-                  <Text>{message}</Text>
+                <>
+                {message.length === 2 && <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', height: 70}}>
+                  <Text style={{color: '#c7c8ca'}}>Aug 23, 2021</Text>
+                </View>}
+                <View key={index} style={{flex: 1, alignItems: 'flex-end', marginHorizontal: 15, marginVertical: 2}}>
+                  <View style={{backgroundColor: '#cfdbfd', flex: 1, paddingHorizontal: 2, borderRadius: 8}}>
+                  <Text style={{fontSize: 16, color: '#06162c', maxWidth: 200, maxHeight: 200, paddingHorizontal: 4, paddingVertical: 3, }}>{message}</Text>
+                  
+                  <View style={{flex: 1, alignItems: 'flex-end'}}>
+                  <View style={{flexDirection: 'row', width: 50, height: 20, justifyContent: 'space-evenly', alignItems: 'center',}}>
+                    <Text style={{fontSize: 11, color: '#536280', maxWidth: 120, maxHeight: 200,}}>20:10</Text>
+
+                {message ?  <CheckSingleIcon
+                        name="checkmark-done"
+                        size={13}
+                        color="#3ca1ab"
+                      />
+                  :
+                <CheckSingleIcon
+                  name="checkmark-outline"
+                  size={13}
+                  color="#b3b3b3"
+                />}
+                  </View>
+                  </View>
+                  
+                  </View>
                 </View>
+                </>
+              );
+            })}
+
+{props.arr.map((message, index) => {
+              return (
+                <>
+                {message.length === 2 && <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', height: 70}}>
+                  <Text style={{color: '#c7c8ca'}}>Aug 23, 2021</Text>
+                </View>}
+                <View key={index} style={{flex: 1, alignItems: 'flex-start', marginHorizontal: 15, marginVertical: 2}}>
+                  <View style={{backgroundColor: '#cbd5d6', flex: 1, paddingHorizontal: 5, borderRadius: 8}}>
+                  <Text style={{fontSize: 16, color: '#06162c', maxWidth: 200, maxHeight: 200, paddingVertical: 3, }}>{message}</Text>
+                  
+                  <View style={{flex: 1, alignItems: 'flex-start'}}>
+                  <View style={{width: 50, height: 20,}}>
+                    <Text style={{fontSize: 11, color: '#536280', maxWidth: 200, maxHeight: 200,}}>20:10</Text>
+
+                  </View>
+                  </View>
+                  
+                  </View>
+                </View>
+                </>
               );
             })}
           </ScrollView>
@@ -123,9 +161,8 @@ const PrivateMessagesMarkup = props => {
 
         <View
           style={{
-            backgroundColor: 'red',
+            flex: 1,
             justifyContent: 'flex-end',
-            alignItems: 'flex-start',
           }}>
           <View
             style={{
@@ -180,9 +217,7 @@ const PrivateMessagesMarkup = props => {
         {/* message text input   */}
         <View
           style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
+            justifyContent: 'flex-end'
           }}>
           <View
             style={{
@@ -209,7 +244,7 @@ const PrivateMessagesMarkup = props => {
               style={props.inputMessage ? {width: 270} : {width: 280}}
             />
             <TouchableOpacity
-              onPress={() => props.sendMessages()}
+              onPress={() => props.inputMessage && props.sendMessages()}
               style={{
                 flex: 1,
                 justifyContent: 'flex-end',
@@ -222,8 +257,7 @@ const PrivateMessagesMarkup = props => {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAwareScrollView>
-    </View>
+      </KeyboardAvoidingView>
   );
 };
 
