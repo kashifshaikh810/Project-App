@@ -17,10 +17,14 @@ import UnreadChatBuyingModal from '../../../Components/Modals/UnreadChatBuyingMo
 import AllChatBuyingModal from '../../../Components/Modals/AllChatBuyingModal/AllChatBuyingModal';
 import ImportantChatBuyingModal from '../../../Components/Modals/ImportantChatBuyingModal/ImportantChatBuyingModal';
 
-export const renderItems = ({item}, props) => {
+export const renderItems = ({item}, props, navigation) => {
   return (
     <>
-      <View style={Styles.renderContainer}>
+      <TouchableOpacity
+        style={Styles.renderContainer}
+        onPress={() =>
+          navigation.navigate('BuyingChatPrivateMessages', {routeData: item})
+        }>
         <View style={Styles.renderContentContainer}>
           <Text>{item.date}</Text>
         </View>
@@ -76,16 +80,20 @@ export const renderItems = ({item}, props) => {
         </View>
 
         <AllChatBuyingModal {...item} {...props} />
-      </View>
+      </TouchableOpacity>
       <View style={Styles.line} />
     </>
   );
 };
 
-export const unReadChatrenderItems = ({item}, props) => {
+export const unReadChatrenderItems = ({item}, props, navigation) => {
   return (
     <>
-      <View style={Styles.renderContainer}>
+      <TouchableOpacity
+        style={Styles.renderContainer}
+        onPress={() =>
+          navigation.navigate('BuyingChatPrivateMessages', {routeData: item})
+        }>
         <View style={Styles.renderContentContainer}>
           <Text>{item.date}</Text>
         </View>
@@ -126,16 +134,20 @@ export const unReadChatrenderItems = ({item}, props) => {
         </TouchableOpacity>
 
         <UnreadChatBuyingModal {...item} {...props} />
-      </View>
+      </TouchableOpacity>
       <View style={Styles.line} />
     </>
   );
 };
 
-export const importantChatrenderItems = ({item}, props) => {
+export const importantChatrenderItems = ({item}, props, navigation) => {
   return (
     <>
-      <View style={Styles.renderContainer}>
+      <TouchableOpacity
+        style={Styles.renderContainer}
+        onPress={() =>
+          navigation.navigate('BuyingChatPrivateMessages', {routeData: item})
+        }>
         <View style={Styles.renderContainerChild}>
           <View style={Styles.main}>
             <View style={Styles.importanatContainer}>
@@ -200,7 +212,7 @@ export const importantChatrenderItems = ({item}, props) => {
         </TouchableOpacity>
 
         <ImportantChatBuyingModal {...item} {...props} />
-      </View>
+      </TouchableOpacity>
       <View style={Styles.line} />
     </>
   );

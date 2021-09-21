@@ -3,7 +3,7 @@ import {
   responsiveFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
-} from '../../Components/Utility/ResponsiveDimensions/Responsive';
+} from '../../../Components/Utility/ResponsiveDimensions/Responsive';
 
 export const Styles = StyleSheet.create({
   keyboad: {

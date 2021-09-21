@@ -21,94 +21,10 @@ import SendIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Styles} from './Styles';
 import CheckSingleIcon from 'react-native-vector-icons/Ionicons';
 
-import ChatDeleteModal from '../../Components/Modals/ChatDeleteModal/ChatDeleteModal';
+import ChatDeleteModal from '../../../Components/Modals/ChatDeleteModal/ChatDeleteModal';
 
-const PrivateMessagesMarkup = props => {
-  const itemData = props.route.params.itemData;
-
-
-  const sendMessagesInput = () => {
-    if(props.sendShortMessage === 'cancel'){
-      return (
-        <View
-        style={Styles.inputMain}>
-        <View
-          style={Styles.inputContainer}>
-          <TouchableOpacity>
-            <AttachmentIcon
-              name="attachment"
-              size={20}
-              color="#4a6164"
-              style={Styles.attachmentIcon}
-            />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="Type a message"
-            value={props.inputMessage}
-            onChangeText={text => props.setInputMessage(text)}
-            style={props.inputMessage ? Styles.shortWidth : Styles.longWidth}
-          />
-          <TouchableOpacity
-            onPress={() => props.inputMessage && props.sendMessages()}
-            style={Styles.pressIcon}>
-            {props.inputMessage ? (
-              <SendIcon name="send-circle" size={35} color="#4a6164" />
-            ) : (
-              <MicIcon name="mic" size={20} color="#4a6164" />
-            )}
-          </TouchableOpacity>
-        </View>
-      </View>
-      )
-    }
-  }
-
-  const questionData = () => {
-    if(props.sendShortMessage === 'question'){
-      return (
-        <View style={{height: 190, backgroundColor: 'white'}}>
-          {/* <Text>Question</Text> */}
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{width: 330, height: 150, justifyContent: 'center' }}>
-          <View style={{backgroundColor: '#cfdbfd', paddingHorizontal: 10, paddingVertical: 6}}>
-          <Text>
-            Chat to know more!
-          </Text>
-
-          <View style={{flexDirection: 'row', height: 65, alignItems: 'center'}}>
-          <Text style={{width: 220}}>
-            Close the deal faster by asking more about the product or person.
-          </Text>
-
-          <View style={{alignItems: 'flex-end', width: 95}}>
-          <Image source={require('../../Components/Utility/Images/noMessages.png')} style={{width: 60, height: 60, borderRadius: 30}} />
-          </View>
-          </View>
-          </View>
-        </View>
-        </View>
-
-
-          <TouchableOpacity onPress={() => props.setSendShortMessage('cancel')}>
-            <Text>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-  }
-
-  const makeAnOfferData = () => {
-     if(props.sendShortMessage === 'makeAnOffer'){
-      return (
-        <View style={{height: 190}}>
-          <Text>Make an offer</Text>
-          <TouchableOpacity onPress={() => props.setSendShortMessage('cancel')}>
-            <Text>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-  }
+const BuyingChatPrivateMessagesMarkup = props => {
+  const itemData = props.route.params.routeData;
 
   return (
       <KeyboardAvoidingView
@@ -124,13 +40,13 @@ const PrivateMessagesMarkup = props => {
           </TouchableOpacity>
           <View style={Styles.imgBackContainer}>
             <ImageBackground
-              source={itemData.contentImg}
+              source={itemData.contentImg || 3}
               style={Styles.imgBack}
               imageStyle={{borderRadius: 6}}>
               <View
                 style={Styles.profileImgContainer}>
                 <Image
-                  source={itemData.profileImg}
+                  source={itemData.profileImg || 5}
                   style={Styles.profileImg}
                 />
               </View>
@@ -138,7 +54,7 @@ const PrivateMessagesMarkup = props => {
           </View>
           <View style={Styles.userNameContainer}>
             <Text style={Styles.userName}>
-              {itemData.userName}
+              {itemData.userName || 'N/A'}
             </Text>
             <Text style={Styles.lastActive}>
               {props.inputMessage.length > 5 ? 'Typing...' : 'Last active 4 Sep'}
@@ -236,9 +152,7 @@ const PrivateMessagesMarkup = props => {
           <View
             style={Styles.footerContainerTwo}>
             <TouchableOpacity
-              style={[Styles.questionContainer, {borderBottomWidth: props.sendShortMessage === 'question' ? 4 : 0 , borderBottomColor: props.sendShortMessage === 'question' ? 'black' : 'white', paddingVertical: 10, }]}
-              onPress={() => props.setSendShortMessage('question')}
-              >
+              style={Styles.questionContainer}>
               <QuestionIcon
                 name="request-changes"
                 size={18}
@@ -252,9 +166,7 @@ const PrivateMessagesMarkup = props => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[Styles.offerContainer, {borderBottomWidth: props.sendShortMessage === 'makeAnOffer' ? 4 : 0 , borderBottomColor: props.sendShortMessage === 'makeAnOffer' ? 'black' : 'white', paddingVertical: 10, }]}
-              onPress={() => props.setSendShortMessage('makeAnOffer')}
-              >
+              style={Styles.offerContainer}>
               <HandIcon
                 name="hand-holding-medical"
                 size={18}
@@ -272,16 +184,37 @@ const PrivateMessagesMarkup = props => {
         <ChatDeleteModal {...props} />
 
         {/* message text input   */}
-       {sendMessagesInput()}
-
-       {/* question & makeAndOffer renderingg */}
-       {questionData()}
-
-       {/* question & makeAndOffer renderingg */}
-       {makeAnOfferData()}
-        
+        <View
+          style={Styles.inputMain}>
+          <View
+            style={Styles.inputContainer}>
+            <TouchableOpacity>
+              <AttachmentIcon
+                name="attachment"
+                size={20}
+                color="#4a6164"
+                style={Styles.attachmentIcon}
+              />
+            </TouchableOpacity>
+            <TextInput
+              placeholder="Type a message"
+              value={props.inputMessage}
+              onChangeText={text => props.setInputMessage(text)}
+              style={props.inputMessage ? Styles.shortWidth : Styles.longWidth}
+            />
+            <TouchableOpacity
+              onPress={() => props.inputMessage && props.sendMessages()}
+              style={Styles.pressIcon}>
+              {props.inputMessage ? (
+                <SendIcon name="send-circle" size={35} color="#4a6164" />
+              ) : (
+                <MicIcon name="mic" size={20} color="#4a6164" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
       </KeyboardAvoidingView>
   );
 };
 
-export default PrivateMessagesMarkup;
+export default BuyingChatPrivateMessagesMarkup;

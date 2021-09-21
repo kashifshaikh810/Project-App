@@ -90,10 +90,18 @@ export const renderItems = ({item}, props, navigation) => {
   );
 };
 
-export const unReadChatrenderItems = ({item}, props) => {
+export const unReadChatrenderItems = ({item}, props, navigation) => {
   return (
     <>
-      <View style={Styles.renderContainer}>
+      <TouchableOpacity
+        style={Styles.renderContainer}
+        onPress={() =>
+          navigation.navigate('PrivateMessages', {
+            itemData: item,
+            propsData: props,
+            navigation: navigation,
+          })
+        }>
         <View style={Styles.renderContentContainer}>
           <Text>{item.date}</Text>
         </View>
@@ -134,16 +142,24 @@ export const unReadChatrenderItems = ({item}, props) => {
         </TouchableOpacity>
 
         <UnreadChatModal {...item} {...props} />
-      </View>
+      </TouchableOpacity>
       <View style={Styles.line} />
     </>
   );
 };
 
-export const importantChatrenderItems = ({item}, props) => {
+export const importantChatrenderItems = ({item}, props, navigation) => {
   return (
     <>
-      <View style={Styles.renderContainer}>
+      <TouchableOpacity
+        style={Styles.renderContainer}
+        onPress={() =>
+          navigation.navigate('PrivateMessages', {
+            itemData: item,
+            propsData: props,
+            navigation: navigation,
+          })
+        }>
         <View style={Styles.renderContainerChild}>
           <View style={Styles.main}>
             <View style={Styles.importanatContainer}>
@@ -208,7 +224,7 @@ export const importantChatrenderItems = ({item}, props) => {
         </TouchableOpacity>
 
         <ImportantChatModal {...item} {...props} />
-      </View>
+      </TouchableOpacity>
       <View style={Styles.line} />
     </>
   );

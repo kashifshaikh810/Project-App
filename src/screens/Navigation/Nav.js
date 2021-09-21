@@ -11,6 +11,7 @@ import {
   Selected_Categories_Page,
   Includes_Details_Page,
   Private_Message_Page,
+  Buying_Chat_PrivateMessages_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -20,6 +21,7 @@ import AllCategories from '../AllCategories/AllCategories';
 import SelectedCategories from '../SelectedCategories/SelectedCategories';
 import IncludesDetails from '../IncludesDetails/IncludesDetails';
 import PrivateMessages from '../PrivateMessages/PrivateMessages';
+import BuyingChatPrivateMessages from '../Chats/BuyingChatPrivateMessages/BuyingChatPrivateMessages';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +41,10 @@ const Nav = () => {
           component={SelectedCategories}
         />
         <Stack.Screen name={Private_Message_Page} component={PrivateMessages} />
+        <Stack.Screen
+          name={Buying_Chat_PrivateMessages_Page}
+          component={BuyingChatPrivateMessages}
+        />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>

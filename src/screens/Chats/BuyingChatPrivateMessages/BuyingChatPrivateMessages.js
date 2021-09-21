@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import PrivateMessagesMarkup from './PrivateMessagesMarkup';
+import BuyingChatPrivateMessagesMarkup from './BuyingChatPrivateMessagesMarkup';
 
-const PrivateMessages = props => {
+const BuyingChatPrivateMessages = props => {
   const [showModal, setShowModal] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
-  const [sendShortMessage, setSendShortMessage] = useState('cancel');
   const [arr, setArr] = useState([]);
 
   const sendMessages = () => {
@@ -15,7 +14,7 @@ const PrivateMessages = props => {
 
   return (
     <>
-      <PrivateMessagesMarkup
+      <BuyingChatPrivateMessagesMarkup
         {...props}
         showModal={showModal}
         setShowModal={setShowModal}
@@ -23,11 +22,9 @@ const PrivateMessages = props => {
         setInputMessage={setInputMessage}
         sendMessages={sendMessages}
         arr={arr}
-        sendShortMessage={sendShortMessage}
-        setSendShortMessage={setSendShortMessage}
       />
     </>
   );
 };
 
-export default PrivateMessages;
+export default BuyingChatPrivateMessages;
