@@ -20,8 +20,10 @@ import HandIcon from 'react-native-vector-icons/FontAwesome5';
 import SendIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Styles} from './Styles';
 import CheckSingleIcon from 'react-native-vector-icons/Ionicons';
+import HandOkayIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ChatDeleteModal from '../../Components/Modals/ChatDeleteModal/ChatDeleteModal';
+import { responsiveScreenWidth } from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
 const PrivateMessagesMarkup = props => {
   const itemData = props.route.params.itemData;
@@ -66,22 +68,21 @@ const PrivateMessagesMarkup = props => {
   const questionData = () => {
     if(props.sendShortMessage === 'question'){
       return (
-        <View style={{height: 190, backgroundColor: 'white'}}>
-          {/* <Text>Question</Text> */}
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{width: 330, height: 150, justifyContent: 'center' }}>
-          <View style={{backgroundColor: '#cfdbfd', paddingHorizontal: 10, paddingVertical: 6}}>
-          <Text>
+        <View style={Styles.questionMain}>
+          <View style={Styles.questionContent}>
+        <View style={Styles.questionContentChild}>
+          <View style={Styles.questionContentMain}>
+          <Text style={Styles.chatToKnowTxt}>
             Chat to know more!
           </Text>
 
-          <View style={{flexDirection: 'row', height: 65, alignItems: 'center'}}>
-          <Text style={{width: 220}}>
+          <View style={Styles.questionContentMainTwo}>
+          <Text style={Styles.closeTheDealTxt}>
             Close the deal faster by asking more about the product or person.
           </Text>
 
-          <View style={{alignItems: 'flex-end', width: 95}}>
-          <Image source={require('../../Components/Utility/Images/noMessages.png')} style={{width: 60, height: 60, borderRadius: 30}} />
+          <View style={Styles.questionImgContainer}>
+          <Image source={require('../../Components/Utility/Images/noMessages.png')} style={Styles.questionImg} />
           </View>
           </View>
           </View>
@@ -89,9 +90,40 @@ const PrivateMessagesMarkup = props => {
         </View>
 
 
-          <TouchableOpacity onPress={() => props.setSendShortMessage('cancel')}>
-            <Text>Cancel</Text>
+        <ScrollView style={{flex: 1,}} horizontal={true}>
+          <View style={Styles.questionLastContent}>
+          <TouchableOpacity style={Styles.boxContainer}
+          onPress={() => props.setDefaultMessage('Hello')}
+          >
+            <Text>Hello</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={[Styles.boxContainer, {width: responsiveScreenWidth(28)}]}
+          onPress={() => props.setDefaultMessage('Is it avalaible?')}
+          >
+            <Text>Is it avalaible?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={Styles.boxContainer}
+          onPress={() => props.setDefaultMessage('Okay')}
+          >
+            <Text>Okay</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={Styles.boxContainer}
+          onPress={() => props.setDefaultMessage('No problem')}
+          >
+            <Text>No problem</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={Styles.boxContainer}
+          onPress={() => props.setDefaultMessage('Please reply')}
+          >
+            <Text>Please reply</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[Styles.boxContainer, {width: responsiveScreenWidth(28)}]}
+          onPress={() => props.setDefaultMessage('Not interested')}
+          >
+            <Text>Not interested</Text>
+          </TouchableOpacity>
+          </View>
+        </ScrollView>
         </View>
       );
     }
@@ -100,11 +132,52 @@ const PrivateMessagesMarkup = props => {
   const makeAnOfferData = () => {
      if(props.sendShortMessage === 'makeAnOffer'){
       return (
-        <View style={{height: 190}}>
-          <Text>Make an offer</Text>
-          <TouchableOpacity onPress={() => props.setSendShortMessage('cancel')}>
-            <Text>Cancel</Text>
+        <View style={Styles.questionMain}>
+          <View style={Styles.makeAnOfferContent}>
+            <View style={{backgroundColor: '#c2f4e9', width: 50, height: 35, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#0c3a31'}}>1,449</Text>
+            </View>
+            <View style={{borderWidth: 1, borderColor: '#99a5a6', width: 50, height: 35, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#99a5a6'}}>1,377</Text>
+            </View>
+            <View style={{borderWidth: 1, borderColor: '#99a5a6', width: 50, height: 35, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#99a5a6'}}>1,304</Text>
+            </View>
+            <View style={{borderWidth: 1, borderColor: '#99a5a6', width: 50, height: 35, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#99a5a6'}}>1,232</Text>
+            </View>
+            <View style={{borderWidth: 1, borderColor: '#99a5a6', width: 50, height: 35, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#99a5a6'}}>1,159</Text>
+            </View>
+          </View>
+
+        <View style={Styles.makeAnOfferRsContainer}>
+          <View style={Styles.makeAnOfferRsMain}>
+            <Text style={Styles.makeAnOfferRs}>Rs</Text>
+          </View>
+          <View style={{width: 150, height: 42, borderBottomWidth: 1, borderColor: '#99a5a6', }}>
+            <Text style={{fontSize: 32, color: '#043738',}}>1,449</Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'space-around',}}>
+          <View style={{flexDirection: 'row', backgroundColor: '#25a49e', height: 80, justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 20, borderRadius: 6, width: 200}}>
+            <HandOkayIcon name="hand-okay" size={20} style={{textAlignVertical: 'center', color: '#eafeff'}} />
+          <View style={{height: 50, justifyContent: 'center',}}>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#eafeff'}}>Very good offer!</Text>
+
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{fontSize: 15, color: '#eafeff', maxWidth: 160}}>High chances of seller's reply.</Text>
+          </View>
+          </View>
+          </View>
+
+        <View style={{width: 110, height: 80, justifyContent: 'center'}}>
+          <TouchableOpacity style={{width: 100, height: 42, backgroundColor: '#023033', borderRadius: 6, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{fontSize: 16, color: '#edf5f6', fontWeight: 'bold'}}>Send offer</Text>
           </TouchableOpacity>
+        </View>
+        </View>
         </View>
       );
     }
@@ -172,7 +245,7 @@ const PrivateMessagesMarkup = props => {
           style={Styles.scrollViewContainer}>
           <ScrollView style={{flex: 1,}} showsVerticalScrollIndicator={false}
           >
-            {props.arr.map((message, index) => {
+            {props?.arr?.map((message, index) => {
               return (
                 <>
                 {message.length === 2 && <View style={Styles.dateContainer}>
@@ -206,7 +279,7 @@ const PrivateMessagesMarkup = props => {
               );
             })}
 
-{props.arr.map((message, index) => {
+{props?.arr?.map((message, index) => {
               return (
                 <>
                 {message.length === 2 && <View style={Styles.dateContainer}>
@@ -233,6 +306,9 @@ const PrivateMessagesMarkup = props => {
 
         <View
           style={Styles.footerContainer}>
+           {props.sendShortMessage === 'question' || props.sendShortMessage === 'makeAnOffer' ? <View style={Styles.topBar}>
+            <TouchableOpacity style={Styles.topBarMain} onPress={() => props.setSendShortMessage('cancel')} />
+            </View> : <></>}
           <View
             style={Styles.footerContainerTwo}>
             <TouchableOpacity
@@ -247,9 +323,10 @@ const PrivateMessagesMarkup = props => {
               />
               <Text
                 style={Styles.question}>
-                Question
+                Questions
               </Text>
             </TouchableOpacity>
+
 
             <TouchableOpacity
               style={[Styles.offerContainer, {borderBottomWidth: props.sendShortMessage === 'makeAnOffer' ? 4 : 0 , borderBottomColor: props.sendShortMessage === 'makeAnOffer' ? 'black' : 'white', paddingVertical: 10, }]}

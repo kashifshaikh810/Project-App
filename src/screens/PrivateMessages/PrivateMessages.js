@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import PrivateMessagesMarkup from './PrivateMessagesMarkup';
 
 const PrivateMessages = props => {
   const [showModal, setShowModal] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const [sendShortMessage, setSendShortMessage] = useState('cancel');
+  const [defaultMessage, setDefaultMessage] = useState('');
   const [arr, setArr] = useState([]);
 
   const sendMessages = () => {
@@ -12,6 +14,15 @@ const PrivateMessages = props => {
     setArr(arr);
     setInputMessage('');
   };
+
+  useEffect(() => {
+    setDefaultMessage('Hello');
+    if (defaultMessage) {
+      arr.push(defaultMessage);
+      setArr(arr);
+    }
+    setDefaultMessage('');
+  }, [defaultMessage]);
 
   return (
     <>
@@ -25,6 +36,8 @@ const PrivateMessages = props => {
         arr={arr}
         sendShortMessage={sendShortMessage}
         setSendShortMessage={setSendShortMessage}
+        defaultMessage={defaultMessage}
+        setDefaultMessage={setDefaultMessage}
       />
     </>
   );
