@@ -155,26 +155,26 @@ const PrivateMessagesMarkup = props => {
           <View style={Styles.makeAnOfferRsMain}>
             <Text style={Styles.makeAnOfferRs}>Rs</Text>
           </View>
-          <View style={{width: 150, height: 42, borderBottomWidth: 1, borderColor: '#99a5a6', }}>
-            <Text style={{fontSize: 32, color: '#043738',}}>1,449</Text>
+          <View style={Styles.makeAnOfferTxt}>
+            <Text style={Styles.makeAnOfferTxtMain}>1,449</Text>
           </View>
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-around',}}>
-          <View style={{flexDirection: 'row', backgroundColor: '#25a49e', height: 80, justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 20, borderRadius: 6, width: 200}}>
-            <HandOkayIcon name="hand-okay" size={20} style={{textAlignVertical: 'center', color: '#eafeff'}} />
-          <View style={{height: 50, justifyContent: 'center',}}>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#eafeff'}}>Very good offer!</Text>
+        <View style={Styles.makeAnOfferLastContainer}>
+          <View style={Styles.makeAnOfferLastContainerChild}>
+            <HandOkayIcon name="hand-okay" size={20} style={Styles.handOkayIcon} />
+          <View style={Styles.makeAnGoodOfferContainer}>
+            <Text style={Styles.makeAnGoodOfferTxt}>Very good offer!</Text>
 
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 15, color: '#eafeff', maxWidth: 160}}>High chances of seller's reply.</Text>
+          <View style={Styles.makeAnHighChanceContainer}>
+            <Text style={Styles.makeAnHighChanceTxt}>High chances of seller's reply.</Text>
           </View>
           </View>
           </View>
 
-        <View style={{width: 110, height: 80, justifyContent: 'center'}}>
-          <TouchableOpacity style={{width: 100, height: 42, backgroundColor: '#023033', borderRadius: 6, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{fontSize: 16, color: '#edf5f6', fontWeight: 'bold'}}>Send offer</Text>
+        <View style={Styles.sendOfferButtonParent}>
+          <TouchableOpacity style={Styles.sendOfferButtonContainer}>
+            <Text style={Styles.sendOfferButton}>Send offer</Text>
           </TouchableOpacity>
         </View>
         </View>

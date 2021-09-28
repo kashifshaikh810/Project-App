@@ -83,7 +83,7 @@ export const Styles = StyleSheet.create({
     marginHorizontal: responsiveScreenWidth(3),
   },
   scrollViewContainer: {
-    flex: 10,
+    flex: 9,
     backgroundColor: '#eaeeef',
   },
   dateContainer: {
@@ -267,24 +267,87 @@ export const Styles = StyleSheet.create({
   makeAnOfferContent: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: 320,
+    width: responsiveScreenWidth(90),
     alignItems: 'center',
-    height: 65,
+    height: responsiveScreenHeight(10),
   },
   makeAnOfferRsContainer: {
     flexDirection: 'row',
   },
   makeAnOfferRsMain: {
-    width: 65,
-    height: 40,
+    width: responsiveScreenWidth(20),
+    height: responsiveScreenHeight(5),
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
   makeAnOfferRs: {
-    fontSize: 32,
+    fontSize: responsiveFontSize(5),
     fontWeight: 'bold',
-    width: 60,
+    width: responsiveScreenWidth(16),
     textAlign: 'center',
     color: '#043738',
+  },
+  makeAnOfferTxt: {
+    width: responsiveScreenWidth(40),
+    height: responsiveScreenHeight(5.6),
+    borderBottomWidth: 1,
+    borderColor: '#99a5a6',
+  },
+  makeAnOfferTxtMain: {
+    fontSize: responsiveFontSize(4.5),
+    color: '#043738',
+  },
+  makeAnOfferLastContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  makeAnOfferLastContainerChild: {
+    flexDirection: 'row',
+    backgroundColor: '#25a49e',
+    height: responsiveScreenHeight(10),
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginVertical: responsiveHeight(2.5),
+    borderRadius: 6,
+    width: responsiveScreenWidth(55),
+  },
+  handOkayIcon: {
+    textAlignVertical: 'center',
+    color: '#eafeff',
+  },
+  makeAnGoodOfferContainer: {
+    height: responsiveScreenHeight(5),
+    justifyContent: 'center',
+  },
+  makeAnGoodOfferTxt: {
+    fontSize: responsiveFontSize(2.2),
+    fontWeight: 'bold',
+    color: '#eafeff',
+  },
+  makeAnHighChanceContainer: {
+    flexDirection: 'row',
+  },
+  makeAnHighChanceTxt: {
+    fontSize: responsiveFontSize(1.9),
+    color: '#eafeff',
+    maxWidth: responsiveScreenWidth(40),
+  },
+  sendOfferButtonParent: {
+    width: responsiveScreenWidth(30),
+    height: responsiveScreenHeight(10),
+    justifyContent: 'center',
+  },
+  sendOfferButtonContainer: {
+    width: responsiveScreenWidth(30),
+    height: responsiveScreenHeight(5.5),
+    backgroundColor: '#023033',
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sendOfferButton: {
+    fontSize: responsiveFontSize(2.2),
+    color: '#edf5f6',
+    fontWeight: 'bold',
   },
 });

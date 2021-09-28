@@ -85,7 +85,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#fee893'}]}
       />
     ),
-    iconName: 'Business, industrial & Agri...',
+    iconName: 'Business, Industrial & Agriculture',
   },
 
   {

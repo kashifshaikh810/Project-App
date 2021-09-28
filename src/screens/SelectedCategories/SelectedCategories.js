@@ -65,7 +65,7 @@ const SelectedCategories = data => {
   return (
     <View>
       <View style={[Styles.routeNameContainer, {width: renderWidth}]}>
-        <TouchableOpacity onPress={() => navigation.navigate('AllCategories')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <IconLeft name="chevron-left" size={22} color="#0b2a2e" />
         </TouchableOpacity>
         <Text style={Styles.routeName}>{routeName}</Text>
@@ -76,7 +76,6 @@ const SelectedCategories = data => {
         renderItem={item => testRenderItem(item, navigation)}
         style={Styles.flatList}
       />
-
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {
   responsiveFontSize,
+  responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from '../../../Components/Utility/ResponsiveDimensions/Responsive';
@@ -51,6 +52,7 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.2),
     fontWeight: 'bold',
     color: '#4a6164',
+    width: responsiveScreenWidth(40),
   },
   lastActive: {
     fontSize: responsiveFontSize(1.9),
@@ -72,9 +74,8 @@ export const Styles = StyleSheet.create({
     width: responsiveScreenWidth(60),
   },
   headerChildText: {
-    fontWeight: 'bold',
     color: '#4a6164',
-    fontSize: responsiveFontSize(2.2),
+    fontSize: responsiveFontSize(2.1),
   },
   headerChildIconLeftContainer: {
     flex: 1,
@@ -82,7 +83,7 @@ export const Styles = StyleSheet.create({
     marginHorizontal: responsiveScreenWidth(3),
   },
   scrollViewContainer: {
-    flex: 10,
+    flex: 9,
     backgroundColor: '#eaeeef',
   },
   dateContainer: {
@@ -137,7 +138,7 @@ export const Styles = StyleSheet.create({
   },
   footerContainerTwo: {
     flexDirection: 'row',
-    height: responsiveScreenHeight(6),
+    height: responsiveScreenHeight(7),
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -150,6 +151,7 @@ export const Styles = StyleSheet.create({
   },
   question: {
     fontWeight: 'bold',
+    width: responsiveScreenWidth(20),
     color: '#4a6164',
     fontSize: responsiveFontSize(2.2),
   },
@@ -161,6 +163,7 @@ export const Styles = StyleSheet.create({
   },
   offer: {
     fontWeight: 'bold',
+    width: responsiveScreenWidth(30),
     color: '#4a6164',
     fontSize: responsiveFontSize(2.2),
   },
@@ -192,5 +195,159 @@ export const Styles = StyleSheet.create({
   },
   icon: {
     width: responsiveScreenWidth(10),
+  },
+  topBar: {
+    backgroundColor: 'white',
+    height: responsiveScreenHeight(2),
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  topBarMain: {
+    backgroundColor: '#b3b3b3',
+    height: responsiveScreenHeight(0.8),
+    width: responsiveScreenWidth(12),
+    borderRadius: 10,
+  },
+  questionMain: {
+    height: responsiveScreenHeight(30),
+    backgroundColor: 'white',
+  },
+  questionContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  questionContentChild: {
+    width: responsiveScreenWidth(93),
+    height: responsiveScreenHeight(15),
+    justifyContent: 'center',
+  },
+  questionContentMain: {
+    backgroundColor: '#cfdbfd',
+    paddingHorizontal: responsiveScreenWidth(3),
+    paddingVertical: responsiveScreenHeight(1),
+  },
+  chatToKnowTxt: {
+    fontSize: responsiveFontSize(2.1),
+    fontWeight: 'bold',
+  },
+  questionContentMainTwo: {
+    flexDirection: 'row',
+    height: responsiveScreenHeight(8.5),
+    alignItems: 'center',
+  },
+  closeTheDealTxt: {
+    width: responsiveScreenWidth(60),
+    fontSize: responsiveFontSize(1.9),
+  },
+  questionImgContainer: {
+    alignItems: 'flex-end',
+    width: responsiveScreenWidth(28),
+    height: responsiveScreenHeight(10),
+  },
+  questionImg: {
+    width: responsiveScreenWidth(18),
+    height: responsiveScreenHeight(8),
+    borderRadius: responsiveHeight(5),
+  },
+  questionLastContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: responsiveScreenWidth(180),
+    height: responsiveScreenHeight(8),
+  },
+  boxContainer: {
+    borderWidth: 2,
+    height: responsiveScreenHeight(5),
+    width: responsiveScreenWidth(25),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+  },
+  makeAnOfferContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: responsiveScreenWidth(90),
+    alignItems: 'center',
+    height: responsiveScreenHeight(10),
+  },
+  makeAnOfferRsContainer: {
+    flexDirection: 'row',
+  },
+  makeAnOfferRsMain: {
+    width: responsiveScreenWidth(20),
+    height: responsiveScreenHeight(5),
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  makeAnOfferRs: {
+    fontSize: responsiveFontSize(5),
+    fontWeight: 'bold',
+    width: responsiveScreenWidth(16),
+    textAlign: 'center',
+    color: '#043738',
+  },
+  makeAnOfferTxt: {
+    width: responsiveScreenWidth(40),
+    height: responsiveScreenHeight(5.6),
+    borderBottomWidth: 1,
+    borderColor: '#99a5a6',
+  },
+  makeAnOfferTxtMain: {
+    fontSize: responsiveFontSize(4.5),
+    color: '#043738',
+  },
+  makeAnOfferLastContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  makeAnOfferLastContainerChild: {
+    flexDirection: 'row',
+    backgroundColor: '#25a49e',
+    height: responsiveScreenHeight(10),
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginVertical: responsiveHeight(2.5),
+    borderRadius: 6,
+    width: responsiveScreenWidth(55),
+  },
+  handOkayIcon: {
+    textAlignVertical: 'center',
+    color: '#eafeff',
+  },
+  makeAnGoodOfferContainer: {
+    height: responsiveScreenHeight(5),
+    justifyContent: 'center',
+  },
+  makeAnGoodOfferTxt: {
+    fontSize: responsiveFontSize(2.2),
+    fontWeight: 'bold',
+    color: '#eafeff',
+  },
+  makeAnHighChanceContainer: {
+    flexDirection: 'row',
+  },
+  makeAnHighChanceTxt: {
+    fontSize: responsiveFontSize(1.9),
+    color: '#eafeff',
+    maxWidth: responsiveScreenWidth(40),
+  },
+  sendOfferButtonParent: {
+    width: responsiveScreenWidth(30),
+    height: responsiveScreenHeight(10),
+    justifyContent: 'center',
+  },
+  sendOfferButtonContainer: {
+    width: responsiveScreenWidth(30),
+    height: responsiveScreenHeight(5.5),
+    backgroundColor: '#023033',
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sendOfferButton: {
+    fontSize: responsiveFontSize(2.2),
+    color: '#edf5f6',
+    fontWeight: 'bold',
   },
 });

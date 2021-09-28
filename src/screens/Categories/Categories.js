@@ -36,7 +36,7 @@ const Categories = () => {
 
       <FlatList
         data={iconsData}
-        renderItem={item => renderIcons(item)}
+        renderItem={item => renderIcons(item, navigation)}
         numColumns={3}
         style={Styles.flatList}
       />

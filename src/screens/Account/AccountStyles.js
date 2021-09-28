@@ -33,10 +33,12 @@ export const AccountStyles = StyleSheet.create({
   userName: {
     fontSize: responsiveScreenFontSize(2.7),
     fontWeight: 'bold',
+    color: '#023134',
   },
   text: {
     fontSize: responsiveScreenFontSize(2),
     fontWeight: 'bold',
+    color: '#023134',
   },
   textLine: {
     borderBottomWidth: 1,
@@ -67,7 +69,7 @@ export const AccountStyles = StyleSheet.create({
   },
   allTextOne: {
     fontSize: responsiveFontSize(2),
-    fontWeight: 'bold',
+    color: '#023134',
   },
   allTextTwo: {
     fontSize: 15,

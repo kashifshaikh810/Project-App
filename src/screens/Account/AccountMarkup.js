@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {AccountStyles} from './AccountStyles';
 import FileIcon from 'react-native-vector-icons/Ionicons';
 import SettingsIcon from 'react-native-vector-icons/Feather';
@@ -18,13 +18,15 @@ const AccountMarkup = () => {
         </View>
         <View style={AccountStyles.main}>
           <Text style={AccountStyles.userName}>Sebestian</Text>
+          <TouchableOpacity>
           <Text style={AccountStyles.text}>View and edit profile</Text>
           <View style={AccountStyles.textLine} />
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={AccountStyles.containerTwo}>
-        <View style={AccountStyles.containerOne}>
+        <TouchableOpacity style={AccountStyles.containerOne}>
           <FileIcon name="file-tray-full-outline" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -39,9 +41,9 @@ const AccountMarkup = () => {
           <View style={AccountStyles.iconContainer}>
             <ArrowRightIcon name="keyboard-arrow-right" size={30} />
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={AccountStyles.containerOne}>
+        <TouchableOpacity style={AccountStyles.containerOne}>
           <SettingsIcon name="settings" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -52,9 +54,9 @@ const AccountMarkup = () => {
           <View style={AccountStyles.iconContainer}>
             <ArrowRightIcon name="keyboard-arrow-right" size={30} />
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={AccountStyles.containerOne}>
+        <TouchableOpacity style={AccountStyles.containerOne}>
           <Image
             source={require('../../Components/Utility/Images/olx.jpg')}
             style={AccountStyles.olxImg}
@@ -70,7 +72,7 @@ const AccountMarkup = () => {
           <View style={AccountStyles.iconContainer}>
             <ArrowRightIcon name="keyboard-arrow-right" size={30} />
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

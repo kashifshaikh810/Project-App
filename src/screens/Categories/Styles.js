@@ -65,6 +65,6 @@ export const Styles = StyleSheet.create({
   textStyle: {
     color: '#375457',
     textAlign: 'center',
-    maxWidth: responsiveScreenWidth(30),
+    maxWidth: responsiveScreenWidth(30.7),
   },
 });
