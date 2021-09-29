@@ -5,8 +5,10 @@ import FileIcon from 'react-native-vector-icons/Ionicons';
 import SettingsIcon from 'react-native-vector-icons/Feather';
 // import FileIcon from 'react-native-vector-icons/Ionicons';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const AccountMarkup = () => {
+  const navigation = useNavigation();
   return (
     <View style={AccountStyles.mainContainer}>
       <View style={AccountStyles.container}>
@@ -18,15 +20,18 @@ const AccountMarkup = () => {
         </View>
         <View style={AccountStyles.main}>
           <Text style={AccountStyles.userName}>Sebestian</Text>
-          <TouchableOpacity>
-          <Text style={AccountStyles.text}>View and edit profile</Text>
-          <View style={AccountStyles.textLine} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('BasicInformation')}>
+            <Text style={AccountStyles.text}>View and edit profile</Text>
+            <View style={AccountStyles.textLine} />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={AccountStyles.containerTwo}>
-        <TouchableOpacity style={AccountStyles.containerOne}>
+        <TouchableOpacity
+          style={AccountStyles.containerOne}
+          onPress={() => navigation.navigate('InvoicessAndBilling')}>
           <FileIcon name="file-tray-full-outline" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -43,7 +48,9 @@ const AccountMarkup = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={AccountStyles.containerOne}>
+        <TouchableOpacity
+          style={AccountStyles.containerOne}
+          onPress={() => navigation.navigate('Settings')}>
           <SettingsIcon name="settings" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -56,7 +63,9 @@ const AccountMarkup = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={AccountStyles.containerOne}>
+        <TouchableOpacity
+          style={AccountStyles.containerOne}
+          onPress={() => navigation.navigate('HelpAndSupport')}>
           <Image
             source={require('../../Components/Utility/Images/olx.jpg')}
             style={AccountStyles.olxImg}

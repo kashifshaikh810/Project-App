@@ -7,6 +7,10 @@ export const Selected_Categories_Page = 'SelectedCategories';
 export const Includes_Details_Page = 'IncludesDetails';
 export const Private_Message_Page = 'PrivateMessages';
 export const Buying_Chat_PrivateMessages_Page = 'BuyingChatPrivateMessages';
+export const Basic_Information_Page = 'BasicInformation';
+export const Settings_Page = 'Settings';
+export const Help_And_Support_Page = 'HelpAndSupport';
+export const Invoicess_And_Billing_Page = 'InvoicessAndBilling';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

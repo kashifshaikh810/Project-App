@@ -12,6 +12,10 @@ import {
   Includes_Details_Page,
   Private_Message_Page,
   Buying_Chat_PrivateMessages_Page,
+  Basic_Information_Page,
+  Settings_Page,
+  Help_And_Support_Page,
+  Invoicess_And_Billing_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -22,6 +26,10 @@ import SelectedCategories from '../SelectedCategories/SelectedCategories';
 import IncludesDetails from '../IncludesDetails/IncludesDetails';
 import PrivateMessages from '../PrivateMessages/PrivateMessages';
 import BuyingChatPrivateMessages from '../Chats/BuyingChatPrivateMessages/BuyingChatPrivateMessages';
+import BasicInformation from '../BasicInformation/BasicInformation';
+import Settings from '../Settings/Settings';
+import HelpAndSupport from '../HelpAndSupport/HelpAndSupport';
+import InvoicessAndBilling from '../InvoicessAndBilling/InvoicessAndBilling';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +52,16 @@ const Nav = () => {
         <Stack.Screen
           name={Buying_Chat_PrivateMessages_Page}
           component={BuyingChatPrivateMessages}
+        />
+        <Stack.Screen
+          name={Basic_Information_Page}
+          component={BasicInformation}
+        />
+        <Stack.Screen name={Settings_Page} component={Settings} />
+        <Stack.Screen name={Help_And_Support_Page} component={HelpAndSupport} />
+        <Stack.Screen
+          name={Invoicess_And_Billing_Page}
+          component={InvoicessAndBilling}
         />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
