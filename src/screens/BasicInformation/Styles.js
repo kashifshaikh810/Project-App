@@ -1,13 +1,16 @@
 import {StyleSheet} from 'react-native';
 import {
   responsiveFontSize,
-    responsiveHeight,
+  responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveWidth,
 } from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
 export const Styles = StyleSheet.create({
+  container: {
+    height: responsiveScreenHeight(90),
+  },
   headerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -90,5 +93,14 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(37),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  footerInputContainer: {
+    height: responsiveScreenHeight(17),
+    justifyContent: 'center',
+  },
+  footerGuideText: {
+    marginVertical: responsiveHeight(0.3),
+    color: '#3a5752',
+    fontSize: responsiveFontSize(1.8),
   },
 });
