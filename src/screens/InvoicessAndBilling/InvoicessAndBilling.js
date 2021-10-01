@@ -14,54 +14,59 @@ const InvoicessAndBilling = props => {
         <Text style={Styles.headerText}>Invoices & Billing</Text>
       </View>
 
-      <View style={Styles.flexContainer}>
+      <TouchableOpacity
+        style={Styles.flexContainer}
+        onPress={() => props.navigation.navigate('BuyPackages')}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Buy packages</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
+          <View style={Styles.rowContainer}>
             <Text style={Styles.sellTxt}>
               Sell faster, more & higher margins with packages
             </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
+            <View style={Styles.iconContainer}>
               <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={Styles.line} />
 
-      <View style={Styles.flexContainer}>
+      <TouchableOpacity
+        style={Styles.flexContainer}
+        onPress={() => props.navigation.navigate('MyOrders')}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>My Orders</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
+          <View style={Styles.rowContainer}>
             <Text style={Styles.sellTxt}>
               Active, scheduled and expired orders
             </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
+            <View style={Styles.iconContainer}>
               <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={Styles.line} />
 
-      <View style={Styles.flexContainer}>
+      <TouchableOpacity
+        style={Styles.flexContainer}
+        onPress={() => props.navigation.navigate('BillingInformation')}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Billing Information</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
+          <View style={Styles.rowContainer}>
             <Text style={Styles.sellTxt}>
               Edit your billing name, address, etc.
             </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
+            <View style={Styles.iconContainer}>
               <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={Styles.line} />
-
     </View>
   );
 };

@@ -14,83 +14,76 @@ const HelpAndSupport = props => {
         <Text style={Styles.headerText}>Help and Support</Text>
       </View>
 
-      <View style={Styles.flexContainer}>
+      <TouchableOpacity style={Styles.flexContainer}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Help Center</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
-            <Text style={Styles.sellTxt}>
-              See FAQ and contact support
-            </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
+          <View style={Styles.rowContainer}>
+            <Text style={Styles.sellTxt}>See FAQ and contact support</Text>
+            <View style={Styles.iconContainer}>
               <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={Styles.line} />
 
-      <View style={Styles.flexContainer}>
+      <TouchableOpacity style={Styles.flexContainer}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Rate us</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
+          <View style={Styles.rowContainer}>
             <Text style={Styles.sellTxt}>
               If you love our app, take a moment to rate it
             </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
+            <View style={Styles.iconContainer}>
               <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
+
+      <View style={Styles.line} />
+
+      <TouchableOpacity style={Styles.flexContainer}>
+        <View style={Styles.flexContainerChild}>
+          <Text style={Styles.firstText}>Invite friends to OLX</Text>
+          <View style={Styles.rowContainer}>
+            <Text style={Styles.sellTxt}>
+              Invite your friends to buy and sell
+            </Text>
+            <View style={Styles.iconContainer}>
+              <RightIcon name="chevron-small-right" size={30} />
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+
+      <View style={Styles.line} />
+
+      <TouchableOpacity style={Styles.flexContainer}>
+        <View style={Styles.flexContainerChild}>
+          <Text style={Styles.firstText}>Become a beta tester</Text>
+          <View style={Styles.rowContainer}>
+            <Text style={Styles.sellTxt}>Test new features in advance</Text>
+            <View style={Styles.iconContainer}>
+              <RightIcon name="chevron-small-right" size={30} />
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
 
       <View style={Styles.line} />
 
       <View style={Styles.flexContainer}>
         <View style={Styles.flexContainerChild}>
-          <Text style={Styles.firstText}>Invite friends to OLX</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
-            <Text style={Styles.sellTxt}>
-              Invite your friends to buy and sell
-            </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
-              <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+          <Text style={Styles.firstText}>Version</Text>
+          <View style={Styles.rowContainer}>
+            <Text style={Styles.sellTxt}>15.0.11617</Text>
+          </View>
         </View>
       </View>
 
       <View style={Styles.line} />
-
-      <View style={Styles.flexContainer}>
-        <View style={Styles.flexContainerChild}>
-          <Text style={Styles.firstText}>Invite friends to OLX</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
-            <Text style={Styles.sellTxt}>
-              Invite your friends to buy and sell
-            </Text>
-            <TouchableOpacity style={Styles.iconContainer}>
-              <RightIcon name="chevron-small-right" size={30} />
-            </TouchableOpacity>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={Styles.line} />
-
-      <View style={Styles.flexContainer}>
-        <View style={Styles.flexContainerChild}>
-          <Text style={Styles.firstText}>Invite friends to OLX</Text>
-          <TouchableOpacity style={Styles.rowContainer}>
-            <Text style={Styles.sellTxt}>
-              Invite your friends to buy and sell
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={Styles.line} />
-
     </View>
   );
 };

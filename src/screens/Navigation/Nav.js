@@ -16,6 +16,9 @@ import {
   Settings_Page,
   Help_And_Support_Page,
   Invoicess_And_Billing_Page,
+  Buy_Packages_Page,
+  My_Orders_Page,
+  Billing_Information_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -30,6 +33,9 @@ import BasicInformation from '../BasicInformation/BasicInformation';
 import Settings from '../Settings/Settings';
 import HelpAndSupport from '../HelpAndSupport/HelpAndSupport';
 import InvoicessAndBilling from '../InvoicessAndBilling/InvoicessAndBilling';
+import BuyPackages from '../InvoicessAndBilling/BuyPackages/BuyPackages';
+import MyOrders from '../InvoicessAndBilling/MyOrders/MyOrders';
+import BillingInformation from '../InvoicessAndBilling/BillingInformation/BillingInformation';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +69,13 @@ const Nav = () => {
           name={Invoicess_And_Billing_Page}
           component={InvoicessAndBilling}
         />
+        <Stack.Screen name={Buy_Packages_Page} component={BuyPackages} />
+        <Stack.Screen name={My_Orders_Page} component={MyOrders} />
+        <Stack.Screen
+          name={Billing_Information_Page}
+          component={BillingInformation}
+        />
+
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>

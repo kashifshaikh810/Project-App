@@ -33,17 +33,17 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
   sellTxt: {
-    width: responsiveScreenWidth(62),
+    width: responsiveScreenWidth(67),
     color: '#7a8d91',
   },
   iconContainer: {
-    width: responsiveScreenWidth(25),
+    width: responsiveScreenWidth(23),
     alignItems: 'flex-end',
   },
   firstText: {
     fontSize: responsiveFontSize(2.5),
     fontWeight: 'bold',
-    width: responsiveScreenWidth(40),
+    width: responsiveScreenWidth(60),
     height: responsiveScreenHeight(5),
     color: '#062a2d',
     textAlignVertical: 'bottom',

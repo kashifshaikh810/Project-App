@@ -1,0 +1,38 @@
+import {StyleSheet} from 'react-native';
+import {
+  responsiveFontSize,
+  responsiveScreenHeight,
+  responsiveScreenWidth,
+} from '../../../Components/Utility/ResponsiveDimensions/Responsive';
+
+export const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: responsiveScreenWidth(45),
+    height: responsiveScreenHeight(8),
+  },
+  headerText: {
+    fontSize: responsiveFontSize(2.8),
+    fontWeight: 'bold',
+    color: '#3a5752',
+  },
+  tabBarIndicator: {
+    height: responsiveScreenHeight(0.6),
+    borderRadius: responsiveScreenWidth(1),
+    color: '#012022',
+    backgroundColor: '#012022',
+  },
+  tabBarLabel: {
+    color: '#132524',
+    fontSize: responsiveFontSize(2.1),
+  },
+  tabBar: {
+    elevation: 0,
+    backgroundColor: '#f1f1f1',
+  },
+});
