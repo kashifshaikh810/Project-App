@@ -10,6 +10,7 @@ import {
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: responsiveHeight(15),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -84,5 +85,68 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.3),
     fontWeight: 'bold',
     color: 'white',
+  },
+  firstInputContainer: {
+    height: responsiveScreenHeight(10),
+    justifyContent: 'flex-end',
+  },
+  firstInputTextContainer: {
+    width: responsiveScreenWidth(36),
+    height: responsiveScreenWidth(5.6),
+    alignItems: 'center',
+  },
+  firstInputText: {
+    color: '#718281',
+    fontSize: responsiveFontSize(1.8),
+    fontWeight: 'bold',
+  },
+  secondInputContainer: {
+    height: responsiveScreenHeight(15),
+    justifyContent: 'flex-end',
+  },
+  secondInputTextContainer: {
+    width: responsiveScreenWidth(18),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  thiredInputTextContainer: {
+    width: responsiveScreenWidth(32),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  fourthInputTextContainer: {
+    width: responsiveScreenWidth(32),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  fivithInputTextContainer: {
+    width: responsiveScreenWidth(32),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  headingContainer: {
+    width: responsiveScreenWidth(47),
+    height: responsiveScreenHeight(10),
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  heading: {
+    color: '#022b2c',
+    fontSize: responsiveFontSize(2.5),
+    fontWeight: 'bold',
+  },
+  sixithInputContainer: {
+    height: responsiveScreenHeight(13),
+    justifyContent: 'flex-end',
+  },
+  sixithInputTextContainer: {
+    width: responsiveScreenWidth(29),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  seventhInputTexrContainer: {
+    width: responsiveScreenWidth(15),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
   },
 });

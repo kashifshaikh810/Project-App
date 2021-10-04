@@ -22,12 +22,9 @@ const BillingInformation = props => {
       </View>
       <KeyboardAwareScrollView>
         <ScrollView style={Styles.container}>
-          <View style={{height: 100, justifyContent: 'flex-end'}}>
-            <View style={{width: 125, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Customer Type *
-              </Text>
+          <View style={Styles.firstInputContainer}>
+            <View style={Styles.firstInputTextContainer}>
+              <Text style={Styles.firstInputText}>Customer Type *</Text>
             </View>
             <View style={Styles.mobilePhonesDropDownContainer}>
               <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
@@ -47,12 +44,9 @@ const BillingInformation = props => {
             </View>
           </View>
 
-          <View style={{height: 110, justifyContent: 'flex-end'}}>
-            <View style={{width: 67, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Email
-              </Text>
+          <View style={Styles.secondInputContainer}>
+            <View style={Styles.secondInputTextContainer}>
+              <Text style={Styles.firstInputText}>Email</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput
@@ -63,24 +57,18 @@ const BillingInformation = props => {
             </View>
           </View>
 
-          <View style={{height: 110, justifyContent: 'flex-end'}}>
-            <View style={{width: 122, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Customer name
-              </Text>
+          <View style={Styles.secondInputContainer}>
+            <View style={Styles.thiredInputTextContainer}>
+              <Text style={Styles.firstInputText}>Customer name</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput placeholder="Enter your name" style={Styles.input} />
             </View>
           </View>
 
-          <View style={{height: 110, justifyContent: 'flex-end'}}>
-            <View style={{width: 120, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Business Name
-              </Text>
+          <View style={Styles.secondInputContainer}>
+            <View style={Styles.fourthInputTextContainer}>
+              <Text style={Styles.firstInputText}>Business Name</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput
@@ -90,12 +78,9 @@ const BillingInformation = props => {
             </View>
           </View>
 
-          <View style={{height: 110, justifyContent: 'flex-end'}}>
-            <View style={{width: 115, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Phone Number
-              </Text>
+          <View style={Styles.secondInputContainer}>
+            <View style={Styles.fivithInputTextContainer}>
+              <Text style={Styles.firstInputText}>Phone Number</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput
@@ -106,24 +91,13 @@ const BillingInformation = props => {
             </View>
           </View>
 
-          <View
-            style={{
-              width: 170,
-              height: 80,
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: '#022b2c', fontSize: 18, fontWeight: 'bold'}}>
-              Customer Address
-            </Text>
+          <View style={Styles.headingContainer}>
+            <Text style={Styles.heading}>Customer Address</Text>
           </View>
 
-          <View style={{height: 90, justifyContent: 'flex-end'}}>
-            <View style={{width: 100, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                Address Line
-              </Text>
+          <View style={Styles.sixithInputContainer}>
+            <View style={Styles.sixithInputTextContainer}>
+              <Text style={Styles.firstInputText}>Address Line</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput
@@ -133,12 +107,9 @@ const BillingInformation = props => {
             </View>
           </View>
 
-          <View style={{height: 110, justifyContent: 'flex-end'}}>
-            <View style={{width: 53, height: 21, alignItems: 'center'}}>
-              <Text
-                style={{color: '#718281', fontSize: 13, fontWeight: 'bold'}}>
-                City
-              </Text>
+          <View style={Styles.secondInputContainer}>
+            <View style={Styles.seventhInputTexrContainer}>
+              <Text style={Styles.firstInputText}>City</Text>
             </View>
             <View style={Styles.inputContainer}>
               <TextInput
