@@ -29,9 +29,8 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   mobilePhonesDropDownTouchAbleParent: {
-    borderWidth: 1,
-    width: responsiveScreenWidth(90),
-    height: responsiveScreenHeight(7),
+    width: responsiveScreenWidth(92),
+    height: responsiveScreenHeight(6),
     borderRadius: 5,
   },
   mobilePhonesDropDownTextContainer: {
@@ -146,6 +145,33 @@ export const Styles = StyleSheet.create({
   },
   seventhInputTexrContainer: {
     width: responsiveScreenWidth(15),
+    height: responsiveScreenHeight(2.6),
+    alignItems: 'center',
+  },
+  pickerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: responsiveScreenHeight(20),
+  },
+  pickerContainerChild: {
+    height: responsiveScreenHeight(7),
+    width: responsiveScreenWidth(92),
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  locationTxt: {
+    fontSize: responsiveFontSize(2.3),
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    width: responsiveScreenWidth(22),
+    fontWeight: 'bold',
+  },
+  pickerMain: {
+    height: responsiveScreenHeight(4),
+  },
+  taxInputTextContainer: {
+    width: responsiveScreenWidth(20),
     height: responsiveScreenHeight(2.6),
     alignItems: 'center',
   },

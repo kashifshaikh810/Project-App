@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,30 @@ import {
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import IconLeft from 'react-native-vector-icons/Feather';
+import {Picker} from '@react-native-community/picker';
 import {Styles} from './Styles';
 
 const BillingInformation = props => {
+  const [selectedValue, setSelectedValue] = useState('Sindh');
+
+  const taxInput = () => {
+    if (selectedValue === 'Business') {
+      return (
+        <View style={Styles.secondInputContainer}>
+          <View style={Styles.taxInputTextContainer}>
+            <Text style={Styles.firstInputText}>Tax ID *</Text>
+          </View>
+          <View style={Styles.inputContainer}>
+            <TextInput
+              keyboardType="number-pad"
+              placeholder="Enter your Tax ID"
+              style={Styles.input}
+            />
+          </View>
+        </View>
+      );
+    }
+  };
   return (
     <>
       <View style={Styles.headerContainer}>
@@ -28,18 +49,19 @@ const BillingInformation = props => {
             </View>
             <View style={Styles.mobilePhonesDropDownContainer}>
               <View style={Styles.mobilePhonesDropDownTouchAbleParent}>
-                <TouchableOpacity
-                  onPress={() => console.log('sa')}
-                  style={Styles.direction}>
-                  <View style={Styles.mobilePhonesDropDownTextContainer}>
-                    <Text style={Styles.mobilePhonesDropDownSelectedValue}>
-                      Select a customer type
-                    </Text>
-                    <View style={Styles.mobilePhonesDropDownIconContainer}>
-                      <IconLeft name="chevron-down" size={18} color="#718281" />
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                <View style={Styles.pickerContainerChild}>
+                  <Picker
+                    mode="dropdown"
+                    style={Styles.pickerMain}
+                    selectedValue={selectedValue}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedValue(itemValue)
+                    }>
+                    <Picker.Item label="Select a customer type" value={0} />
+                    <Picker.Item label="Business" value="Business" />
+                    <Picker.Item label="Residential" value="Residential" />
+                  </Picker>
+                </View>
               </View>
             </View>
           </View>
@@ -77,6 +99,8 @@ const BillingInformation = props => {
               />
             </View>
           </View>
+
+          {taxInput()}
 
           <View style={Styles.secondInputContainer}>
             <View style={Styles.fivithInputTextContainer}>

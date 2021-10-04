@@ -14,6 +14,9 @@ export const Invoicess_And_Billing_Page = 'InvoicessAndBilling';
 export const Buy_Packages_Page = 'BuyPackages';
 export const My_Orders_Page = 'MyOrders';
 export const Billing_Information_Page = 'BillingInformation';
+export const Privacy_Page = 'Privacy';
+export const Notifications_Page = 'Notifications';
+export const Create_Password_Page = 'CreatePassword';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';
@@ -30,3 +33,5 @@ export const Selling_Page = 'SELLING';
 export const Active_Page = 'ACTIVE';
 export const Scheduled_Page = 'SCHEDULED';
 export const Expired_Page = 'EXPIRED';
+export const Ads_Page = 'ADS';
+export const Favourites_Page = 'FAVOURITES';

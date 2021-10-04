@@ -14,7 +14,9 @@ const Settings = props => {
         <Text style={Styles.headerText}>Settings</Text>
       </View>
 
-      <TouchableOpacity style={Styles.flexContainer}>
+      <TouchableOpacity
+        style={Styles.flexContainer}
+        onPress={() => props.navigation.navigate('Privacy')}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Privacy</Text>
           <View style={Styles.rowContainer}>
@@ -28,7 +30,9 @@ const Settings = props => {
 
       <View style={Styles.line} />
 
-      <TouchableOpacity style={Styles.flexContainer}>
+      <TouchableOpacity
+        style={Styles.flexContainer}
+        onPress={() => props.navigation.navigate('Notifications')}>
         <View style={Styles.flexContainerChild}>
           <Text style={Styles.firstText}>Notifications</Text>
           <View style={Styles.rowContainer}>
