@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Styles} from './Styles';
 import ArrowDown from 'react-native-vector-icons/MaterialIcons';
+import {dummyData} from './DummyData';
+import {renderItems} from './RenderItems';
 
-const Ads = () => {
+const Ads = props => {
   return (
     <View style={Styles.container}>
       <View style={Styles.borderBottom}>
@@ -26,9 +28,14 @@ const Ads = () => {
         </View>
       </View>
 
-      <View style={Styles.youDontHaveTextContainer}>
+      {/* <View style={Styles.youDontHaveTextContainer}>
         <Text style={Styles.youDontHaveText}>You don't have any ads yet.</Text>
-      </View>
+      </View> */}
+
+      <FlatList
+        data={dummyData}
+        renderItem={item => renderItems(item, props)}
+      />
     </View>
   );
 };

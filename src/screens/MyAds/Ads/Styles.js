@@ -72,4 +72,57 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.9),
     fontWeight: 'bold',
   },
+  renderItemContainer: {
+    height: responsiveScreenHeight(40),
+    borderLeftWidth: 4,
+    width: responsiveScreenWidth(95),
+    marginVertical: responsiveScreenHeight(1),
+    borderWidth: 0.3,
+    borderTopColor: '#b3b3b3',
+    borderRightColor: '#b3b3b3',
+    borderBottomColor: '#b3b3b3',
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    borderLeftColor: '#023034',
+    width: responsiveScreenWidth(94),
+    height: responsiveScreenHeight(6.9),
+    backgroundColor: '#eaeeef',
+    alignItems: 'center',
+    paddingHorizontal: responsiveScreenWidth(2),
+    borderRightWidth: 0.3,
+    borderRightColor: '#b3b3b3',
+  },
+  fromText: {
+    color: '#3d5c60',
+    fontSize: responsiveFontSize(2.2),
+  },
+  adImgStyle: {
+    width: responsiveScreenWidth(30),
+    height: responsiveScreenHeight(15),
+  },
+  midSectionContainer: {
+    flexDirection: 'row',
+    flex: 0.6,
+    borderBottomWidth: 0.3,
+    borderBottomColor: '#b3b3b3',
+  },
+  adDescriptionStyle: {
+    fontWeight: 'bold',
+    color: '#193d40',
+    fontSize: responsiveFontSize(2.1),
+    maxWidth: responsiveScreenWidth(60),
+  },
+  adDescriptionContainerStyle: {
+    height: responsiveScreenHeight(11),
+    width: responsiveScreenWidth(59),
+    justifyContent: 'space-around',
+    marginHorizontal: responsiveScreenWidth(3),
+  },
+  iconsRowContainer: {
+    flexDirection: 'row',
+  },
+  icon: {
+    marginRight: responsiveScreenHeight(0.3),
+  }
 });
