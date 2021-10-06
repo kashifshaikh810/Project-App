@@ -1,13 +1,19 @@
 import {StyleSheet} from 'react-native';
 import {
   responsiveFontSize,
+  responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from '../../../Components/Utility/ResponsiveDimensions/Responsive';
 
 export const Styles = StyleSheet.create({
+  mainContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   borderBottom: {
     borderBottomWidth: 1,
@@ -124,5 +130,57 @@ export const Styles = StyleSheet.create({
   },
   icon: {
     marginRight: responsiveScreenHeight(0.3),
-  }
+  },
+  threeDotsIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  heartIconContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  descriptionTypeParentContainer: {
+    flex: 0.3,
+    justifyContent: 'center',
+  },
+  typeContainer: {
+    backgroundColor: '#023034',
+    width: responsiveScreenWidth(25),
+    height: responsiveScreenHeight(4),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    marginHorizontal: responsiveScreenHeight(1.5),
+  },
+  type: {
+    color: '#e3f0f1',
+    fontWeight: 'bold',
+    fontSize: responsiveFontSize(2.2),
+  },
+  descriptionType: {
+    fontSize: responsiveFontSize(1.8),
+    marginHorizontal: responsiveScreenWidth(3),
+    marginVertical: responsiveHeight(0.2),
+  },
+  buttonContainer: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  buttonTouchAble: {
+    borderWidth: 1,
+    width: responsiveScreenWidth(28),
+    height: responsiveScreenHeight(6),
+    borderRadius: 4,
+    marginHorizontal: responsiveScreenWidth(3),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    fontSize: responsiveFontSize(2.1),
+    fontWeight: 'bold',
+  },
 });

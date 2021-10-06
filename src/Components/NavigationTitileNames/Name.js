@@ -17,6 +17,8 @@ export const Billing_Information_Page = 'BillingInformation';
 export const Privacy_Page = 'Privacy';
 export const Notifications_Page = 'Notifications';
 export const Create_Password_Page = 'CreatePassword';
+export const Mark_As_Sold_Page = 'MarkAsSold';
+export const View_Full_Ad_Page = 'ViewFullAd';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

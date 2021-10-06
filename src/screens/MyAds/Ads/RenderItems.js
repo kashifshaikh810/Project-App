@@ -1,20 +1,43 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {Styles} from './Styles';
 import EyeIcon from 'react-native-vector-icons/SimpleLineIcons';
 import HeartIcon from 'react-native-vector-icons/Entypo';
+import ThreeDotsIcon from 'react-native-vector-icons/Feather';
+import MyAdsDeleteModal from '../../../Components/Modals/MyAdsDeleteModal/MyAdsDeleteModal';
 
-export const renderItems = ({item}, props) => {
+export const renderItems = ({item}, props, showModal, setShowModal) => {
   return (
-    <View style={{alignItems: 'center'}}>
-      <View style={Styles.renderItemContainer}>
+    <View style={Styles.mainContainer}>
+      <TouchableOpacity
+        style={Styles.renderItemContainer}
+        onPress={() =>
+          props.navigation.navigate('ViewFullAd', {data: item, props: props})
+        }>
         <View style={Styles.dateContainer}>
           <Text style={Styles.fromText}>FROM: </Text>
           <Text style={[Styles.fromText, {fontWeight: 'bold'}]}>
             {item.date}
           </Text>
+
+          {item.type !== 'Sold' && (
+            <View style={Styles.threeDotsIconContainer}>
+              <ThreeDotsIcon
+                name="more-vertical"
+                size={20}
+                onPress={() => setShowModal(true)}
+              />
+            </View>
+          )}
         </View>
+
+        <MyAdsDeleteModal
+          item={item}
+          {...props}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
 
         <View style={Styles.midSectionContainer}>
           <View>
@@ -27,26 +50,14 @@ export const renderItems = ({item}, props) => {
             {item.type !== 'Sold' && <Text>Rs {item.rs}</Text>}
 
             <View style={Styles.iconsRowContainer}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              <View style={Styles.heartIconContainer}>
                 <EyeIcon name="eye" size={18} style={Styles.icon} />
                 <Text style={{color: '#062d30', fontSize: 16}}>
                   Views: {item.views}
                 </Text>
               </View>
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              <View style={Styles.heartIconContainer}>
                 <HeartIcon
                   name="heart-outlined"
                   size={18}
@@ -60,20 +71,24 @@ export const renderItems = ({item}, props) => {
           </View>
         </View>
 
-        <View style={{flex: 0.4, justifyContent: 'center',}}>
-          <View style={{backgroundColor: '#023034', width: 80, height: 30, justifyContent: 'center', alignItems: 'center', borderRadius: 30, marginHorizontal: 10}}>
-              <Text style={{color: '#e3f0f1', fontWeight: 'bold', fontSize: 16}}>{item.type}</Text>
+        <View style={Styles.descriptionTypeParentContainer}>
+          <View style={Styles.typeContainer}>
+            <Text style={Styles.type}>{item.type}</Text>
           </View>
-              <Text style={{fontSize: 13, marginHorizontal: 10, marginVertical: 8}}>{item.descriptionType}</Text>
+          <Text style={Styles.descriptionType}>{item.descriptionType}</Text>
         </View>
 
-
-        <View style={{flex: 0.2, justifyContent: 'center', alignItems: 'flex-end'}}>
-          <View>
-              <Text>{item.buttonType}</Text>
-          </View>
+        <View style={Styles.buttonContainer}>
+          <TouchableOpacity
+            style={Styles.buttonTouchAble}
+            onPress={() =>
+              item.buttonType !== 'Delete' &&
+              props.navigation.navigate('MarkAsSold', {data: item})
+            }>
+            <Text style={Styles.button}>{item.buttonType}</Text>
+          </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

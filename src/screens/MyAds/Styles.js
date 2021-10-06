@@ -30,6 +30,6 @@ export const Styles = StyleSheet.create({
   },
   tabBar: {
     elevation: 0,
-    backgroundColor: '#f1f1f1',
+    backgroundColor: 'white',
   },
 });

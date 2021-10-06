@@ -13,7 +13,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const MyAds = () => {
   return (
-    <>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={Styles.headerContainer}>
         <Text style={Styles.headerText}>My Ads</Text>
       </View>
@@ -26,7 +26,7 @@ const MyAds = () => {
         <Tab.Screen name={Ads_Page} component={Ads} />
         <Tab.Screen name={Favourites_Page} component={Favourites} />
       </Tab.Navigator>
-    </>
+    </View>
   );
 };
 
