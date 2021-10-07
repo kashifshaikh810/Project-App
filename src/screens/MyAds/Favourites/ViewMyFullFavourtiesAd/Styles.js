@@ -1,9 +1,10 @@
-import {StyleSheet} from 'react-native';
 import {
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
-} from '../../../Components/Utility/ResponsiveDimensions/Responsive';
+} from '../../../../Components/Utility/ResponsiveDimensions/Responsive';
+
+const {StyleSheet} = require('react-native');
 
 export const Styles = StyleSheet.create({
   container: {
@@ -35,10 +36,11 @@ export const Styles = StyleSheet.create({
   },
   backgroundImg: {
     width: responsiveScreenWidth(100),
-    height: responsiveScreenHeight(43),
+    height: responsiveScreenHeight(30),
   },
   imagesCountParent: {
     flex: 1,
+    // backgroundColor: 'red',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     marginHorizontal: responsiveScreenWidth(4),
@@ -86,7 +88,7 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(5.5),
   },
   rsAndDescriptionContainer: {
-    height: responsiveScreenHeight(9),
+    height: responsiveScreenHeight(7),
     justifyContent: 'flex-end',
     paddingHorizontal: responsiveScreenWidth(5),
   },

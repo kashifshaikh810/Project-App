@@ -19,6 +19,7 @@ export const Notifications_Page = 'Notifications';
 export const Create_Password_Page = 'CreatePassword';
 export const Mark_As_Sold_Page = 'MarkAsSold';
 export const View_Full_Ad_Page = 'ViewFullAd';
+export const View_MyFull_FavourtiesAd_Page = 'ViewMyFullFavourtiesAd';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

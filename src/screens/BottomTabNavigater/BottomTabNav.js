@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native';
 import HomeIcon from 'react-native-vector-icons/FontAwesome5';
 import ChatsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
+import FullBlackHomeIcon from 'react-native-vector-icons/Feather';
 
 import {
   Account_Page,
@@ -28,8 +29,8 @@ const BottomTabNav = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarItemStyle: {paddingBottom: 5},
-        tabBarStyle: {backgroundColor: '#f1f1f1'},
+        tabBarLabelStyle: {fontSize: 14, fontWeight: 'bold', color: '#36585b'},
+        tabBarStyle: {backgroundColor: 'white', paddingBottom: 2},
         tabBarActiveTintColor: 'black',
         tabBarInactiveTintColor: 'black',
       }}>
@@ -38,19 +39,22 @@ const BottomTabNav = () => {
         component={Home}
         listeners={routeName => setShowTopLine(routeName)}
         options={{
-          tabBarIcon: () => (
-            <HomeIcon
-              name="home"
-              size={20}
-              style={[
-                styles.TopLine,
-                {
-                  borderTopWidth:
-                    showTopLine?.route?.name === 'HOME' ? 3 : null,
-                },
-              ]}
-            />
-          ),
+          tabBarIcon: () =>
+            showTopLine?.route?.name === 'HOME' ? (
+              <HomeIcon
+                name="home"
+                size={25}
+                style={[
+                  styles.TopLine,
+                  {
+                    borderTopWidth:
+                      showTopLine?.route?.name === 'HOME' ? 3 : null,
+                  },
+                ]}
+              />
+            ) : (
+              <FullBlackHomeIcon name="home" size={25} style={styles.TopLine} />
+            ),
         }}
       />
       <Tab.Screen
@@ -67,8 +71,12 @@ const BottomTabNav = () => {
                     showTopLine?.route?.name === 'CHATS' ? 3 : null,
                 },
               ]}
-              name="message-processing-outline"
-              size={20}
+              name={
+                showTopLine?.route?.name === 'CHATS'
+                  ? 'message-processing'
+                  : 'message-processing-outline'
+              }
+              size={25}
             />
           ),
         }}
@@ -90,19 +98,26 @@ const BottomTabNav = () => {
         component={MyAds}
         listeners={routeName => setShowTopLine(routeName)}
         options={{
-          tabBarIcon: () => (
-            <MyAdsIcon
-              style={[
-                styles.TopLine,
-                {
-                  borderTopWidth:
-                    showTopLine?.route?.name === 'MY ADS' ? 3 : null,
-                },
-              ]}
-              name="heart-outlined"
-              size={20}
-            />
-          ),
+          tabBarIcon: () =>
+            showTopLine?.route?.name === 'MY ADS' ? (
+              <MyAdsIcon
+                style={[
+                  styles.TopLine,
+                  {
+                    borderTopWidth:
+                      showTopLine?.route?.name === 'MY ADS' ? 3 : null,
+                  },
+                ]}
+                name="heart"
+                size={25}
+              />
+            ) : (
+              <MyAdsIcon
+                style={styles.TopLine}
+                name="heart-outlined"
+                size={25}
+              />
+            ),
         }}
       />
       <Tab.Screen
@@ -110,19 +125,26 @@ const BottomTabNav = () => {
         component={Account}
         listeners={routeName => setShowTopLine(routeName)}
         options={{
-          tabBarIcon: () => (
-            <ChatsIcon
-              style={[
-                styles.TopLine,
-                {
-                  borderTopWidth:
-                    showTopLine?.route?.name === 'ACCOUNT' ? 3 : null,
-                },
-              ]}
-              name="account-outline"
-              size={20}
-            />
-          ),
+          tabBarIcon: () =>
+            showTopLine?.route?.name === 'ACCOUNT' ? (
+              <ChatsIcon
+                style={[
+                  styles.TopLine,
+                  {
+                    borderTopWidth:
+                      showTopLine?.route?.name === 'ACCOUNT' ? 3 : null,
+                  },
+                ]}
+                name="account"
+                size={25}
+              />
+            ) : (
+              <ChatsIcon
+                style={styles.TopLine}
+                name="account-outline"
+                size={25}
+              />
+            ),
         }}
       />
     </Tab.Navigator>

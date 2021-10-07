@@ -24,6 +24,7 @@ import {
   Create_Password_Page,
   Mark_As_Sold_Page,
   View_Full_Ad_Page,
+  View_MyFull_FavourtiesAd_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -46,6 +47,7 @@ import Notifications from '../Notifications/Notifications';
 import CreatePassword from '../CreatePassword/CreatePassword';
 import MarkAsSold from '../MarkAsSold/MarkAsSold';
 import ViewFullAd from '../MyAds/ViewFullAd/ViewFullAd';
+import ViewMyFullFavourtiesAd from '../MyAds/Favourites/ViewMyFullFavourtiesAd/ViewMyFullFavourtiesAd';
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +92,10 @@ const Nav = () => {
         <Stack.Screen name={Create_Password_Page} component={CreatePassword} />
         <Stack.Screen name={Mark_As_Sold_Page} component={MarkAsSold} />
         <Stack.Screen name={View_Full_Ad_Page} component={ViewFullAd} />
+        <Stack.Screen
+          name={View_MyFull_FavourtiesAd_Page}
+          component={ViewMyFullFavourtiesAd}
+        />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>

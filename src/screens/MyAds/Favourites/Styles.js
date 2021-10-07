@@ -9,6 +9,7 @@ import {
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   midContainer: {
     height: responsiveScreenHeight(17),
@@ -54,12 +55,13 @@ export const Styles = StyleSheet.create({
   },
   renderItemContent: {
     borderWidth: 0.2,
-    borderRadius: 1,
+    borderRadius: 0.3,
+    borderColor: '#b3b3b3',
     width: responsiveScreenWidth(46),
     height: responsiveScreenHeight(25),
   },
   imgBackground: {
-    width: responsiveScreenWidth(45.7),
+    width: responsiveScreenWidth(46),
     height: responsiveScreenHeight(13),
   },
   insideContainer: {

@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {
   responsiveHeight,
-  responsiveScreenFontSize,
+  responsiveScreenHeight,
   responsiveWidth,
 } from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
@@ -15,12 +15,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     bottom: responsiveHeight(0.5),
-    backgroundColor: '#f1f1f1',
+    backgroundColor: 'white',
   },
   TopLine: {
-    paddingTop: responsiveScreenFontSize(1),
-    paddingBottom: responsiveWidth(0.8),
+    paddingTop: responsiveScreenHeight(0.6),
     width: responsiveWidth(20),
     textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });

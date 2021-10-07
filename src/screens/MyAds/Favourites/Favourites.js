@@ -12,40 +12,87 @@ import HeartWhite from 'react-native-vector-icons/Ionicons';
 
 const dummyDataTwo = [
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Car Concept Karachi',
+    joinDate: 'May 2016',
+    description: 'Oppo ads selling no minor issue',
+    rs: '20,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Karachi',
+    date: '02/05/2010',
+    condition: 'New',
+    featured: 'FEATURED',
+    fullDescription: 'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
   },
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Suleman Khan',
+    joinDate: 'June 2018',
+    description: 'Car for selling no working',
+    rs: '30,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Pakistan, Sindh',
+    date: '07/02/2018',
+    condition: 'Used',
+    featured: 'FEATURED',
+    fullDescription: 'iidoqdduqduqwdhqdhqwdhdqdqwdqwdqwpkpmvfmvvkdjnvovjvovowjvowjv.lkn;vjwovjwvommmmsdsdsd',
   },
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Ayesha Sheikh',
+    joinDate: 'May 2020',
+    description: 'bads 4 urgent sell contact me please',
+    rs: '15,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Pakistan, Punjab',
+    date: '05/03/2014',
+    condition: 'New',
+    featured: 'FEATURED',
+    fullDescription: 'ppqoqqoeqeqeiohurgiuerhgiernjgnrlnwnl;mlm;mpkmo;ank;ononfaofjnjfno;afna;ofjna;ofjn;on',
   },
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Kamran Warsi',
+    joinDate: 'May 2013',
+    description: 'crolla for sell new condition contact me fast',
+    rs: '100,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Pakistan, Sarhad Karachi',
+    date: '01/05/2013',
+    condition: 'Used',
+    featured: 'FEATURED',
+    fullDescription: 'oiifiefieifieiiefieifieifefieifeifiefieififiefieifeifefifieiiefiefefeifeifiefieiiefiefiiei',
   },
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Ahmed Khan',
+    joinDate: 'May 2018',
+    description: 'mazda new condition for sell 2021 model',
+    rs: '200,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Pakistan, blochistan sakkhar',
+    date: '08/01/2019',
+    condition: 'New',
+    featured: 'FEATURED',
+    fullDescription: 'yewuyuryeuryeyryeryyeryryeryyeyryeyryyeyryerreyreyyyuewryweurweyryweurwerywruruyweurywerweuryu',
   },
   {
-    description: 'Furnture Sofa Set-6 seater',
-    rs: '36,000',
+    username: 'Kadir Shah',
+    joinDate: 'May 2021',
+    description: 'car selling need cash serious buyer contact me',
+    rs: '250,000',
     image: require('../../../Components/Utility/Images/sofa.jpg'),
+    location: 'Pakistan, New, Karachi',
+    date: '07/05/2020',
+    condition: 'Used',
+    featured: 'FEATURED',
+    fullDescription: 'd;ohougheuhmxlmkoqvoqqovnvvnkjnckjnknkjnkanasasdasdasdasdasdasdasdasddadasdasdalkvndovvvvwvnoivwvnowievn',
   },
 ];
 
-export const renderItemsTwo = ({item}, isChange, setIsChange) => {
+export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
   return (
-    <TouchableOpacity style={Styles.renderItemContainer} activeOpacity={0.5}>
+    <TouchableOpacity
+      style={Styles.renderItemContainer}
+      activeOpacity={1}
+      onPress={() =>
+        props.navigation.navigate('ViewMyFullFavourtiesAd', {data: item})
+      }>
       <View style={Styles.renderItemContent}>
         <ImageBackground source={item.image} style={Styles.imgBackground}>
           <View style={Styles.insideContainer}>
@@ -80,7 +127,7 @@ export const renderItemsTwo = ({item}, isChange, setIsChange) => {
   );
 };
 
-const Favourites = () => {
+const Favourites = props => {
   const [isChange, setIsChange] = useState(false);
   return (
     <View style={Styles.container}>
@@ -99,7 +146,7 @@ const Favourites = () => {
 
       <FlatList
         data={dummyDataTwo}
-        renderItem={item => renderItemsTwo(item, isChange, setIsChange)}
+        renderItem={item => renderItemsTwo(item, props, isChange, setIsChange)}
         numColumns={2}
       />
     </View>
