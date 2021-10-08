@@ -1,4 +1,6 @@
 import {
+  responsiveFontSize,
+  responsiveHeight,
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -40,7 +42,6 @@ export const Styles = StyleSheet.create({
   },
   imagesCountParent: {
     flex: 1,
-    // backgroundColor: 'red',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     marginHorizontal: responsiveScreenWidth(4),
@@ -88,7 +89,7 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(5.5),
   },
   rsAndDescriptionContainer: {
-    height: responsiveScreenHeight(7),
+    height: responsiveScreenHeight(8),
     justifyContent: 'flex-end',
     paddingHorizontal: responsiveScreenWidth(5),
   },
@@ -145,7 +146,7 @@ export const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
   descriptionHeadingContainer: {
-    height: responsiveScreenHeight(6),
+    height: responsiveScreenHeight(4),
     justifyContent: 'flex-end',
     marginVertical: responsiveScreenHeight(0.3),
   },
@@ -160,5 +161,174 @@ export const Styles = StyleSheet.create({
   fullDescription: {
     color: '#14383d',
     fontSize: responsiveScreenFontSize(2.2),
+  },
+  renderItemContainer: {
+    width: responsiveScreenWidth(40),
+    marginHorizontal: responsiveScreenWidth(5),
+    height: responsiveScreenHeight(27),
+    alignItems: 'center',
+  },
+  renderItemContent: {
+    borderWidth: 0.4,
+    borderColor: '#b3b3b3',
+    width: responsiveScreenWidth(46),
+    height: responsiveScreenHeight(25),
+  },
+  imgBackground: {
+    width: responsiveScreenWidth(45.7),
+    height: responsiveScreenHeight(13),
+    elevation: 2,
+  },
+  insideContainer: {
+    flexDirection: 'row',
+    marginHorizontal: responsiveHeight(1),
+    marginVertical: responsiveHeight(1),
+  },
+  featuredTextContainer: {
+    backgroundColor: '#ffce38',
+    width: responsiveScreenWidth(13),
+    height: responsiveScreenHeight(2.6),
+    justifyContent: 'center',
+  },
+  featuredText: {
+    fontSize: responsiveFontSize(1.1),
+    textAlign: 'center',
+  },
+  iconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  iconMain: {
+    width: responsiveScreenHeight(3),
+    height: responsiveScreenHeight(3),
+    backgroundColor: 'black',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rsStyle: {
+    fontSize: responsiveFontSize(2),
+    fontWeight: 'bold',
+    paddingTop: responsiveHeight(1),
+    marginHorizontal: responsiveHeight(0.6),
+  },
+  flexContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  description: {
+    fontSize: responsiveFontSize(1.6),
+    marginHorizontal: responsiveHeight(0.7),
+    maxWidth: responsiveScreenWidth(50),
+    color: '#2a4b4e',
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    marginHorizontal: responsiveHeight(0.7),
+  },
+  dateContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  locationStyle: {
+    fontSize: responsiveFontSize(1.5),
+    maxWidth: responsiveScreenWidth(40),
+    color: '#2a4b4e',
+  },
+  backImgFeaturedTxtContainer: {
+    width: responsiveScreenWidth(22),
+    height: responsiveScreenHeight(3),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fece37',
+  },
+  backImgFeaturedTxt: {
+    fontSize: responsiveScreenFontSize(1.7),
+    fontWeight: 'bold',
+    color: '#0c2d19',
+  },
+  rsAndDescription: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  heartIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  conditionBottomLine: {
+    height: responsiveScreenHeight(3),
+    justifyContent: 'flex-end',
+  },
+  line: {
+    height: 0.5,
+    width: responsiveScreenWidth(100),
+    backgroundColor: '#b3b3b3',
+  },
+  descriptionBottomLine: {
+    height: responsiveScreenHeight(4),
+    justifyContent: 'center',
+  },
+  profileSectionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileImg: {
+    width: responsiveScreenWidth(17),
+    height: responsiveScreenHeight(8),
+  },
+  usernameAndDataContainer: {
+    paddingHorizontal: responsiveScreenWidth(4),
+    height: responsiveScreenHeight(8),
+    justifyContent: 'space-between',
+  },
+  username: {
+    fontWeight: 'bold',
+    color: '#042d2f',
+    fontSize: responsiveScreenFontSize(2.2),
+  },
+  rightIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  profileSectionBottomLine: {
+    height: responsiveScreenHeight(2.5),
+    justifyContent: 'flex-end',
+  },
+  relatedTextContainer: {
+    height: responsiveScreenHeight(7),
+    justifyContent: 'center',
+    paddingHorizontal: responsiveScreenWidth(5),
+  },
+  relatedText: {
+    fontWeight: 'bold',
+    fontSize: responsiveScreenFontSize(2.3),
+    color: '#0b3336',
+  },
+  threeButtonsContainer: {
+    flexDirection: 'row',
+    height: responsiveScreenHeight(10),
+    borderTopWidth: 0.3,
+    borderTopColor: '#b3b3b3',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  buttonTextAndIconContainer: {
+    flexDirection: 'row',
+    height: responsiveScreenHeight(6.6),
+    width: responsiveScreenWidth(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#023034',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    paddingHorizontal: 10,
+    fontWeight: 'bold',
   },
 });
