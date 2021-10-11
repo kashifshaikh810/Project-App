@@ -193,7 +193,7 @@ const ViewMyFullFavourtiesAd = props => {
           <TouchableOpacity
             style={Styles.lastContainerOnDetails}
             activeOpacity={1}
-            onPress={() => props.navigation.navigate('OtherUserProfile')}>
+            onPress={() => props.navigation.navigate('OtherUserProfile', {userData: routeData})}>
             <View style={Styles.profileSectionContainer}>
               <View>
                 <Image
