@@ -7,8 +7,10 @@ import {
   ScrollView,
   Image,
   FlatList,
+  Modal,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
+import CloseIcon from 'react-native-vector-icons/AntDesign';
 import ShareIcon from 'react-native-vector-icons/Entypo';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import HeartIcon from 'react-native-vector-icons/FontAwesome';
@@ -20,9 +22,11 @@ import {Styles} from './Styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {dummyData} from '../../../Home/Data';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 const ViewMyFullFavourtiesAd = props => {
   const [addToFav, setAddToFav] = useState(false);
+  const [showFullImageModal, setShowFullImageModal] = useState(false);
   const routeData = props.route.params.data;
 
   const _renderTruncatedFooter = handlePress => {
@@ -44,6 +48,64 @@ const ViewMyFullFavourtiesAd = props => {
       </View>
     );
   };
+
+  const images = [
+    {
+      // Simplest usage.
+      url: '',
+
+      // width: number
+      // height: number
+      // Optional, if you know the image size, you can set the optimization performance
+
+      // You can pass props to <Image />.
+      props: {
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+    {
+      url: '',
+      props: {
+        // Or you can set source directory.
+        source: routeData.image,
+      },
+    },
+  ];
 
   const renderItems = ({item}) => {
     return (
@@ -94,7 +156,7 @@ const ViewMyFullFavourtiesAd = props => {
         </View>
       </View>
       <ScrollView style={Styles.container}>
-        <View>
+        <TouchableOpacity activeOpacity={1} onPress={() => setShowFullImageModal(true)}>
           <ImageBackground
             source={routeData.image}
             style={Styles.backgroundImg}>
@@ -110,12 +172,12 @@ const ViewMyFullFavourtiesAd = props => {
                   {marginHorizontal: 0, marginVertical: 0},
                 ]}>
                 <View style={Styles.imagesCountContainer}>
-                  <Text style={Styles.imagesCount}>1/6</Text>
+              <Text style={Styles.imagesCount}>1/{images.length}</Text>
                 </View>
               </View>
             </View>
           </ImageBackground>
-        </View>
+        </TouchableOpacity>
 
         <View style={Styles.rsAndDescriptionContainer}>
           <View style={Styles.rsAndDescription}>
@@ -137,7 +199,7 @@ const ViewMyFullFavourtiesAd = props => {
 
         <View style={Styles.locationAndExpireDateContainer}>
           <LocationIcon name="location-outline" size={20} color="#023034" />
-          <Text>{routeData.location}</Text>
+          <Text style={{flex: 1}}>{routeData.location}</Text>
 
           <View style={Styles.expireDateContainer}>
             <Text>{routeData.date}</Text>
@@ -193,7 +255,11 @@ const ViewMyFullFavourtiesAd = props => {
           <TouchableOpacity
             style={Styles.lastContainerOnDetails}
             activeOpacity={1}
-            onPress={() => props.navigation.navigate('OtherUserProfile', {userData: routeData})}>
+            onPress={() =>
+              props.navigation.navigate('OtherUserProfile', {
+                userData: routeData,
+              })
+            }>
             <View style={Styles.profileSectionContainer}>
               <View>
                 <Image
@@ -229,9 +295,25 @@ const ViewMyFullFavourtiesAd = props => {
           renderItem={item => renderItems(item)}
           horizontal={true}
         />
+
+        <Modal visible={showFullImageModal}>
+          <View style={Styles.imgModalContainer}>
+          <TouchableOpacity
+          activeOpacity={1}
+          style={Styles.modalCloseIcon}
+                onPress={() => setShowFullImageModal(false)}>
+                <CloseIcon name="close" size={30} color="white" />
+              </TouchableOpacity>
+          <ImageViewer imageUrls={images} />
+          </View>
+        </Modal>
       </ScrollView>
       <View style={Styles.threeButtonsContainer}>
-        <TouchableOpacity style={Styles.buttonTextAndIconContainer}>
+        <TouchableOpacity
+          style={Styles.buttonTextAndIconContainer}
+          onPress={() =>
+            props.navigation.navigate('PrivateMessages', {itemData: routeData})
+          }>
           <MessageIcon name="message1" size={17} color="white" />
           <Text style={Styles.buttonText}>Chat</Text>
         </TouchableOpacity>

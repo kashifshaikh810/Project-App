@@ -101,6 +101,8 @@ export const Styles = StyleSheet.create({
   adDescription: {
     color: '#023034',
     fontSize: responsiveScreenFontSize(2.3),
+    maxWidth: responsiveScreenWidth(100),
+    maxHeight: responsiveScreenHeight(8),
   },
   locationAndExpireDateContainer: {
     flexDirection: 'row',
@@ -330,5 +332,15 @@ export const Styles = StyleSheet.create({
     color: 'white',
     paddingHorizontal: 10,
     fontWeight: 'bold',
+  },
+  imgModalContainer: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  modalCloseIcon: {
+    height: responsiveScreenHeight(6),
+    justifyContent: 'flex-end',
+    width: responsiveScreenWidth(20),
+    alignItems: 'center',
   },
 });

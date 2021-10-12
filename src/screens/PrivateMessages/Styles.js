@@ -71,11 +71,13 @@ export const Styles = StyleSheet.create({
   headerChildTextContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: responsiveScreenWidth(60),
+    alignItems: 'center',
+    width: responsiveScreenWidth(85),
   },
   headerChildText: {
     color: '#4a6164',
     fontSize: responsiveFontSize(2.1),
+    maxWidth: responsiveScreenWidth(50),
   },
   headerChildIconLeftContainer: {
     flex: 1,

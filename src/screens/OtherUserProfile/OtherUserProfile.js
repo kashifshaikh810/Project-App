@@ -76,6 +76,9 @@ const OtherUserProfile = props => {
         <View style={Styles.renderItemContent}>
           <ImageBackground source={item.image} style={Styles.imgBackground}>
             <View style={Styles.insideContainer}>
+            <View style={Styles.featuredTextContainer}>
+              <Text style={Styles.featuredText}>{item.featured}</Text>
+            </View>
               <View style={Styles.iconContainer}>
                 <TouchableOpacity
                   style={Styles.iconMain}

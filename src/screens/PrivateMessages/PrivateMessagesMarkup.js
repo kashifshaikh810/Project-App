@@ -27,6 +27,7 @@ import { responsiveScreenWidth } from '../../Components/Utility/ResponsiveDimens
 
 const PrivateMessagesMarkup = props => {
   const itemData = props.route.params.itemData;
+  console.log(itemData);
 
 
   const sendMessagesInput = () => {
@@ -197,13 +198,13 @@ const PrivateMessagesMarkup = props => {
           </TouchableOpacity>
           <View style={Styles.imgBackContainer}>
             <ImageBackground
-              source={itemData.contentImg}
+              source={itemData.contentImg || itemData.image}
               style={Styles.imgBack}
-              imageStyle={{borderRadius: 6}}>
+              imageStyle={{borderRadius: 10}}>
               <View
                 style={Styles.profileImgContainer}>
                 <Image
-                  source={itemData.profileImg}
+                  source={require('../../Components/Utility/Images/profile.png')}
                   style={Styles.profileImg}
                 />
               </View>
@@ -211,7 +212,7 @@ const PrivateMessagesMarkup = props => {
           </View>
           <View style={Styles.userNameContainer}>
             <Text style={Styles.userName}>
-              {itemData.userName}
+              {itemData.userName || itemData.username}
             </Text>
             <Text style={Styles.lastActive}>
               {props.inputMessage.length > 5 ? 'Typing...' : 'Last active 4 Sep'}
@@ -224,22 +225,24 @@ const PrivateMessagesMarkup = props => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={Styles.headerChildContainer}>
+        <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => itemData.description && props.navigation.goBack()}
+        style={Styles.headerChildContainer}>
           <View
             style={Styles.headerChildTextContainer}>
             <Text style={Styles.headerChildText}>
-              Rs 60,000
+             Rs {itemData.rs || '100.00'}
             </Text>
-            <Text style={Styles.headerChildText}>
-              10/8 condition
+            <Text numberOfLines={1} style={Styles.headerChildText}>
+              {itemData.description || 'this is dummy line abcde 1234 iwi jfwjffw'}
             </Text>
           </View>
-          <TouchableOpacity
+          <View
             style={Styles.headerChildIconLeftContainer}>
             <RightIcon name="chevron-small-right" color="#4a6164" size={25} />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
 
         <View
           style={Styles.scrollViewContainer}>
