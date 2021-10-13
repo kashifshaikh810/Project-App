@@ -15,7 +15,7 @@ import {HomeStyles} from './HomeStyles';
 import {renderItems, renderItemsTwo, renderIcons} from './AllRendersItem';
 import {iconsData, dummyData, dummyDataTwo} from './Data';
 
-const HomeMarkup = () => {
+const HomeMarkup = props => {
   return (
     <ScrollView>
       <View style={HomeStyles.areaContainer}>
@@ -30,7 +30,10 @@ const HomeMarkup = () => {
         <SearchIcon name="search" size={20} />
         <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
         <View style={HomeStyles.topIconsContainer}>
-          <SearchIcon name="bell" size={20} />
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('NotificationMain')}>
+            <SearchIcon name="bell" size={20} />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -43,7 +46,7 @@ const HomeMarkup = () => {
 
       <FlatList
         data={iconsData}
-        renderItem={item => renderIcons(item)}
+        renderItem={item => renderIcons(item, props)}
         horizontal={true}
       />
 
@@ -52,7 +55,7 @@ const HomeMarkup = () => {
 
         <FlatList
           data={dummyData}
-          renderItem={item => renderItems(item)}
+          renderItem={item => renderItems(item, props)}
           horizontal={true}
         />
 
@@ -60,7 +63,7 @@ const HomeMarkup = () => {
 
         <FlatList
           data={dummyDataTwo}
-          renderItem={item => renderItemsTwo(item)}
+          renderItem={item => renderItemsTwo(item, props)}
           horizontal={true}
         />
       </View>

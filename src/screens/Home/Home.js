@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import HomeMarkup from './HomeMarkup';
 
-const Home = () => {
+const Home = props => {
   return (
     <View>
-      <HomeMarkup />
+      <HomeMarkup {...props} />
     </View>
   );
 };

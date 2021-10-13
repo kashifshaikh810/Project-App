@@ -10,50 +10,86 @@ import TShirtIcon from 'react-native-vector-icons/Ionicons';
 
 import {HomeStyles} from './HomeStyles';
 
+    // username: 'Car Concept Karachi',
+    // joinDate: 'May 2016',
+    // description: 'Oppo ads selling no minor issue',
+    // rs: '20,000',
+    // image: require('../../../Components/Utility/Images/sofa.jpg'),
+    // location: 'Karachi',
+    // date: '02/05/2010',
+    // condition: 'New',
+    // featured: 'FEATURED',
+    // fullDescription: 'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
+
 export const dummyData = [
   {
+    username: 'Danish Sheikh',
+    joinDate: 'May 2016',
     featured: 'FEATURED',
     rs: '25,500',
     description: 'Computer/Study table',
     location: 'Bahadurabad, Karachi',
     date: `${27}Jul`,
     image: require('../../Components/Utility/Images/table.jpg'),
+    fullDate: '02/05/2010',
+    condition: 'New',
+    fullDescription: 'dojdoqjfoefuhuwefeifewofweofweofhewofhweofnwefnonfowefwefonewno',
   },
 
   {
+    username: 'Daniyal Khan',
+    joinDate: 'Dec 2015',
+    featured: 'FEATURED',
+    rs: '10,000',
+    description: 'Selling my new table contact us',
+    location: 'Gulshan-E-Iqbal block 11,K...',
+    date: `${5}Aug`,
+    image: require('../../Components/Utility/Images/image.jpeg'),
+    fullDate: '07/01/2019',
+    condition: 'Used',
+    fullDescription: 'ppiiewowejowejfojwefojiwefojwfowejjowefwefjweoifjweofjwoeijfowejfowejifjoiweweoi',
+  },
+
+  {
+    username: 'Umair Shah',
+    joinDate: 'Jan 2018',
     featured: 'FEATURED',
     rs: '10,000',
     description: 'Work from home computer/la...',
     location: 'Gulshan-E-Iqbal block 11,K...',
     date: `${5}Aug`,
     image: require('../../Components/Utility/Images/image.jpeg'),
+    fullDate: '01/05/2016',
+    condition: 'New',
+    fullDescription: 'fjdfndjnfjajfalfnalfnaljfnaljfalnflanflaslc a anlfnalnflajfasfaslfnlasjnfjlasn',
   },
 
   {
+    username: 'Azhar Siddiqui',
+    joinDate: 'July 2017',
     featured: 'FEATURED',
     rs: '10,000',
     description: 'Work from home computer/la...',
     location: 'Gulshan-E-Iqbal block 11,K...',
     date: `${5}Aug`,
     image: require('../../Components/Utility/Images/image.jpeg'),
+    fullDate: '07/05/2013',
+    condition: 'Used',
+    fullDescription: 'ppqdoqjdwneofnwefowenfnwefonwefnweofnweofnweofwenwegwej',
   },
 
   {
+    username: 'Mehmood Khan',
+    joinDate: 'Feb 2014',
     featured: 'FEATURED',
     rs: '10,000',
     description: 'Work from home computer/la...',
     location: 'Gulshan-E-Iqbal block 11,K...',
     date: `${5}Aug`,
     image: require('../../Components/Utility/Images/image.jpeg'),
-  },
-
-  {
-    featured: 'FEATURED',
-    rs: '10,000',
-    description: 'Work from home computer/la...',
-    location: 'Gulshan-E-Iqbal block 11,K...',
-    date: `${5}Aug`,
-    image: require('../../Components/Utility/Images/image.jpeg'),
+    fullDate: '03/01/2018',
+    condition: 'New',
+    fullDescription: 'uquhquhqudhqudhqufldlndsvsdnvjsdvjnsdvnsdjvkksdasjdasdasjdlasj',
   },
 ];
 

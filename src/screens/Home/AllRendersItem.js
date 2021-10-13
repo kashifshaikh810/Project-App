@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text, ImageBackground} from 'react-native';
+import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import {HomeStyles} from './HomeStyles';
 
-export const renderItems = ({item}) => {
+export const renderItems = ({item}, props) => {
   return (
     <View style={HomeStyles.renderItemContainer}>
-      <View style={HomeStyles.renderItemContent}>
+      <TouchableOpacity style={HomeStyles.renderItemContent} onPress={() => props.navigation.navigate('ViewFullBasedAdd', {data: item})}>
         <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>
@@ -35,7 +35,7 @@ export const renderItems = ({item}) => {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

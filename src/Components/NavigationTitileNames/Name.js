@@ -21,6 +21,8 @@ export const Mark_As_Sold_Page = 'MarkAsSold';
 export const View_Full_Ad_Page = 'ViewFullAd';
 export const View_MyFull_FavourtiesAd_Page = 'ViewMyFullFavourtiesAd';
 export const Other_User_Profile_Page = 'OtherUserProfile';
+export const View_Full_Based_Add_Page = 'ViewFullBasedAdd';
+export const Notifications_Main_Page = 'NotificationMain';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

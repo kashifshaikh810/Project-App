@@ -88,31 +88,18 @@ const BottomTabNav = props => {
         listeners={routeName => setShowTopLine(routeName)}
         options={{
           tabBarIcon: () => (
-            // <TouchableOpacity
-            //   style={styles.adsIcon}
-            //   onPress={() => props.navigation.navigate('SELL')}>
-            // <LinearGradient 
-            // // colors={['#3e7dfa', '#3ae6dc', '#ffce38']} style={{}}
-            // colors={['#00FFFF', '#17C8FF', '#329BFF', '#4C64FF', '#6536FF', '#8000FF']}
-            // start={{ x: 0.0, y: 1.0 }} end={{ x: 1.0, y: 1.0 }}
-            // style={styles.grediant}
-            //   >
-            //   <MyAdsIcon name="plus" size={20} />
-            // </LinearGradient>
-            // </TouchableOpacity>
             <View style={styles.container}>
-                <LinearGradient
-                    colors={['#00FFFF', '#17C8FF', '#329BFF', '#4C64FF', '#6536FF', '#8000FF']}
-                    start={{ x: 0.0, y: 1.0 }} end={{ x: 1.0, y: 1.0 }}
-                    style={styles.grediant}
-                >
-                    <TouchableOpacity style={styles.buttonContainer}>
-                        {/* <Text style={styles.buttonText}>
-                            LOGIN
-                         </Text> */}
-                    <MyAdsIcon name="plus" size={20} />
-                    </TouchableOpacity>
-                </LinearGradient>
+              <LinearGradient
+                colors={['#3e7dfa', '#39e5dc', '#fecd37']}
+                start={{x: 0.0, y: 1.2}}
+                end={{x: 1.9, y: 1.0}}
+                style={styles.grediant}>
+                <TouchableOpacity
+                  style={styles.buttonContainer}
+                  onPress={() => props.navigation.navigate('SELL')} activeOpacity={0.9}>
+                  <MyAdsIcon name="plus" size={25} color="#222222" />
+                </TouchableOpacity>
+              </LinearGradient>
             </View>
           ),
         }}
