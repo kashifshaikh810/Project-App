@@ -573,7 +573,7 @@ const IncludesMarkup = props => {
         </View>
 
         <View style={Styles.buttonContainer}>
-          <TouchableOpacity style={Styles.buttonTouchAble} onPress={() => {}}>
+          <TouchableOpacity style={Styles.buttonTouchAble} onPress={() => props.navigation.navigate('ReviewYourDetails')}>
             <Text style={Styles.buttonTxt}>Next</Text>
           </TouchableOpacity>
         </View>

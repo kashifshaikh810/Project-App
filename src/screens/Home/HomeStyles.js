@@ -84,6 +84,7 @@ export const HomeStyles = StyleSheet.create({
     marginHorizontal: responsiveHeight(3),
     marginVertical: responsiveHeight(1),
     flexDirection: 'row',
+    alignItems: 'center',
   },
   areaContent: {
     marginHorizontal: responsiveHeight(1.5),

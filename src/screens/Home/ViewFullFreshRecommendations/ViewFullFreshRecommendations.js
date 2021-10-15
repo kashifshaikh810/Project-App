@@ -24,7 +24,7 @@ import {dummyData} from '../Data';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
-const ViewFullBasedAdd = props => {
+const ViewFullFreshRecommendations = props => {
   const [addToFav, setAddToFav] = useState(false);
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const routeData = props.route.params.data;
@@ -333,4 +333,4 @@ const ViewFullBasedAdd = props => {
   );
 };
 
-export default ViewFullBasedAdd;
+export default ViewFullFreshRecommendations;

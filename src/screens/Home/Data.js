@@ -95,48 +95,73 @@ export const dummyData = [
 
 export const dummyDataTwo = [
   {
+    username: 'Ashraf Khan',
+    joinDate: 'May 2014',
     featured: 'FEATURED',
     rs: '36,000',
     description: 'Furnture Sofa Set-6 seater So...',
     location: 'North Karachi, Karachi',
     date: `${11}Aug`,
     image: require('../../Components/Utility/Images/sofa.jpg'),
+    fullDate: '05/04/2012',
+    condition: 'Used',
+    fullDescription: 'kopfjpfjqpfepifjepjifpeifpiefjepifewifpeiwfpwefjiewpifjwepjifjepiwfjiwefjewpfnvndjnv',
   },
 
   {
+    username: 'Yasir Shah',
+    joinDate: 'June 2011',
     featured: 'FEATURED',
     rs: '45,000',
     description: 'ACP UPS 10KVA/6KVA/5KVA...',
     location: 'Cantt, Karachi',
     date: `${3}Aug`,
     image: require('../../Components/Utility/Images/tableTwo.jpg'),
+    fullDate: '02/07/2013',
+    condition: 'New',
+    fullDescription: 'kopfjpfjqpfepifjepjifpeifpiefjepifewifpeiwfpwefjiewpifjwepjifjepiwfjiwefjewpfnvndjnv',
   },
 
   {
+    username: 'Khurram Khan',
+    joinDate: 'Jan 2018',
     featured: 'FEATURED',
     rs: '45,000',
     description: 'ACP UPS 10KVA/6KVA/5KVA...',
     location: 'Cantt, Karachi',
     date: `${3}Aug`,
     image: require('../../Components/Utility/Images/tableTwo.jpg'),
+    fullDate: '07/01/2019',
+    condition: 'Used',
+    fullDescription: 'peqpqkeqeoqwfwifwefnnckdscndkcjndkjcKDDKLSLFKJAFKLALKFJALFJASFJEOFWEFUWEIFUHWEFUWOEFUWEOFWE',
   },
 
   {
+    username: 'Suresh mohdi',
+    joinDate: 'April 2013',
     featured: 'FEATURED',
     rs: '45,000',
     description: 'ACP UPS 10KVA/6KVA/5KVA...',
     location: 'Cantt, Karachi',
     date: `${3}Aug`,
     image: require('../../Components/Utility/Images/tableTwo.jpg'),
+    fullDate: '03/06/2017',
+    condition: 'New',
+    fullDescription: 'iqiqoeiqijoifojododnsdnonlslamxlamxasma;nd;fojnw;ofnwo;fnwfninegrgrgrooghroohowoojdjn',
   },
 
   {
+    username: 'Hammad Khan',
+    joinDate: 'July 2016',
     featured: 'FEATURED',
     rs: '45,000',
     description: 'ACP UPS 10KVA/6KVA/5KVA...',
     location: 'Cantt, Karachi',
     date: `${3}Aug`,
     image: require('../../Components/Utility/Images/tableTwo.jpg'),
+    fullDate: '06/01/2013',
+    condition: 'Used',
+    fullDescription: 'piwjofweiuvwovwvonnc,d.amldmkpgmpewpgrnojnjnnnvnvvvnvnpwpqwiqwpwqpwiqprpinnvnnnnsacac',
   },
 ];
 

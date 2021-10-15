@@ -23,6 +23,9 @@ export const View_MyFull_FavourtiesAd_Page = 'ViewMyFullFavourtiesAd';
 export const Other_User_Profile_Page = 'OtherUserProfile';
 export const View_Full_Based_Add_Page = 'ViewFullBasedAdd';
 export const Notifications_Main_Page = 'NotificationMain';
+export const View_Full_Fresh_Recommendations_Page = 'ViewFullFreshRecommendations';
+export const Review_Your_Details_Page = 'ReviewYourDetails';
+export const Ad_Successfully_Post_Msg_Page = 'AdSuccessfullyPostMsg';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

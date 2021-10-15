@@ -28,6 +28,9 @@ import {
   Other_User_Profile_Page,
   View_Full_Based_Add_Page,
   Notifications_Main_Page,
+  View_Full_Fresh_Recommendations_Page,
+  Review_Your_Details_Page,
+  Ad_Successfully_Post_Msg_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -54,6 +57,9 @@ import ViewMyFullFavourtiesAd from '../MyAds/Favourites/ViewMyFullFavourtiesAd/V
 import OtherUserProfile from '../OtherUserProfile/OtherUserProfile';
 import ViewFullBasedAdd from '../Home/ViewFullBasedAdd/ViewFullBasedAdd';
 import NotificationMain from '../NotificationMain/NotificationMain';
+import ViewFullFreshRecommendations from '../Home/ViewFullFreshRecommendations/ViewFullFreshRecommendations';
+import ReviewYourDetails from '../IncludesDetails/ReviewYourDetails/ReviewYourDetails';
+import AdSuccessfullyPostMsg from '../IncludesDetails/AdSuccessfullyPostMsg/AdSuccessfullyPostMsg';
 
 const Stack = createNativeStackNavigator();
 
@@ -113,6 +119,18 @@ const Nav = () => {
         <Stack.Screen
           name={Notifications_Main_Page}
           component={NotificationMain}
+        />
+        <Stack.Screen
+          name={View_Full_Fresh_Recommendations_Page}
+          component={ViewFullFreshRecommendations}
+        />
+        <Stack.Screen
+          name={Review_Your_Details_Page}
+          component={ReviewYourDetails}
+        />
+        <Stack.Screen
+          name={Ad_Successfully_Post_Msg_Page}
+          component={AdSuccessfullyPostMsg}
         />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}

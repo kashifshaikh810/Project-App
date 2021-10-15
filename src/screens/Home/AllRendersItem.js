@@ -7,7 +7,11 @@ import {HomeStyles} from './HomeStyles';
 export const renderItems = ({item}, props) => {
   return (
     <View style={HomeStyles.renderItemContainer}>
-      <TouchableOpacity style={HomeStyles.renderItemContent} onPress={() => props.navigation.navigate('ViewFullBasedAdd', {data: item})}>
+      <TouchableOpacity
+        style={HomeStyles.renderItemContent}
+        onPress={() =>
+          props.navigation.navigate('ViewFullBasedAdd', {data: item})
+        }>
         <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>
@@ -40,10 +44,16 @@ export const renderItems = ({item}, props) => {
   );
 };
 
-export const renderItemsTwo = ({item}) => {
+export const renderItemsTwo = ({item}, props) => {
   return (
     <View style={HomeStyles.renderItemContainer}>
-      <View style={HomeStyles.renderItemContent}>
+      <TouchableOpacity
+        style={HomeStyles.renderItemContent}
+        onPress={() =>
+          props.navigation.navigate('ViewFullFreshRecommendations', {
+            data: item,
+          })
+        }>
         <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>
@@ -73,7 +83,7 @@ export const renderItemsTwo = ({item}) => {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -84,11 +94,15 @@ export const renderIcons = ({item}) => {
       <View>{item.icon}</View>
       {item.iconName.length > 14 ? (
         <View style={HomeStyles.bigTextContainer}>
-          <Text style={HomeStyles.allTextStyle}>{item.iconName}</Text>
+          <Text style={HomeStyles.allTextStyle} numberOfLines={2}>
+            {item.iconName}
+          </Text>
         </View>
       ) : (
         <View style={HomeStyles.smallTextContainer}>
-          <Text style={HomeStyles.allTextStyle}>{item.iconName}</Text>
+          <Text style={HomeStyles.allTextStyle} numberOfLines={2}>
+            {item.iconName}
+          </Text>
         </View>
       )}
     </View>
