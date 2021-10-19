@@ -2,9 +2,16 @@ import React from 'react';
 import {View, Text, Modal, TouchableOpacity, FlatList} from 'react-native';
 import {Styles} from './Styles';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
-import {data} from './Data';
+// import {data} from './Data';
 
 const SortingAdsModal = props => {
+  const data = [
+    {name: `${`View all (${props.dummyData.length})`}`, id: 1},
+    {name: 'Active Ads (0)'},
+    {name: 'Inactive Ads (2)'},
+    {name: 'Pending Ads (0)'},
+    {name: 'Moderated Ads (0)'},
+  ];
 
   const click = item => {
     props.setShowSortingAdsModal({

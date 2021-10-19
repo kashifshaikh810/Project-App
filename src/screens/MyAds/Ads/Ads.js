@@ -15,8 +15,12 @@ const Ads = props => {
   return (
     <View style={Styles.container}>
       <View style={Styles.borderBottom}>
-        <TouchableOpacity style={Styles.dropDownContainer} onPress={() => setShowSortingAdsModal({shown: true})}>
-          <Text style={Styles.dropDownText}>{showSortingAdsModal.data || 'Active Ads (0)' }</Text>
+        <TouchableOpacity
+          style={Styles.dropDownContainer}
+          onPress={() => setShowSortingAdsModal({shown: true})}>
+          <Text style={Styles.dropDownText}>
+            {showSortingAdsModal.data || 'Active Ads (0)'}
+          </Text>
           <ArrowDown name="keyboard-arrow-down" size={25} />
         </TouchableOpacity>
       </View>
@@ -24,6 +28,7 @@ const Ads = props => {
       <SortingAdsModal
         showSortingAdsModal={showSortingAdsModal}
         setShowSortingAdsModal={setShowSortingAdsModal}
+        dummyData={dummyData}
       />
 
       <View style={Styles.midContainer}>
@@ -45,7 +50,9 @@ const Ads = props => {
 
       <FlatList
         data={dummyData}
-        renderItem={item => renderItems(item, props, showModal, setShowModal)}
+        renderItem={item =>
+          renderItems(item, dummyData, props, showModal, setShowModal)
+        }
       />
     </View>
   );
