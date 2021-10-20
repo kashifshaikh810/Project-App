@@ -218,7 +218,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#9cb8fc'}]}
       />
     ),
-    iconName: 'Electronics & Home A...',
+    iconName: 'Electronics & Home Appliances',
   },
 
   {
@@ -240,7 +240,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#d0b482'}]}
       />
     ),
-    iconName: 'Furniture & Home D...',
+    iconName: 'Furniture & Home Decor',
   },
 
   {
@@ -262,7 +262,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#f9dd3c'}]}
       />
     ),
-    iconName: 'Books, Sports &...',
+    iconName: 'Books, Sports & Hobbies',
   },
 
   {
@@ -284,7 +284,7 @@ export const iconsData = [
         style={[HomeStyles.horizontalIcons, {backgroundColor: '#fee893'}]}
       />
     ),
-    iconName: 'Business, industrial...',
+    iconName: 'Business, Industrial & Agriculture',
   },
 
   {

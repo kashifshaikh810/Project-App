@@ -168,13 +168,14 @@ export const iconsData = [
   },
 ];
 
-export const renderIcons = ({item}, navigation) => {
+export const renderIcons = ({item}, navigation, props) => {
+  const name = props.route.params.routeName;
   return (
     <View style={Styles.mainContainer}>
       <TouchableOpacity
         style={Styles.listContainer}
         onPress={() =>
-          navigation.navigate('SelectedCategories', {routeData: item.iconName})
+          navigation.navigate('SelectedCategories', {routeData: item.iconName, routeName: name})
         }>
         <View>{item.icon}</View>
         <View>

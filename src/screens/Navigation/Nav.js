@@ -31,6 +31,7 @@ import {
   View_Full_Fresh_Recommendations_Page,
   Review_Your_Details_Page,
   Ad_Successfully_Post_Msg_Page,
+  SEARCH_ITEMS_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -60,6 +61,7 @@ import NotificationMain from '../NotificationMain/NotificationMain';
 import ViewFullFreshRecommendations from '../Home/ViewFullFreshRecommendations/ViewFullFreshRecommendations';
 import ReviewYourDetails from '../IncludesDetails/ReviewYourDetails/ReviewYourDetails';
 import AdSuccessfullyPostMsg from '../IncludesDetails/AdSuccessfullyPostMsg/AdSuccessfullyPostMsg';
+import SearchItems from '../SearchItems/SearchItems';
 
 const Stack = createNativeStackNavigator();
 
@@ -132,6 +134,7 @@ const Nav = () => {
           name={Ad_Successfully_Post_Msg_Page}
           component={AdSuccessfullyPostMsg}
         />
+        <Stack.Screen name={SEARCH_ITEMS_Page} component={SearchItems} />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>

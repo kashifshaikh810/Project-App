@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {
   Account_Page,
+  Categories_Page,
   Chats_Page,
   Home_Page,
   MyAds_Page,
@@ -18,6 +19,7 @@ import {
 import Home from '../Home/Home';
 import Chats from '../Chats/Chats';
 import Sell from '../Sell/Sell';
+import Categories from '../Categories/Categories';
 import MyAds from '../MyAds/MyAds';
 import Account from '../Account/Account';
 import {styles} from './styles';
@@ -26,6 +28,11 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNav = props => {
   const [showTopLine, setShowTopLine] = useState('');
+
+  const click = routeName => {
+    setShowTopLine(routeName);
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -84,8 +91,8 @@ const BottomTabNav = props => {
       />
       <Tab.Screen
         name={Sell_Page}
-        component={Sell}
-        listeners={routeName => setShowTopLine(routeName)}
+        component={Categories}
+        listeners={routeName => click(routeName)}
         options={{
           tabBarIcon: () => (
             <View style={styles.container}>
@@ -96,7 +103,8 @@ const BottomTabNav = props => {
                 style={styles.grediant}>
                 <TouchableOpacity
                   style={styles.buttonContainer}
-                  onPress={() => props.navigation.navigate('SELL')} activeOpacity={0.9}>
+                  onPress={() => props.navigation.navigate('Categories')}
+                  activeOpacity={0.9}>
                   <MyAdsIcon name="plus" size={25} color="#222222" />
                 </TouchableOpacity>
               </LinearGradient>

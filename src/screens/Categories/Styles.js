@@ -15,8 +15,8 @@ export const Styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     height: responsiveScreenHeight(8),
-    width: responsiveScreenWidth(90),
-    justifyContent: 'space-around',
+    width: responsiveScreenWidth(85),
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   offeringTxt: {
@@ -66,5 +66,10 @@ export const Styles = StyleSheet.create({
     color: '#375457',
     textAlign: 'center',
     maxWidth: responsiveScreenWidth(30.7),
+  },
+  flatListMain: {
+    height: responsiveScreenHeight(100),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

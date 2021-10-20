@@ -20,12 +20,29 @@ import {
   ServicesData,
   VehiclesData,
 } from './Data';
+import {
+  AnimalsDataHome,
+  BikesDataHome,
+  BooksDataHome,
+  BusinessDataHome,
+  ElectronicsDataHome,
+  FashionDataHome,
+  FurnitureDataHome,
+  JobsDataHome,
+  KidsDataHome,
+  MobilesDataHome,
+  PropertyDataHome,
+  PropertyRentDataHome,
+  ServicesDataHome,
+  VehiclesDataHome,
+} from './DataOfHome';
 import {Styles} from './Styles';
 import {responsiveScreenWidth} from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
 const SelectedCategories = data => {
   const navigation = useNavigation();
   const routeName = data.route.params.routeData;
+  const name = data.route.params.routeName;
 
   const renderWidth =
     (routeName === 'Mobiles' && responsiveScreenWidth(35)) ||
@@ -62,6 +79,22 @@ const SelectedCategories = data => {
     (routeName === 'Books, Sports & Hobbies' && BooksData) ||
     (routeName === 'Kids' && KidsData);
 
+  const renderHomeData =
+    (routeName === 'Mobiles' && MobilesDataHome) ||
+    (routeName === 'Vehicles' && VehiclesDataHome) ||
+    (routeName === 'Property for Sale' && PropertyDataHome) ||
+    (routeName === 'Property for Rent' && PropertyRentDataHome) ||
+    (routeName === 'Electronics & Home Appliances' && ElectronicsDataHome) ||
+    (routeName === 'Bikes' && BikesDataHome) ||
+    (routeName === 'Business, Industrial & Agriculture' && BusinessDataHome) ||
+    (routeName === 'Services' && ServicesDataHome) ||
+    (routeName === 'Jobs' && JobsDataHome) ||
+    (routeName === 'Animals' && AnimalsDataHome) ||
+    (routeName === 'Furniture & Home Decor' && FurnitureDataHome) ||
+    (routeName === 'Fashion & Beauty' && FashionDataHome) ||
+    (routeName === 'Books, Sports & Hobbies' && BooksDataHome) ||
+    (routeName === 'Kids' && KidsDataHome);
+
   return (
     <View>
       <View style={[Styles.routeNameContainer, {width: renderWidth}]}>
@@ -72,8 +105,8 @@ const SelectedCategories = data => {
       </View>
 
       <FlatList
-        data={renderData}
-        renderItem={item => testRenderItem(item, navigation)}
+        data={name === 'Home' ? renderHomeData : renderData}
+        renderItem={item => testRenderItem(item, navigation, data)}
         style={Styles.flatList}
       />
     </View>

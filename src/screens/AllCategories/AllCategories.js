@@ -6,8 +6,9 @@ import IconLeft from 'react-native-vector-icons/Feather';
 import {iconsData, renderIcons} from './Data';
 import {Styles} from './Styles';
 
-const AllCategories = () => {
+const AllCategories = props => {
   const navigation = useNavigation();
+  console.log(props);
   return (
     <View>
       <View style={Styles.headerContainer}>
@@ -19,7 +20,7 @@ const AllCategories = () => {
 
       <FlatList
         data={iconsData}
-        renderItem={item => renderIcons(item, navigation)}
+        renderItem={item => renderIcons(item, navigation, props)}
         style={Styles.flatList}
       />
     </View>

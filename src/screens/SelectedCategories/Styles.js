@@ -9,10 +9,9 @@ import {
 
 export const Styles = StyleSheet.create({
   renderContainer: {
-    height: responsiveScreenHeight(7),
+    paddingVertical: responsiveScreenHeight(2),
     paddingHorizontal: responsiveWidth(8),
     width: responsiveScreenWidth(100),
-    justifyContent: 'space-around',
   },
   renderText: {
     color: '#637777',

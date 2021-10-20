@@ -39,9 +39,13 @@ const HomeMarkup = props => {
 
       <View style={HomeStyles.categoriesContainer}>
         <Text>Browse Categories</Text>
-        <View style={HomeStyles.topIconsContainer}>
+        <TouchableOpacity
+          style={HomeStyles.topIconsContainer}
+          onPress={() =>
+            props.navigation.navigate('AllCategories', {routeName: 'Home'})
+          }>
           <Text style={HomeStyles.sellAll}>See all</Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
       <FlatList

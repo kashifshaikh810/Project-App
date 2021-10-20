@@ -88,9 +88,13 @@ export const renderItemsTwo = ({item}, props) => {
   );
 };
 
-export const renderIcons = ({item}) => {
+export const renderIcons = ({item}, props) => {
+  let name = item.iconName;
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() =>
+        props.navigation.navigate('SelectedCategories', {routeData: name, routeName: 'Home'})
+      }>
       <View>{item.icon}</View>
       {item.iconName.length > 14 ? (
         <View style={HomeStyles.bigTextContainer}>
@@ -105,6 +109,6 @@ export const renderIcons = ({item}) => {
           </Text>
         </View>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };

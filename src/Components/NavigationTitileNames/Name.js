@@ -26,6 +26,7 @@ export const Notifications_Main_Page = 'NotificationMain';
 export const View_Full_Fresh_Recommendations_Page = 'ViewFullFreshRecommendations';
 export const Review_Your_Details_Page = 'ReviewYourDetails';
 export const Ad_Successfully_Post_Msg_Page = 'AdSuccessfullyPostMsg';
+export const SEARCH_ITEMS_Page = 'SearchItems';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

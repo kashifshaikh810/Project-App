@@ -13,7 +13,7 @@ const Categories = () => {
     <View>
       <View style={Styles.container}>
         <View style={Styles.iconContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('SELLING')}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <CloseIcon name="close" size={25} />
           </TouchableOpacity>
           <Text style={Styles.offeringTxt}>What are you offering?</Text>
@@ -34,12 +34,14 @@ const Categories = () => {
         </View>
       </View>
 
-      <FlatList
-        data={iconsData}
-        renderItem={item => renderIcons(item, navigation)}
-        numColumns={3}
-        style={Styles.flatList}
-      />
+      <View style={Styles.flatListMain}>
+        <FlatList
+          data={iconsData}
+          renderItem={item => renderIcons(item, navigation)}
+          numColumns={3}
+          style={Styles.flatList}
+        />
+      </View>
     </View>
   );
 };
