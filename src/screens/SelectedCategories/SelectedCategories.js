@@ -105,6 +105,7 @@ const SelectedCategories = data => {
       </View>
 
       <FlatList
+        keyExtractor={(item, index) => String(index)}
         data={name === 'Home' ? renderHomeData : renderData}
         renderItem={item => testRenderItem(item, navigation, data)}
         style={Styles.flatList}
