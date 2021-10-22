@@ -80,7 +80,7 @@ export const Styles = StyleSheet.create({
   },
   resultText: {
     fontSize: responsiveScreenFontSize(2.3),
-    maxWidth: responsiveScreenWidth(60),
+    maxWidth: responsiveScreenWidth(55),
     marginHorizontal: responsiveScreenWidth(4),
     color: '#2d5358',
   },

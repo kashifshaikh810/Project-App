@@ -149,7 +149,7 @@ const SearchItems = props => {
   return (
     <View style={Styles.container}>
       <View style={Styles.headerContainer}>
-        <TouchableOpacity style={Styles.iconLeftContainer} onPress={() => props.navigation.navigate('SelectedCategories')}>
+        <TouchableOpacity style={Styles.iconLeftContainer} onPress={() => props.navigation.goBack()}>
           <IconLeft name="chevron-left" size={25} color="#083336" />
         </TouchableOpacity>
 
@@ -201,7 +201,7 @@ const SearchItems = props => {
 
           {closeItem ? null : (
             <View style={Styles.selectionButtonContainer}>
-              <Text>{sortName.name}</Text>
+              <Text>{sortName.name || sortName}</Text>
               <TouchableOpacity onPress={() => setCloseItem(true)}>
                 <CloseIcon
                   name="close"
@@ -218,7 +218,7 @@ const SearchItems = props => {
       <View style={Styles.searchResultContainer}>
         <Text style={Styles.resultText}>
           Showing result for
-          <Text style={Styles.sortName}> {sortName.name}</Text>
+          <Text style={Styles.sortName}> {sortName.name || sortName}</Text>
         </Text>
         <View style={Styles.adNumbersContainer}>
           <View style={Styles.adNumbersMain}>

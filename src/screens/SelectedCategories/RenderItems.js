@@ -8,7 +8,11 @@ export const testRenderItem = ({item}, props, data) => {
 
   const itemOnClick = () => {
     if (name === 'Home') {
-      props.navigate('SearchItems', {itemData: item});
+      if (item.id === 1) {
+        props.navigate('SearchItems', {itemData: item.type});
+      } else {
+        props.navigate('SearchItems', {itemData: item});
+      }
     } else {
       props.navigate('IncludesDetails', {routeData: item});
     }
