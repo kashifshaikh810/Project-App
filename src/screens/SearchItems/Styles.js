@@ -97,11 +97,11 @@ export const Styles = StyleSheet.create({
   },
   adNumbersMain: {
     backgroundColor: '#023034',
-    width: responsiveScreenWidth(32),
-    height: responsiveScreenHeight(3.5),
+    flex: 0.4,
+    paddingHorizontal: responsiveScreenWidth(3),
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: responsiveScreenWidth(4),
+    marginHorizontal: responsiveScreenWidth(3),
     borderRadius: 20,
   },
   adNumbers: {

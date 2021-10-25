@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, Text, ScrollView, TouchableOpacity, FlatList, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground,
+} from 'react-native';
 import {Styles} from './Styles';
 import IconLeft from 'react-native-vector-icons/Feather';
 import SearchIcon from 'react-native-vector-icons/Feather';
@@ -23,7 +30,8 @@ const dummyDataTwo = [
     dateOfM: `${27}Jul`,
     condition: 'New',
     featured: 'FEATURED',
-    fullDescription: 'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
+    fullDescription:
+      'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
   },
   {
     username: 'Suleman Khan',
@@ -36,7 +44,8 @@ const dummyDataTwo = [
     date: '07/02/2018',
     condition: 'Used',
     featured: 'FEATURED',
-    fullDescription: 'iidoqdduqduqwdhqdhqwdhdqdqwdqwdqwpkpmvfmvvkdjnvovjvovowjvowjv.lkn;vjwovjwvommmmsdsdsd',
+    fullDescription:
+      'iidoqdduqduqwdhqdhqwdhdqdqwdqwdqwpkpmvfmvvkdjnvovjvovowjvowjv.lkn;vjwovjwvommmmsdsdsd',
   },
   {
     username: 'Ayesha Sheikh',
@@ -49,7 +58,8 @@ const dummyDataTwo = [
     date: '05/03/2014',
     condition: 'New',
     featured: 'FEATURED',
-    fullDescription: 'ppqoqqoeqeqeiohurgiuerhgiernjgnrlnwnl;mlm;mpkmo;ank;ononfaofjnjfno;afna;ofjna;ofjn;on',
+    fullDescription:
+      'ppqoqqoeqeqeiohurgiuerhgiernjgnrlnwnl;mlm;mpkmo;ank;ononfaofjnjfno;afna;ofjna;ofjn;on',
   },
   {
     username: 'Kamran Warsi',
@@ -62,7 +72,8 @@ const dummyDataTwo = [
     date: '01/05/2013',
     condition: 'Used',
     featured: 'FEATURED',
-    fullDescription: 'oiifiefieifieiiefieifieifefieifeifiefieififiefieifeifefifieiiefiefefeifeifiefieiiefiefiiei',
+    fullDescription:
+      'oiifiefieifieiiefieifieifefieifeifiefieififiefieifeifefifieiiefiefefeifeifiefieiiefiefiiei',
   },
   {
     username: 'Ahmed Khan',
@@ -75,7 +86,8 @@ const dummyDataTwo = [
     dateOfM: `${27}Jul`,
     condition: 'New',
     featured: 'FEATURED',
-    fullDescription: 'yewuyuryeuryeyryeryyeryryeryyeyryeyryyeyryerreyreyyyuewryweurweyryweurwerywruruyweurywerweuryu',
+    fullDescription:
+      'yewuyuryeuryeyryeryyeryryeryyeyryeyryyeyryerreyreyyyuewryweurweyryweurwerywruruyweurywerweuryu',
   },
   {
     username: 'Kadir Shah',
@@ -88,7 +100,8 @@ const dummyDataTwo = [
     date: '07/05/2020',
     condition: 'Used',
     featured: 'FEATURED',
-    fullDescription: 'd;ohougheuhmxlmkoqvoqqovnvvnkjnckjnknkjnkanasasdasdasdasdasdasdasdasddadasdasdalkvndovvvvwvnoivwvnowievn',
+    fullDescription:
+      'd;ohougheuhmxlmkoqvoqqovnvvnkjnckjnknkjnkanasasdasdasdasdasdasdasdasddadasdasdalkvndovvvvwvnoivwvnowievn',
   },
 ];
 
@@ -121,7 +134,7 @@ export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
           </View>
         </ImageBackground>
 
-         <Text style={Styles.rsStyle}>Rs {item.rs}</Text>
+        <Text style={Styles.rsStyle}>Rs {item.rs}</Text>
         <View style={Styles.flexContainer}>
           <Text style={Styles.description} numberOfLines={1}>
             {item.description}
@@ -141,7 +154,10 @@ export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
 };
 
 const SearchItems = props => {
-  const sortName = props.route.params.itemData;
+  const sortName =
+    (props.route.params && props.route.params.itemData) ||
+    props.route.params.data.itemData;
+  const selection = props.route.params.data && props.route.params.selection;
   const [closeLocation, setCloseLocation] = useState(false);
   const [closeItem, setCloseItem] = useState(false);
   const [isChange, setIsChange] = useState(false);
@@ -149,11 +165,15 @@ const SearchItems = props => {
   return (
     <View style={Styles.container}>
       <View style={Styles.headerContainer}>
-        <TouchableOpacity style={Styles.iconLeftContainer} onPress={() => props.navigation.goBack()}>
+        <TouchableOpacity
+          style={Styles.iconLeftContainer}
+          onPress={() => props.navigation.goBack()}>
           <IconLeft name="chevron-left" size={25} color="#083336" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={Styles.searchSectionContainer}>
+        <TouchableOpacity
+          style={Styles.searchSectionContainer}
+          onPress={() => props.navigation.navigate('QuickFilter')}>
           <View>
             <SearchIcon name="search" size={25} color="#022e31" />
           </View>
@@ -168,13 +188,19 @@ const SearchItems = props => {
           <View>
             <BoxIcon name="CodeSandbox" size={30} color="#000e17" />
           </View>
-          <View>
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('SortItemsOptions', {
+                itemData: sortName,
+                selection: selection || 0,
+              })
+            }>
             <CompareVerticalIcon
               name="compare-vertical"
               size={28}
               color="#000e17"
             />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -201,7 +227,7 @@ const SearchItems = props => {
 
           {closeItem ? null : (
             <View style={Styles.selectionButtonContainer}>
-              <Text>{sortName.name || sortName}</Text>
+              <Text>{sortName?.name || sortName}</Text>
               <TouchableOpacity onPress={() => setCloseItem(true)}>
                 <CloseIcon
                   name="close"
@@ -218,11 +244,11 @@ const SearchItems = props => {
       <View style={Styles.searchResultContainer}>
         <Text style={Styles.resultText}>
           Showing result for
-          <Text style={Styles.sortName}> {sortName.name || sortName}</Text>
+          <Text style={Styles.sortName}> {sortName?.name || sortName}</Text>
         </Text>
         <View style={Styles.adNumbersContainer}>
           <View style={Styles.adNumbersMain}>
-            <Text style={Styles.adNumbers}>3000 ads</Text>
+            <Text style={Styles.adNumbers}>10,000+ ads</Text>
           </View>
         </View>
       </View>

@@ -27,6 +27,8 @@ export const View_Full_Fresh_Recommendations_Page = 'ViewFullFreshRecommendation
 export const Review_Your_Details_Page = 'ReviewYourDetails';
 export const Ad_Successfully_Post_Msg_Page = 'AdSuccessfullyPostMsg';
 export const SEARCH_ITEMS_Page = 'SearchItems';
+export const Sort_Items_Options_Page = 'SortItemsOptions';
+export const Quick_Filter_Page = 'QuickFilter';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

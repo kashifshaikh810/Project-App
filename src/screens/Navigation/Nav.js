@@ -32,6 +32,8 @@ import {
   Review_Your_Details_Page,
   Ad_Successfully_Post_Msg_Page,
   SEARCH_ITEMS_Page,
+  Sort_Items_Options_Page,
+  Quick_Filter_Page,
 } from '../../Components/NavigationTitileNames/Name';
 import SignIn from '../Authentication/SignIn/SignIn';
 import SignUp from '../Authentication/SignUp/SignUp';
@@ -62,6 +64,8 @@ import ViewFullFreshRecommendations from '../Home/ViewFullFreshRecommendations/V
 import ReviewYourDetails from '../IncludesDetails/ReviewYourDetails/ReviewYourDetails';
 import AdSuccessfullyPostMsg from '../IncludesDetails/AdSuccessfullyPostMsg/AdSuccessfullyPostMsg';
 import SearchItems from '../SearchItems/SearchItems';
+import SortItemsOptions from '../SearchItems/SortItemsOptions/SortItemsOptions';
+import QuickFilter from '../SearchItems/QuickFilter/QuickFilter';
 
 const Stack = createNativeStackNavigator();
 
@@ -135,6 +139,11 @@ const Nav = () => {
           component={AdSuccessfullyPostMsg}
         />
         <Stack.Screen name={SEARCH_ITEMS_Page} component={SearchItems} />
+        <Stack.Screen
+          name={Sort_Items_Options_Page}
+          component={SortItemsOptions}
+        />
+        <Stack.Screen name={Quick_Filter_Page} component={QuickFilter} />
         {/* <Stack.Screen name={SignIn_Page} component={SignIn} />
         <Stack.Screen name={SignUp_Page} component={SignUp} /> */}
       </Stack.Navigator>
