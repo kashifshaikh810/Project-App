@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -154,13 +154,19 @@ export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
 };
 
 const SearchItems = props => {
-  const sortName =
-    (props.route.params && props.route.params.itemData) ||
-    props.route.params.data.itemData;
+  const sortName = props.route.params.itemData
+    ? (props.route.params && props.route.params.itemData) ||
+      props.route.params.data.itemData
+    : '';
+  const name = props.route.params.sortName;
   const selection = props.route.params.data && props.route.params.selection;
   const [closeLocation, setCloseLocation] = useState(false);
   const [closeItem, setCloseItem] = useState(false);
   const [isChange, setIsChange] = useState(false);
+
+  useEffect(() => {
+    setCloseItem(false);
+  }, [name]);
 
   return (
     <View style={Styles.container}>
@@ -227,7 +233,7 @@ const SearchItems = props => {
 
           {closeItem ? null : (
             <View style={Styles.selectionButtonContainer}>
-              <Text>{sortName?.name || sortName}</Text>
+              <Text>{sortName?.name || sortName || name}</Text>
               <TouchableOpacity onPress={() => setCloseItem(true)}>
                 <CloseIcon
                   name="close"
@@ -244,7 +250,9 @@ const SearchItems = props => {
       <View style={Styles.searchResultContainer}>
         <Text style={Styles.resultText}>
           Showing result for
-          <Text style={Styles.sortName}> {sortName?.name || sortName}</Text>
+          <Text style={Styles.sortName}>
+            {' '}{sortName?.name || sortName || name}
+          </Text>
         </Text>
         <View style={Styles.adNumbersContainer}>
           <View style={Styles.adNumbersMain}>

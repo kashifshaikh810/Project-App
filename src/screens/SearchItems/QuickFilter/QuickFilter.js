@@ -41,6 +41,7 @@ const QuickFilter = props => {
     setSearch('');
     setOnFocus(false);
     Keyboard.dismiss();
+    props.navigation.navigate('SearchItems', {sortName: search});
   };
 
   return (
@@ -79,6 +80,7 @@ const QuickFilter = props => {
               value={search}
               onChangeText={text => setSearch(text)}
               onSubmitEditing={() => onSubmit()}
+              maxLength={60}
             />
           </View>
         </View>
@@ -114,23 +116,25 @@ const QuickFilter = props => {
         </View>
       </View>
 
-      {data.map((arr, index) => {
-        return (
-          <View
-            key={index}
-            style={{
-              flexDirection: 'row',
-              height: 35,
-              marginVertical: 10,
-              alignItems: 'center',
-            }}>
-            <View style={{width: 65, alignItems: 'center'}}>
-              <ClockIcon name="clockcircleo" size={20} color="#052e31" />
+      <View style={data.length >= 5 ? {height: 275, overflow: 'hidden'} : {}}>
+        {data.map((arr, index) => {
+          return (
+            <View
+              key={index}
+              style={{
+                flexDirection: 'row',
+                height: 35,
+                marginVertical: 10,
+                alignItems: 'center',
+              }}>
+              <View style={{width: 65, alignItems: 'center'}}>
+                <ClockIcon name="clockcircleo" size={20} color="#052e31" />
+              </View>
+              <Text style={{color: '#093034', fontSize: 15}}>{arr}</Text>
             </View>
-            <Text>{arr}</Text>
-          </View>
-        );
-      })}
+          );
+        })}
+      </View>
 
       {data.length === 0 && (
         <View
@@ -163,9 +167,17 @@ const QuickFilter = props => {
           <View style={{alignItems: 'center'}} key={index}>
             <TouchableOpacity
               style={{width: '92%', height: 45, justifyContent: 'space-evenly'}}
-              onPress={() => console.log(data.name)}>
+              onPress={() =>
+                props.navigation.navigate('SelectedCategories', {
+                  routeData: data.name,
+                  routeName: 'filter',
+                  id: data.id,
+                })
+              }>
               <View style={{flexDirection: 'row'}}>
-                <Text>{data.name}</Text>
+                <Text style={{color: '#062e30', fontSize: 15}}>
+                  {data.name}
+                </Text>
                 <View
                   style={{
                     flex: 1,
