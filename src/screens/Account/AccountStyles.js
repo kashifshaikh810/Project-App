@@ -76,4 +76,21 @@ export const AccountStyles = StyleSheet.create({
     color: '#b3b3b3',
     maxWidth: responsiveScreenWidth(50),
   },
+  buttonParentContainer: {
+    height: responsiveScreenHeight(13),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    backgroundColor: '#023034',
+    height: responsiveScreenHeight(6.5),
+    width: responsiveScreenWidth(92),
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });

@@ -3,7 +3,6 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {AccountStyles} from './AccountStyles';
 import FileIcon from 'react-native-vector-icons/Ionicons';
 import SettingsIcon from 'react-native-vector-icons/Feather';
-// import FileIcon from 'react-native-vector-icons/Ionicons';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 
@@ -82,6 +81,12 @@ const AccountMarkup = () => {
             <ArrowRightIcon name="keyboard-arrow-right" size={30} />
           </View>
         </TouchableOpacity>
+
+        <View style={AccountStyles.buttonParentContainer}>
+          <TouchableOpacity style={AccountStyles.buttonContainer}>
+            <Text style={AccountStyles.buttonText}>Login or register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

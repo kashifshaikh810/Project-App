@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   View,
@@ -32,6 +33,7 @@ const QuickFilter = props => {
 
   const cancel = () => {
     setOnFocus(false);
+    setSearch('');
     Keyboard.dismiss();
   };
 
@@ -86,87 +88,53 @@ const QuickFilter = props => {
         </View>
 
         {onFocus && (
-          <View style={{justifyContent: 'center', alignItems: 'flex-end'}}>
+          <View style={Styles.cencelButtonParent}>
             <TouchableOpacity
-              style={{
-                backgroundColor: '#023034',
-                width: 70,
-                height: 40,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              style={Styles.cancelButtonContainer}
               onPress={() => cancel()}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Cancel</Text>
+              <Text style={Styles.cencelButton}>Cancel</Text>
             </TouchableOpacity>
           </View>
         )}
       </View>
 
-      <View
-        style={{
-          backgroundColor: '#eaeeef',
-          height: 50,
-          justifyContent: 'center',
-        }}>
-        <View style={{width: 170, alignItems: 'center'}}>
-          <Text style={{fontWeight: 'bold', color: '#0b3135', fontSize: 16}}>
-            RECENT SEARCHES
-          </Text>
+      <View style={Styles.headingParent}>
+        <View style={Styles.headingContainer}>
+          <Text style={Styles.headingText}>RECENT SEARCHES</Text>
         </View>
       </View>
 
-      <View style={data.length >= 5 ? {height: 275, overflow: 'hidden'} : {}}>
+      <View style={data.length >= 5 ? Styles.mapContainer : {}}>
         {data.map((arr, index) => {
           return (
-            <View
-              key={index}
-              style={{
-                flexDirection: 'row',
-                height: 35,
-                marginVertical: 10,
-                alignItems: 'center',
-              }}>
-              <View style={{width: 65, alignItems: 'center'}}>
+            <View key={index} style={Styles.searchParent}>
+              <View style={Styles.iconContainer}>
                 <ClockIcon name="clockcircleo" size={20} color="#052e31" />
               </View>
-              <Text style={{color: '#093034', fontSize: 15}}>{arr}</Text>
+              <Text style={Styles.search}>{arr}</Text>
             </View>
           );
         })}
       </View>
 
       {data.length === 0 && (
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 35,
-            marginVertical: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        <View style={Styles.noSearch}>
           <Text>No Recent Search</Text>
         </View>
       )}
 
-      <View
-        style={{
-          backgroundColor: '#eaeeef',
-          height: 50,
-          justifyContent: 'center',
-        }}>
-        <View style={{width: 190, alignItems: 'center'}}>
-          <Text style={{fontWeight: 'bold', color: '#0b3135', fontSize: 16}}>
-            POPULAR CATEGORIES
-          </Text>
+      <View style={Styles.headingParent}>
+        <View
+          style={[Styles.headingContainer, {width: responsiveScreenWidth(53)}]}>
+          <Text style={Styles.headingText}>POPULAR CATEGORIES</Text>
         </View>
       </View>
 
       {categoriesData.map((data, index) => {
         return (
-          <View style={{alignItems: 'center'}} key={index}>
+          <View style={Styles.categoriesContainer} key={index}>
             <TouchableOpacity
-              style={{width: '92%', height: 45, justifyContent: 'space-evenly'}}
+              style={Styles.touchAble}
               onPress={() =>
                 props.navigation.navigate('SelectedCategories', {
                   routeData: data.name,
@@ -175,15 +143,8 @@ const QuickFilter = props => {
                 })
               }>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{color: '#062e30', fontSize: 15}}>
-                  {data.name}
-                </Text>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'flex-end',
-                  }}>
+                <Text style={Styles.dataText}>{data.name}</Text>
+                <View style={Styles.rightIconContainer}>
                   <ArrowRightIcon name="keyboard-arrow-right" size={22} />
                 </View>
               </View>
