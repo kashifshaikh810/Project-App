@@ -10,7 +10,7 @@ import {
 export const AccountStyles = StyleSheet.create({
   mainContainer: {
     height: responsiveScreenHeight(100),
-    width: responsiveScreenWidth(100),
+    width: '100%',
   },
   container: {
     flexDirection: 'row',
@@ -63,7 +63,7 @@ export const AccountStyles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   olxImg: {
-    width: responsiveHeight(3),
+    width: responsiveHeight(3.2),
     height: responsiveHeight(3),
     borderRadius: 10,
   },

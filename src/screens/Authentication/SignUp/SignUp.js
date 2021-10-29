@@ -1,13 +1,8 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import SignInMarkup from '../SignIn/SignInMarkup';
+import SignUpMarkup from './SignUpMarkup';
 
-const SignUp = () => {
-  return (
-    <View>
-      <SignInMarkup />
-    </View>
-  );
+const SignUp = props => {
+  return <SignUpMarkup {...props} />;
 };
 
 export default SignUp;

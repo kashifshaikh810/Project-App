@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import AccountMarkup from './AccountMarkup';
 
-const Account = () => {
+const Account = props => {
   return (
     <View>
-      <AccountMarkup />
+      <AccountMarkup {...props} />
     </View>
   );
 };

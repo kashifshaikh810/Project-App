@@ -29,6 +29,7 @@ export const Ad_Successfully_Post_Msg_Page = 'AdSuccessfullyPostMsg';
 export const SEARCH_ITEMS_Page = 'SearchItems';
 export const Sort_Items_Options_Page = 'SortItemsOptions';
 export const Quick_Filter_Page = 'QuickFilter';
+export const SignUp_And_SignIn_Menu_Page = 'SignUpAndSignInMenu';
 
 //BottomTab navigation titiles
 export const Home_Page = 'HOME';

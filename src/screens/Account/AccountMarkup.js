@@ -1,15 +1,13 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {AccountStyles} from './AccountStyles';
 import FileIcon from 'react-native-vector-icons/Ionicons';
 import SettingsIcon from 'react-native-vector-icons/Feather';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
 
-const AccountMarkup = () => {
-  const navigation = useNavigation();
+const AccountMarkup = props => {
   return (
-    <View style={AccountStyles.mainContainer}>
+    <ScrollView style={AccountStyles.mainContainer}>
       <View style={AccountStyles.container}>
         <View>
           <Image
@@ -20,7 +18,7 @@ const AccountMarkup = () => {
         <View style={AccountStyles.main}>
           <Text style={AccountStyles.userName}>Sebestian</Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('BasicInformation')}>
+            onPress={() => props.navigation.navigate('BasicInformation')}>
             <Text style={AccountStyles.text}>View and edit profile</Text>
             <View style={AccountStyles.textLine} />
           </TouchableOpacity>
@@ -30,7 +28,7 @@ const AccountMarkup = () => {
       <View style={AccountStyles.containerTwo}>
         <TouchableOpacity
           style={AccountStyles.containerOne}
-          onPress={() => navigation.navigate('InvoicessAndBilling')}>
+          onPress={() => props.navigation.navigate('InvoicessAndBilling')}>
           <FileIcon name="file-tray-full-outline" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -49,7 +47,7 @@ const AccountMarkup = () => {
 
         <TouchableOpacity
           style={AccountStyles.containerOne}
-          onPress={() => navigation.navigate('Settings')}>
+          onPress={() => props.navigation.navigate('Settings')}>
           <SettingsIcon name="settings" size={20} />
 
           <View style={AccountStyles.allTextContainer}>
@@ -64,9 +62,9 @@ const AccountMarkup = () => {
 
         <TouchableOpacity
           style={AccountStyles.containerOne}
-          onPress={() => navigation.navigate('HelpAndSupport')}>
+          onPress={() => props.navigation.navigate('HelpAndSupport')}>
           <Image
-            source={require('../../Components/Utility/Images/olx.jpg')}
+            source={require('../../Components/Utility/Images/logo.png')}
             style={AccountStyles.olxImg}
           />
 
@@ -83,12 +81,14 @@ const AccountMarkup = () => {
         </TouchableOpacity>
 
         <View style={AccountStyles.buttonParentContainer}>
-          <TouchableOpacity style={AccountStyles.buttonContainer}>
+          <TouchableOpacity
+            style={AccountStyles.buttonContainer}
+            onPress={() => props.navigation.navigate('SignUpAndSignInMenu')}>
             <Text style={AccountStyles.buttonText}>Login or register</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
