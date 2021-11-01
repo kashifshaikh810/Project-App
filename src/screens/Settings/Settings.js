@@ -3,8 +3,16 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {Styles} from './Styles';
 import RightIcon from 'react-native-vector-icons/Entypo';
 import IconLeft from 'react-native-vector-icons/Feather';
+import {Auth} from '../../../Setup';
 
 const Settings = props => {
+  const logOut = async () => {
+    await Auth()
+      .signOut()
+      .then(() => console.log('user signOut'));
+    props.navigation.navigate('ACCOUNT');
+  };
+
   return (
     <View style={Styles.container}>
       <View style={Styles.headerContainer}>
@@ -48,7 +56,7 @@ const Settings = props => {
 
       <View style={Styles.line} />
 
-      <TouchableOpacity style={Styles.logOutContainer}>
+      <TouchableOpacity style={Styles.logOutContainer} onPress={() => logOut()}>
         <View style={Styles.flexContainerChild}>
           <View>
             <Text style={Styles.firstText}>Logout</Text>

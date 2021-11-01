@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   Text,
@@ -11,8 +12,6 @@ import IconLeft from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
 
 const SignInMarkup = props => {
-  const [showPassword, setShowPassword] = useState(true);
-
   return (
     <ScrollView style={Styles.container}>
       <View style={Styles.headerContainer}>
@@ -35,6 +34,8 @@ const SignInMarkup = props => {
             placeholder="Enter your email"
             style={Styles.emailInput}
             keyboardType="email-address"
+            value={props.email}
+            onChangeText={text => props.setEmail(text)}
           />
         </View>
 
@@ -43,13 +44,16 @@ const SignInMarkup = props => {
           <View style={[Styles.emailInput, Styles.row]}>
             <TextInput
               placeholder="Enter your password"
-              secureTextEntry={showPassword}
+              secureTextEntry={props.showPassword}
               style={Styles.password}
+              value={props.password}
+              onChangeText={text => props.setPassword(text)}
             />
             <View style={Styles.hideContainer}>
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <TouchableOpacity
+                onPress={() => props.setShowPassword(!props.showPassword)}>
                 <Text style={Styles.hide}>
-                  {showPassword ? 'show' : 'hide'}
+                  {props.showPassword ? 'show' : 'hide'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -66,9 +70,24 @@ const SignInMarkup = props => {
 
         <View style={Styles.buttonParentContainer}>
           <TouchableOpacity
-            style={Styles.buttonContainer}
-            onPress={() => props.navigation.navigate('ACCOUNT')}>
-            <Text style={Styles.buttonText}>Login</Text>
+            disabled={!props.email && !props.password}
+            style={[
+              Styles.buttonContainer,
+              {
+                backgroundColor:
+                  props.email && props.password ? '#023034' : '#e4e7ee',
+              },
+            ]}
+            onPress={() => props.loginButtonHandler()}>
+            <Text
+              style={[
+                Styles.buttonText,
+                {
+                  color: props.email && props.password ? 'white' : '#bcc2ce',
+                },
+              ]}>
+              Login
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
 import {
   View,
   Text,
@@ -11,8 +12,6 @@ import IconLeft from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
 
 const SignUpMarkup = props => {
-  const [showPassword, setShowPassword] = useState(true);
-
   return (
     <>
       <View style={Styles.white}>
@@ -36,6 +35,8 @@ const SignUpMarkup = props => {
             <TextInput
               placeholder="Enter your user name"
               style={Styles.emailInput}
+              value={props.userName}
+              onChangeText={text => props.setUserName(text)}
             />
           </View>
 
@@ -45,6 +46,8 @@ const SignUpMarkup = props => {
               placeholder="Enter your phone no"
               style={Styles.emailInput}
               keyboardType="phone-pad"
+              value={props.phone}
+              onChangeText={text => props.setPhone(text)}
             />
           </View>
 
@@ -54,6 +57,8 @@ const SignUpMarkup = props => {
               placeholder="Enter your email"
               style={Styles.emailInput}
               keyboardType="email-address"
+              value={props.email}
+              onChangeText={text => props.setEmail(text)}
             />
           </View>
 
@@ -62,14 +67,16 @@ const SignUpMarkup = props => {
             <View style={[Styles.emailInput, Styles.row]}>
               <TextInput
                 placeholder="Enter your password"
-                secureTextEntry={showPassword}
+                secureTextEntry={props.showPassword}
                 style={Styles.password}
+                value={props.password}
+                onChangeText={text => props.setPassword(text)}
               />
               <View style={Styles.hideContainer}>
                 <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}>
+                  onPress={() => props.setShowPassword(!props.showPassword)}>
                   <Text style={Styles.hide}>
-                    {showPassword ? 'show' : 'hide'}
+                    {props.showPassword ? 'show' : 'hide'}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -87,9 +94,40 @@ const SignUpMarkup = props => {
 
           <View style={Styles.buttonParentContainer}>
             <TouchableOpacity
-              style={Styles.buttonContainer}
-              onPress={() => props.navigation.navigate('SignIn')}>
-              <Text style={Styles.buttonText}>SignUp</Text>
+              disabled={
+                !props.userName &&
+                !props.phone &&
+                !props.email &&
+                !props.password
+              }
+              style={[
+                Styles.buttonContainer,
+                {
+                  backgroundColor:
+                    props.userName &&
+                    props.phone &&
+                    props.email &&
+                    props.password
+                      ? '#023034'
+                      : '#e4e7ee',
+                },
+              ]}
+              onPress={() => props.signUpButtonHandler()}>
+              <Text
+                style={[
+                  Styles.buttonText,
+                  {
+                    color:
+                      props.userName &&
+                      props.phone &&
+                      props.email &&
+                      props.password
+                        ? 'white'
+                        : '#bcc2ce',
+                  },
+                ]}>
+                SignUp
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

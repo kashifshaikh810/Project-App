@@ -45,7 +45,6 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    backgroundColor: '#023034',
     height: responsiveScreenHeight(6.5),
     width: responsiveScreenWidth(85),
     borderRadius: 8,
@@ -53,7 +52,6 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
     fontWeight: 'bold',
   },
   mainContainer: {
