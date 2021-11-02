@@ -10,7 +10,7 @@ const Settings = props => {
     await Auth()
       .signOut()
       .then(() => console.log('user signOut'));
-    props.navigation.navigate('ACCOUNT');
+    props.navigation.navigate('HOME');
   };
 
   return (

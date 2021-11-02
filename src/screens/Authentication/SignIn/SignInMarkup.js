@@ -35,7 +35,7 @@ const SignInMarkup = props => {
             style={Styles.emailInput}
             keyboardType="email-address"
             value={props.email}
-            onChangeText={text => props.setEmail(text)}
+            onChangeText={text => props.emailHandler(text)}
           />
         </View>
 
@@ -47,7 +47,7 @@ const SignInMarkup = props => {
               secureTextEntry={props.showPassword}
               style={Styles.password}
               value={props.password}
-              onChangeText={text => props.setPassword(text)}
+              onChangeText={text => props.passwordHandler(text)}
             />
             <View style={Styles.hideContainer}>
               <TouchableOpacity
@@ -59,6 +59,12 @@ const SignInMarkup = props => {
             </View>
           </View>
         </View>
+
+        {props.errMsg ? (
+          <View style={Styles.err}>
+            <Text style={Styles.errTxt}>{props.errMsg}</Text>
+          </View>
+        ) : null}
 
         <View style={Styles.dontHaveContainer}>
           <Text style={Styles.dontHave}>Dont have an account? </Text>

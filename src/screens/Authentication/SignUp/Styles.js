@@ -106,4 +106,10 @@ export const Styles = StyleSheet.create({
   white: {
     backgroundColor: 'white',
   },
+  err: {
+    width: responsiveScreenWidth(95),
+    height: responsiveScreenHeight(6),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

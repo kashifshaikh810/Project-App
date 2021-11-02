@@ -38,7 +38,9 @@ const AccountMarkup = props => {
                   activeOpacity={props.currentUserData ? 0.5 : 1}
                   onPress={() =>
                     props.currentUserData &&
-                    props.navigation.navigate('BasicInformation')
+                    props.navigation.navigate('BasicInformation', {
+                      data: props.currentUserData,
+                    })
                   }>
                   <Text style={AccountStyles.text}>
                     {props.currentUserData

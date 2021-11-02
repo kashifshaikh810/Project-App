@@ -36,7 +36,7 @@ const SignUpMarkup = props => {
               placeholder="Enter your user name"
               style={Styles.emailInput}
               value={props.userName}
-              onChangeText={text => props.setUserName(text)}
+              onChangeText={text => props.userNameHandler(text)}
             />
           </View>
 
@@ -47,7 +47,7 @@ const SignUpMarkup = props => {
               style={Styles.emailInput}
               keyboardType="phone-pad"
               value={props.phone}
-              onChangeText={text => props.setPhone(text)}
+              onChangeText={text => props.phoneHandler(text)}
             />
           </View>
 
@@ -58,7 +58,7 @@ const SignUpMarkup = props => {
               style={Styles.emailInput}
               keyboardType="email-address"
               value={props.email}
-              onChangeText={text => props.setEmail(text)}
+              onChangeText={text => props.emailHandler(text)}
             />
           </View>
 
@@ -70,7 +70,7 @@ const SignUpMarkup = props => {
                 secureTextEntry={props.showPassword}
                 style={Styles.password}
                 value={props.password}
-                onChangeText={text => props.setPassword(text)}
+                onChangeText={text => props.passwordHandler(text)}
               />
               <View style={Styles.hideContainer}>
                 <TouchableOpacity
@@ -82,6 +82,14 @@ const SignUpMarkup = props => {
               </View>
             </View>
           </View>
+
+          {props.errMsg ? (
+            <View style={Styles.err}>
+              <Text style={{color: 'red', fontSize: 16, fontWeight: 'bold'}}>
+                {props.errMsg}
+              </Text>
+            </View>
+          ) : null}
 
           <View style={Styles.dontHaveContainer}>
             <Text style={Styles.dontHave}>Already have an account? </Text>

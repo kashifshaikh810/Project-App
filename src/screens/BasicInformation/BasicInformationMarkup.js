@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
@@ -5,6 +6,15 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {Styles} from './Styles';
 
 const BasicInformationMarkup = props => {
+  // {
+  //   color:
+  //     props.userName.length === 0 ||
+  //     props.email.length === 0 ||
+  //     props.phone.length === 0 ||
+  //     props.aboutYou.length !== 0
+  //       ? 'black'
+  //       : '#c9ccd1',
+  // },
   return (
     <KeyboardAwareScrollView>
       <View style={Styles.container}>
@@ -15,7 +25,10 @@ const BasicInformationMarkup = props => {
               <CloseIcon name="close" size={25} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={Styles.saveButtonContainer}>
+            <TouchableOpacity
+              // disabled={props.email || props.userName || props.phone}
+              style={Styles.saveButtonContainer}
+              onPress={() => props.save()}>
               <Text style={Styles.saveButton}>Save</Text>
             </TouchableOpacity>
           </View>
@@ -34,7 +47,12 @@ const BasicInformationMarkup = props => {
               <View style={Styles.inputContainer}>
                 <View style={Styles.inputContainerChild}>
                   <Text style={Styles.yourNameTxt}>Enter your name</Text>
-                  <TextInput placeholder="Your name" style={Styles.txtInput} />
+                  <TextInput
+                    placeholder="Your name"
+                    style={Styles.txtInput}
+                    value={props.userName}
+                    onChangeText={text => props.setUserName(text)}
+                  />
                 </View>
               </View>
             </View>
@@ -42,6 +60,8 @@ const BasicInformationMarkup = props => {
             <TextInput
               placeholder="Type here"
               style={Styles.middileSectionLastInput}
+              value={props.aboutYou}
+              onChangeText={text => props.setAboutYou(text)}
             />
           </View>
         </View>
@@ -56,6 +76,8 @@ const BasicInformationMarkup = props => {
                 placeholder="Enter your phone number"
                 keyboardType="number-pad"
                 style={Styles.middileSectionLastInput}
+                value={props.phone}
+                onChangeText={text => props.setPhone(text)}
               />
               <Text style={Styles.footerGuideText}>
                 This is the number for buyers contacts, reminders, and other
@@ -69,6 +91,8 @@ const BasicInformationMarkup = props => {
                 placeholder="Enter your email"
                 style={Styles.middileSectionLastInput}
                 keyboardType="email-address"
+                value={props.email}
+                onChangeText={text => props.setEmail(text)}
               />
               <Text style={Styles.footerGuideText}>
                 This email will be useful to keep in touch. we won't share your

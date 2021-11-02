@@ -13,7 +13,7 @@ const Account = props => {
     setIsLoading(true);
     Database()
       .ref(`/userSignUp/${uid}`)
-      .once('value', snapshot => {
+      .on('value', snapshot => {
         setCurrentUserData(snapshot.val());
         setIsLoading(false);
       });

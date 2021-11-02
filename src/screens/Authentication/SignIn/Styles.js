@@ -103,4 +103,15 @@ export const Styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'blue',
   },
+  err: {
+    width: responsiveScreenWidth(95),
+    height: responsiveScreenHeight(7),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errTxt: {
+    color: 'red',
+    fontSize: responsiveScreenFontSize(2.1),
+    fontWeight: 'bold',
+  },
 });
