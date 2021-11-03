@@ -31,6 +31,7 @@ export const AccountStyles = StyleSheet.create({
     marginHorizontal: responsiveHeight(2),
   },
   userName: {
+    maxWidth: responsiveScreenWidth(50),
     fontSize: responsiveScreenFontSize(2.7),
     fontWeight: 'bold',
     color: '#023134',
@@ -42,7 +43,6 @@ export const AccountStyles = StyleSheet.create({
   },
   textLine: {
     borderBottomWidth: 1,
-    width: responsiveScreenWidth(39),
   },
   containerOne: {
     flexDirection: 'row',

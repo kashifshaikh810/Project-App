@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
@@ -121,21 +122,25 @@ const SignUpMarkup = props => {
                 },
               ]}
               onPress={() => props.signUpButtonHandler()}>
-              <Text
-                style={[
-                  Styles.buttonText,
-                  {
-                    color:
-                      props.userName &&
-                      props.phone &&
-                      props.email &&
-                      props.password
-                        ? 'white'
-                        : '#bcc2ce',
-                  },
-                ]}>
-                SignUp
-              </Text>
+              {props.isLoading ? (
+                <ActivityIndicator size="small" color="white" />
+              ) : (
+                <Text
+                  style={[
+                    Styles.buttonText,
+                    {
+                      color:
+                        props.userName &&
+                        props.phone &&
+                        props.email &&
+                        props.password
+                          ? 'white'
+                          : '#bcc2ce',
+                    },
+                  ]}>
+                  SignUp
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>

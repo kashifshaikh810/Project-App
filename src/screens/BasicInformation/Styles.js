@@ -29,7 +29,7 @@ export const Styles = StyleSheet.create({
   saveButton: {
     fontSize: responsiveFontSize(2.2),
     fontWeight: 'bold',
-    color: '#c9ccd1',
+    color: 'black',
   },
   middileContainer: {
     height: responsiveScreenHeight(37),

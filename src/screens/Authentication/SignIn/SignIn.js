@@ -4,19 +4,23 @@ import {Auth} from '../../../../Setup';
 
 const SignIn = props => {
   const [showPassword, setShowPassword] = useState(true);
+  const [isLoading, setisLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
   const loginButtonHandler = () => {
+    setisLoading(true);
     Auth()
       .signInWithEmailAndPassword(email, password)
       .then(user => {
         setEmail('');
         setPassword('');
-        props.navigation.navigate('HOME');
+        setisLoading(false);
+        props.navigation.navigate('ACCOUNT');
       })
       .catch(err => {
+        setisLoading(false);
         if (
           err.message ===
           '[auth/invalid-email] The email address is badly formatted.'
@@ -63,6 +67,7 @@ const SignIn = props => {
       errMsg={errMsg}
       emailHandler={emailHandler}
       passwordHandler={passwordHandler}
+      isLoading={isLoading}
     />
   );
 };

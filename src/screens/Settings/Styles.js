@@ -56,4 +56,8 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(7.5),
     alignItems: 'center',
   },
+  loader: {
+    width: responsiveScreenWidth(15),
+    height: responsiveScreenHeight(7.3),
+  },
 });

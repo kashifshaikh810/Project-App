@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
@@ -85,15 +86,19 @@ const SignInMarkup = props => {
               },
             ]}
             onPress={() => props.loginButtonHandler()}>
-            <Text
-              style={[
-                Styles.buttonText,
-                {
-                  color: props.email && props.password ? 'white' : '#bcc2ce',
-                },
-              ]}>
-              Login
-            </Text>
+            {props.isLoading ? (
+              <ActivityIndicator size="small" color="white" />
+            ) : (
+              <Text
+                style={[
+                  Styles.buttonText,
+                  {
+                    color: props.email && props.password ? 'white' : '#bcc2ce',
+                  },
+                ]}>
+                Login
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>

@@ -50,6 +50,7 @@ const IncludesMarkup = props => {
     setShowCarsModal,
     showLeaveModal,
     setShowLeaveModal,
+    upload,
   } = props;
   let routeName = props.route.params.routeData.name;
 
@@ -448,7 +449,11 @@ const IncludesMarkup = props => {
           style={Styles.tabletsFlatList}
         />
 
-        <AddImagesModal showModal={showModal} setShowModal={setShowModal} />
+        <AddImagesModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          upload={upload}
+        />
         <AllMobilePhonesModal
           showPhonesModal={showPhonesModal}
           setShowPhonesModal={setShowPhonesModal}
@@ -573,7 +578,9 @@ const IncludesMarkup = props => {
         </View>
 
         <View style={Styles.buttonContainer}>
-          <TouchableOpacity style={Styles.buttonTouchAble} onPress={() => props.navigation.navigate('ReviewYourDetails')}>
+          <TouchableOpacity
+            style={Styles.buttonTouchAble}
+            onPress={() => props.navigation.navigate('ReviewYourDetails')}>
             <Text style={Styles.buttonTxt}>Next</Text>
           </TouchableOpacity>
         </View>

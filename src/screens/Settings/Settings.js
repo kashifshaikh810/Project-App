@@ -1,16 +1,26 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {Styles} from './Styles';
 import RightIcon from 'react-native-vector-icons/Entypo';
 import IconLeft from 'react-native-vector-icons/Feather';
 import {Auth} from '../../../Setup';
 
 const Settings = props => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const logOut = async () => {
+    setIsLoading(true);
     await Auth()
       .signOut()
-      .then(() => console.log('user signOut'));
-    props.navigation.navigate('HOME');
+      .then(() => {
+        console.log('user signOut');
+        setIsLoading(false);
+        props.navigation.navigate('ACCOUNT');
+      })
+      .catch(err => {
+        setIsLoading(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -59,7 +69,15 @@ const Settings = props => {
       <TouchableOpacity style={Styles.logOutContainer} onPress={() => logOut()}>
         <View style={Styles.flexContainerChild}>
           <View>
-            <Text style={Styles.firstText}>Logout</Text>
+            {isLoading ? (
+              <ActivityIndicator
+                size="small"
+                color="#062a2d"
+                style={Styles.loader}
+              />
+            ) : (
+              <Text style={Styles.firstText}>Logout</Text>
+            )}
           </View>
         </View>
       </TouchableOpacity>

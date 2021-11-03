@@ -4,6 +4,7 @@ import {Auth, Database} from '../../../../Setup';
 
 const SignUp = props => {
   const [showPassword, setShowPassword] = useState(true);
+  const [isLoading, setisLoading] = useState(false);
   const [userName, setUserName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -11,8 +12,10 @@ const SignUp = props => {
   const [errMsg, setErrMsg] = useState('');
 
   const signUpButtonHandler = () => {
+    setisLoading(true);
     if (phone.length <= 11) {
       setErrMsg('Phone should be at least 11 characters');
+      setisLoading(false);
     } else {
       Auth()
         .createUserWithEmailAndPassword(email, password)
@@ -27,10 +30,12 @@ const SignUp = props => {
           setPhone('');
           setEmail('');
           setPassword('');
+          setisLoading(false);
           await Auth().signOut();
           props.navigation.navigate('SignIn');
         })
         .catch(err => {
+          setisLoading(false);
           if (
             err.message ===
             '[auth/invalid-email] The email address is badly formatted.'
@@ -106,6 +111,7 @@ const SignUp = props => {
       phoneHandler={phoneHandler}
       emailHandler={emailHandler}
       passwordHandler={passwordHandler}
+      isLoading={isLoading}
     />
   );
 };

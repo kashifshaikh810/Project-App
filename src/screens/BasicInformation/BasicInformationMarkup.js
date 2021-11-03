@@ -1,20 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {Styles} from './Styles';
 
 const BasicInformationMarkup = props => {
-  // {
-  //   color:
-  //     props.userName.length === 0 ||
-  //     props.email.length === 0 ||
-  //     props.phone.length === 0 ||
-  //     props.aboutYou.length !== 0
-  //       ? 'black'
-  //       : '#c9ccd1',
-  // },
   return (
     <KeyboardAwareScrollView>
       <View style={Styles.container}>
@@ -26,10 +24,14 @@ const BasicInformationMarkup = props => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              // disabled={props.email || props.userName || props.phone}
+              disabled={!props.email || !props.userName || !props.phone}
               style={Styles.saveButtonContainer}
               onPress={() => props.save()}>
-              <Text style={Styles.saveButton}>Save</Text>
+              {props.isLoading ? (
+                <ActivityIndicator size="small" color="black" />
+              ) : (
+                <Text style={Styles.saveButton}>Save</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -51,7 +53,7 @@ const BasicInformationMarkup = props => {
                     placeholder="Your name"
                     style={Styles.txtInput}
                     value={props.userName}
-                    onChangeText={text => props.setUserName(text)}
+                    onChangeText={text => props.userNameHandler(text)}
                   />
                 </View>
               </View>
@@ -61,7 +63,7 @@ const BasicInformationMarkup = props => {
               placeholder="Type here"
               style={Styles.middileSectionLastInput}
               value={props.aboutYou}
-              onChangeText={text => props.setAboutYou(text)}
+              onChangeText={text => props.aboutYouHandler(text)}
             />
           </View>
         </View>
@@ -77,7 +79,7 @@ const BasicInformationMarkup = props => {
                 keyboardType="number-pad"
                 style={Styles.middileSectionLastInput}
                 value={props.phone}
-                onChangeText={text => props.setPhone(text)}
+                onChangeText={text => props.phoneHandler(text)}
               />
               <Text style={Styles.footerGuideText}>
                 This is the number for buyers contacts, reminders, and other
@@ -92,7 +94,7 @@ const BasicInformationMarkup = props => {
                 style={Styles.middileSectionLastInput}
                 keyboardType="email-address"
                 value={props.email}
-                onChangeText={text => props.setEmail(text)}
+                onChangeText={text => props.emailHandler(text)}
               />
               <Text style={Styles.footerGuideText}>
                 This email will be useful to keep in touch. we won't share your
@@ -101,6 +103,20 @@ const BasicInformationMarkup = props => {
             </View>
           </View>
         </View>
+
+        {props.errMsg ? (
+          <View
+            style={{
+              width: 340,
+              height: 80,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'red', fontSize: 16, fontWeight: 'bold'}}>
+              {props.errMsg}
+            </Text>
+          </View>
+        ) : null}
       </View>
     </KeyboardAwareScrollView>
   );

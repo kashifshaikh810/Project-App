@@ -11,7 +11,7 @@ const AddImagesModal = props => {
             <Text style={Styles.textStyles}>Take a photo</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.upload()}>
             <Text style={Styles.textStyles}>Pick from gallery</Text>
           </TouchableOpacity>
 
