@@ -3,11 +3,15 @@ import {View, Text, Modal, TouchableOpacity} from 'react-native';
 import {Styles} from './Styles';
 
 const AddImagesModal = props => {
+  const click = () => {
+    props.setShowModal(false);
+    props.setShowCamera(true);
+  };
   return (
     <Modal visible={props.showModal} transparent>
       <View style={Styles.modalContainer}>
         <View style={Styles.modalMain}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => click()}>
             <Text style={Styles.textStyles}>Take a photo</Text>
           </TouchableOpacity>
 

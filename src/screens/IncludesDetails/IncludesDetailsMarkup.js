@@ -9,6 +9,7 @@ import {
   FlatList,
   ScrollView,
   TouchableWithoutFeedback,
+  Image,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import PlusIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -51,6 +52,7 @@ const IncludesMarkup = props => {
     showLeaveModal,
     setShowLeaveModal,
     upload,
+    setShowCamera,
   } = props;
   let routeName = props.route.params.routeData.name;
 
@@ -400,20 +402,32 @@ const IncludesMarkup = props => {
 
       <ScrollView style={Styles.scrollView}>
         <View style={Styles.imgBackContainer}>
-          <ImageBackground
-            source={require('../../Components/Utility/Images/backgroundForRent.jpg')}
-            style={Styles.imgBack}>
-            <View style={Styles.addImgesContainer}>
-              <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
-                <View style={Styles.main}>
-                  <View style={Styles.iconContainer}>
-                    <PlusIcon name="plus" size={25} color="white" />
-                    <Text style={Styles.addImg}>Add images</Text>
+            <ImageBackground
+              source={require('../../Components/Utility/Images/backgroundForRent.jpg')}
+              style={Styles.imgBack}>
+              <View style={Styles.addImgesContainer}>
+                <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
+                  <View style={Styles.main}>
+                    <View style={Styles.iconContainer}>
+                      <PlusIcon name="plus" size={25} color="white" />
+                      <Text style={Styles.addImg}>Add images</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </ImageBackground>
+                </TouchableWithoutFeedback>
+              </View>
+            </ImageBackground>
+      <View style={{flexDirection: 'row',}}>
+          {props.imgArr.map((camImg, index) => {
+            return (
+              <TouchableOpacity style={{marginHorizontal: 10, margin: 10}} onPress={() => props.emptyImg(index)}>
+                <Image
+                  source={{uri: camImg.camera}}
+                  style={{width: 50, height: 50}}
+                />
+              </TouchableOpacity>
+            );
+          })}
+    </View>
         </View>
 
         {twoTextInput()}
@@ -453,6 +467,7 @@ const IncludesMarkup = props => {
           showModal={showModal}
           setShowModal={setShowModal}
           upload={upload}
+          setShowCamera={setShowCamera}
         />
         <AllMobilePhonesModal
           showPhonesModal={showPhonesModal}
