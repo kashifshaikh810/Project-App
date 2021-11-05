@@ -169,7 +169,7 @@ export const iconsData = [
 ];
 
 export const renderIcons = ({item}, navigation, props) => {
-  const name = props.route.params.routeName;
+  const name = props.route.params ? props.route.params.routeName : '';
   return (
     <View style={Styles.mainContainer}>
       <TouchableOpacity

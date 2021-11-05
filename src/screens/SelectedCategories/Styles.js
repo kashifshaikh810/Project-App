@@ -42,13 +42,12 @@ export const Styles = StyleSheet.create({
     flex: 1,
   },
   imgBackContainer: {
-    height: responsiveScreenHeight(23),
     justifyContent: 'center',
     alignItems: 'center',
   },
   imgBack: {
-    width: responsiveScreenWidth(87),
-    height: responsiveScreenHeight(19.5),
+    width: responsiveScreenWidth(92),
+    height: responsiveScreenHeight(19),
     overflow: 'hidden',
     borderRadius: 9,
   },

@@ -1,23 +1,30 @@
 import React, {useState} from 'react';
 import {
   ImageBackground,
-  Text,
   TouchableOpacity,
   View,
   StatusBar,
+  Alert,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Camera from '../../Components/Camera/Camera';
 import IncludesDetailsMarkup from './IncludesDetailsMarkup';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import CheckIcon from 'react-native-vector-icons/Feather';
+import {Styles} from './Styles';
 
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [showRemoveImgModal, setShowRemoveImgModal] = useState({
+    shown: false,
+    indexNum: '',
+  });
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [camImgCaptureDone, setCamImgCaptureDone] = useState(false);
+  const [flashMode, setFlashMode] = useState(false);
+  const [imgPickerPic, setImgPickerPic] = useState('');
   const [imgArr, setImgArr] = useState([]);
   const [showPhonesModal, setShowPhonesModal] = useState({
     shown: false,
@@ -34,14 +41,17 @@ const IncludesDetails = props => {
   const [camImg, setCamImg] = useState('');
 
   const upload = async () => {
+    let fileredImges = [];
+    setShowModal(false);
     try {
-      const file = await DocumentPicker.pick({
+      const file = await DocumentPicker.pickMultiple({
         type: [DocumentPicker.types.images],
       });
-      setShowModal(false);
       for (const res of file) {
-        console.log(res.uri, res.name, res.size, res.type, 'pic data');
+        fileredImges.push({camera: res.uri});
+        setImgPickerPic(res.uri);
       }
+      setImgArr(fileredImges.slice(0, 20));
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         setShowModal(false);
@@ -56,7 +66,6 @@ const IncludesDetails = props => {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     setCamImg(data.uri);
-    console.log(data.uri);
     setShowCamera(false);
     setCamImgCaptureDone(true);
   };
@@ -65,6 +74,7 @@ const IncludesDetails = props => {
     let arr = [...imgArr];
     arr.splice(index, 1);
     setImgArr(arr);
+    setShowRemoveImgModal({shown: false});
   };
 
   const captureImgHandler = () => {
@@ -73,51 +83,37 @@ const IncludesDetails = props => {
     setCamImgCaptureDone(false);
   };
 
-  console.log(props);
+  const click = () => {
+    setShowModal(false);
+    setShowCamera(true);
+  };
+
+  const fullImgErr = () => {
+    Alert.alert('You can add at most 20 photos.');
+  };
+
   return (
     <View>
       <StatusBar hidden={camImgCaptureDone ? true : false} />
       {showCamera ? (
-        <Camera setShowCamera={setShowCamera} takePicture={takePicture} />
+        <Camera
+          setShowCamera={setShowCamera}
+          takePicture={takePicture}
+          flashMode={flashMode}
+          setFlashMode={setFlashMode}
+        />
       ) : null}
       {camImgCaptureDone ? (
-        <ImageBackground
-          source={{uri: camImg}}
-          style={{width: '100%', height: '75.5%'}}>
-          <View
-            style={{
-              height: '70%',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-              marginHorizontal: 30,
-            }}>
+        <ImageBackground source={{uri: camImg}} style={Styles.imgBack}>
+          <View style={Styles.iconContainer}>
             <TouchableOpacity onPress={() => setCamImgCaptureDone(false)}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  height: 40,
-                  width: 40,
-                  borderRadius: 20,
-                  borderColor: 'white',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              <View style={Styles.iconSContainerMain}>
                 <CloseIcon name="close" size={25} color="white" />
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => captureImgHandler()}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  height: 40,
-                  width: 40,
-                  borderRadius: 20,
-                  borderColor: 'white',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              <View style={Styles.iconSContainerMain}>
                 <CheckIcon name="check" size={25} color="white" />
               </View>
             </TouchableOpacity>
@@ -146,6 +142,10 @@ const IncludesDetails = props => {
         camImg={camImg}
         emptyImg={emptyImg}
         imgArr={imgArr}
+        click={click}
+        showRemoveImgModal={showRemoveImgModal}
+        setShowRemoveImgModal={setShowRemoveImgModal}
+        fullImgErr={fullImgErr}
       />
     </View>
   );

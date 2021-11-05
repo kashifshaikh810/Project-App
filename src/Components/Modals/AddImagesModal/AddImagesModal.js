@@ -3,19 +3,21 @@ import {View, Text, Modal, TouchableOpacity} from 'react-native';
 import {Styles} from './Styles';
 
 const AddImagesModal = props => {
-  const click = () => {
-    props.setShowModal(false);
-    props.setShowCamera(true);
-  };
   return (
-    <Modal visible={props.showModal} transparent>
+    <Modal visible={props.showModal} transparent animationType="fade">
       <View style={Styles.modalContainer}>
         <View style={Styles.modalMain}>
-          <TouchableOpacity onPress={() => click()}>
+          <TouchableOpacity
+            onPress={() =>
+              props.imgArr.length === 20 ? props.fullImgErr() : props.click()
+            }>
             <Text style={Styles.textStyles}>Take a photo</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => props.upload()}>
+          <TouchableOpacity
+            onPress={() =>
+              props.imgArr.length === 20 ? props.fullImgErr() : props.upload()
+            }>
             <Text style={Styles.textStyles}>Pick from gallery</Text>
           </TouchableOpacity>
 

@@ -27,6 +27,7 @@ import {
 } from './Data';
 import {Styles} from '../SelectedCategories/Styles';
 import AddImagesModal from '../../Components/Modals/AddImagesModal/AddImagesModal';
+import RemoveImgModal from '../../Components/Modals/RemoveImgModal/RemoveImgModal';
 import AllMobilePhonesModal from '../../Components/Modals/AllMobilePhonesModal/AllMobilePhonesModal';
 import LeaveModal from '../../Components/Modals/LeaveModal/LeaveModal';
 import AllCarsModal from '../../Components/Modals/AllCarsModal/AllCarsModal';
@@ -53,6 +54,11 @@ const IncludesMarkup = props => {
     setShowLeaveModal,
     upload,
     setShowCamera,
+    click,
+    showRemoveImgModal,
+    setShowRemoveImgModal,
+    emptyImg,
+    fullImgErr,
   } = props;
   let routeName = props.route.params.routeData.name;
 
@@ -390,6 +396,98 @@ const IncludesMarkup = props => {
     }
   };
 
+  const selectedImagesShow = () => {
+    if (props.imgArr.length > 0) {
+      return (
+        <View
+          style={{
+            borderWidth: 0.3,
+            borderColor: '#b3b3b3',
+            width: 325,
+            height: 190,
+            backgroundColor: '#fafafa',
+          }}>
+          <TouchableOpacity
+            style={{alignItems: 'center'}}
+            onPress={() => setShowModal(true)}>
+            <View
+              style={{
+                flexDirection: 'row',
+                width: 315,
+                height: 50,
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#052d32', fontWeight: 'bold'}}>
+                UPLOAD UP TO 20 PHOTOS
+              </Text>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}>
+                <ArrowRightIcon name="keyboard-arrow-right" size={22} />
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <ScrollView horizontal={true} style={{flex: 1, marginHorizontal: 6}}>
+            <View style={{flexDirection: 'row'}}>
+              {props.imgArr.map((camImg, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={{marginHorizontal: 2}}
+                    onPress={() =>
+                      setShowRemoveImgModal({shown: true, indexNum: index})
+                    }>
+                    <Image
+                      source={{uri: camImg.camera}}
+                      style={{width: 80, height: 85, borderRadius: 8}}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
+          <View
+            style={{
+              height: 50,
+              width: 310,
+              justifyContent: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{fontSize: 13, color: '#0e3133'}}>
+              Tab on images to edit them, or press, hold and move for
+              reordering.
+            </Text>
+          </View>
+        </View>
+      );
+    }
+  };
+
+  const addImgesOption = () => {
+    if (props.imgArr.length === 0) {
+      return (
+        <ImageBackground
+          source={require('../../Components/Utility/Images/backgroundForRent.jpg')}
+          style={Styles.imgBack}>
+          <View style={Styles.addImgesContainer}>
+            <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
+              <View style={Styles.main}>
+                <View style={Styles.iconContainer}>
+                  <PlusIcon name="plus" size={25} color="white" />
+                  <Text style={Styles.addImg}>Add images</Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </ImageBackground>
+      );
+    }
+  };
+
   return (
     <KeyboardAwareScrollView>
       <View
@@ -401,33 +499,18 @@ const IncludesMarkup = props => {
       </View>
 
       <ScrollView style={Styles.scrollView}>
-        <View style={Styles.imgBackContainer}>
-            <ImageBackground
-              source={require('../../Components/Utility/Images/backgroundForRent.jpg')}
-              style={Styles.imgBack}>
-              <View style={Styles.addImgesContainer}>
-                <TouchableWithoutFeedback onPress={() => setShowModal(true)}>
-                  <View style={Styles.main}>
-                    <View style={Styles.iconContainer}>
-                      <PlusIcon name="plus" size={25} color="white" />
-                      <Text style={Styles.addImg}>Add images</Text>
-                    </View>
-                  </View>
-                </TouchableWithoutFeedback>
-              </View>
-            </ImageBackground>
-      <View style={{flexDirection: 'row',}}>
-          {props.imgArr.map((camImg, index) => {
-            return (
-              <TouchableOpacity style={{marginHorizontal: 10, margin: 10}} onPress={() => props.emptyImg(index)}>
-                <Image
-                  source={{uri: camImg.camera}}
-                  style={{width: 50, height: 50}}
-                />
-              </TouchableOpacity>
-            );
-          })}
-    </View>
+        <View
+          style={[
+            Styles.imgBackContainer,
+            {
+              height:
+                props.imgArr.length > 0
+                  ? responsiveScreenHeight(26)
+                  : responsiveScreenHeight(20),
+            },
+          ]}>
+          {addImgesOption()}
+          {selectedImagesShow()}
         </View>
 
         {twoTextInput()}
@@ -463,11 +546,19 @@ const IncludesMarkup = props => {
           style={Styles.tabletsFlatList}
         />
 
+        <RemoveImgModal
+          showRemoveImgModal={showRemoveImgModal}
+          setShowRemoveImgModal={setShowRemoveImgModal}
+          emptyImg={emptyImg}
+        />
         <AddImagesModal
           showModal={showModal}
           setShowModal={setShowModal}
           upload={upload}
           setShowCamera={setShowCamera}
+          click={click}
+          fullImgErr={fullImgErr}
+          {...props}
         />
         <AllMobilePhonesModal
           showPhonesModal={showPhonesModal}
