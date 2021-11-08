@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,6 +11,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Image,
+  BackHandler,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import PlusIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -374,6 +376,20 @@ const IncludesMarkup = props => {
     }
   };
 
+  useEffect(() => {
+    const hanler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      function () {
+        setShowLeaveModal(true);
+        return true;
+      },
+    );
+
+    return () => {
+      hanler.remove();
+    };
+  }, []);
+
   const installmentsRouteTextInput = () => {
     if (routeName === 'Cars on Installments') {
       return (
@@ -399,39 +415,19 @@ const IncludesMarkup = props => {
   const selectedImagesShow = () => {
     if (props.imgArr.length > 0) {
       return (
-        <View
-          style={{
-            borderWidth: 0.3,
-            borderColor: '#b3b3b3',
-            width: 325,
-            height: 190,
-            backgroundColor: '#fafafa',
-          }}>
+        <View style={Styles.showImgesContainer}>
           <TouchableOpacity
             style={{alignItems: 'center'}}
             onPress={() => setShowModal(true)}>
-            <View
-              style={{
-                flexDirection: 'row',
-                width: 315,
-                height: 50,
-                alignItems: 'center',
-              }}>
-              <Text style={{color: '#052d32', fontWeight: 'bold'}}>
-                UPLOAD UP TO 20 PHOTOS
-              </Text>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                }}>
+            <View style={Styles.uploadHeadingAndIconContainer}>
+              <Text style={Styles.uploadHeading}>UPLOAD UP TO 10 PHOTOS</Text>
+              <View style={Styles.rightArrowIcon}>
                 <ArrowRightIcon name="keyboard-arrow-right" size={22} />
               </View>
             </View>
           </TouchableOpacity>
 
-          <ScrollView horizontal={true} style={{flex: 1, marginHorizontal: 6}}>
+          <ScrollView horizontal={true} style={Styles.scrollV}>
             <View style={{flexDirection: 'row'}}>
               {props.imgArr.map((camImg, index) => {
                 return (
@@ -443,21 +439,15 @@ const IncludesMarkup = props => {
                     }>
                     <Image
                       source={{uri: camImg.camera}}
-                      style={{width: 80, height: 85, borderRadius: 8}}
+                      style={Styles.allImges}
                     />
                   </TouchableOpacity>
                 );
               })}
             </View>
           </ScrollView>
-          <View
-            style={{
-              height: 50,
-              width: 310,
-              justifyContent: 'center',
-              alignSelf: 'center',
-            }}>
-            <Text style={{fontSize: 13, color: '#0e3133'}}>
+          <View style={Styles.bottomHeadingContainer}>
+            <Text style={Styles.bottomHeading}>
               Tab on images to edit them, or press, hold and move for
               reordering.
             </Text>
@@ -489,7 +479,7 @@ const IncludesMarkup = props => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <>
       <View
         style={[Styles.routeNameContainer, {width: responsiveScreenWidth(66)}]}>
         <TouchableOpacity onPress={() => setShowLeaveModal(true)}>
@@ -497,201 +487,202 @@ const IncludesMarkup = props => {
         </TouchableOpacity>
         <Text style={Styles.routeName}>Include some details</Text>
       </View>
-
-      <ScrollView style={Styles.scrollView}>
-        <View
-          style={[
-            Styles.imgBackContainer,
-            {
-              height:
-                props.imgArr.length > 0
-                  ? responsiveScreenHeight(26)
-                  : responsiveScreenHeight(20),
-            },
-          ]}>
-          {addImgesOption()}
-          {selectedImagesShow()}
-        </View>
-
-        {twoTextInput()}
-
-        <Text
-          style={[
-            Styles.price,
-            {
-              height:
-                routeName === 'Cars'
-                  ? responsiveScreenHeight(6)
-                  : responsiveScreenHeight(5),
-            },
-          ]}>
-          Price *
-        </Text>
-        <View style={Styles.inputContainer}>
-          <TextInput style={Styles.input} />
-        </View>
-
-        {typeText()}
-        {spearPartsFlatList()}
-
-        <FlatList
-          extraData={itemType}
-          data={
-            (routeName === 'Tablets' && tabletsData) ||
-            (routeName === 'Accessories' && accessoriesData) ||
-            []
-          }
-          renderItem={item => renderItem(item)}
-          horizontal={true}
-          style={Styles.tabletsFlatList}
-        />
-
-        <RemoveImgModal
-          showRemoveImgModal={showRemoveImgModal}
-          setShowRemoveImgModal={setShowRemoveImgModal}
-          emptyImg={emptyImg}
-        />
-        <AddImagesModal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          upload={upload}
-          setShowCamera={setShowCamera}
-          click={click}
-          fullImgErr={fullImgErr}
-          {...props}
-        />
-        <AllMobilePhonesModal
-          showPhonesModal={showPhonesModal}
-          setShowPhonesModal={setShowPhonesModal}
-          {...props}
-        />
-        <AllCarsModal
-          showCarsModal={showCarsModal}
-          setShowCarsModal={setShowCarsModal}
-          {...props}
-        />
-        <LeaveModal
-          showLeaveModal={showLeaveModal}
-          setShowLeaveModal={setShowLeaveModal}
-          navigation={navigation}
-        />
-
-        {dropDown()}
-
-        {carsDropDown()}
-
-        {routeName === 'Cars' && <Text style={Styles.feulTxt}>Feul *</Text>}
-        {feulData()}
-
-        {registerDropDown()}
-
-        <View
-          style={[
-            Styles.conditionTxtContainer,
-            {
-              height:
-                routeName === 'Mobile Phones' || routeName === 'Cars'
-                  ? responsiveScreenHeight(2)
-                  : responsiveScreenHeight(5),
-            },
-          ]}>
-          <Text style={Styles.conditionTxt}>Condition *</Text>
-        </View>
-
-        <View style={Styles.conditionSelector}>
-          <TouchableOpacity
+      <KeyboardAwareScrollView>
+        <ScrollView style={Styles.scrollView}>
+          <View
             style={[
-              Styles.conditions,
+              Styles.imgBackContainer,
               {
-                borderWidth: 1,
-                borderColor: itemCondition === 'NEW' ? '#279e94' : 'black',
+                height:
+                  props.imgArr.length > 0
+                    ? responsiveScreenHeight(26)
+                    : responsiveScreenHeight(20),
               },
-            ]}
-            onPress={() => setItemCondition('NEW')}>
-            <Text
-              style={{
-                color: itemCondition === 'NEW' ? '#279e94' : '#183338',
-                fontWeight: 'bold',
-              }}>
-              NEW
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              Styles.conditions,
-              {
-                borderWidth: 1,
-                borderColor: itemCondition === 'USED' ? '#279e94' : 'black',
-              },
-            ]}
-            onPress={() => setItemCondition('USED')}>
-            <Text
-              style={{
-                color: itemCondition === 'USED' ? '#279e94' : '#183338',
-                fontWeight: 'bold',
-              }}>
-              USED
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {routeName === 'Cars on Installments' && (
-          <View style={Styles.transTxt}>
-            <Text style={Styles.transmission}>Transmission *</Text>
+            ]}>
+            {addImgesOption()}
+            {selectedImagesShow()}
           </View>
-        )}
 
-        {installmentFlatList()}
-        {installmentDropDown()}
-        {installmentConditionSelecter()}
-        {installmentsRouteTextInput()}
-        {installmentsPlanDropDown()}
+          {twoTextInput()}
 
-        <View style={Styles.adTitileContainer}>
-          <Text style={Styles.adTitile}>Ad title *</Text>
-        </View>
-        <View style={Styles.inputContainer}>
-          <TextInput style={Styles.input} />
-        </View>
-
-        <View style={Styles.describeTxtContainer}>
-          <Text style={Styles.describeTxt}>
-            Describe what you are selling *
+          <Text
+            style={[
+              Styles.price,
+              {
+                height:
+                  routeName === 'Cars'
+                    ? responsiveScreenHeight(6)
+                    : responsiveScreenHeight(5),
+              },
+            ]}>
+            Price *
           </Text>
-        </View>
-        <View style={Styles.inputContainer}>
-          <TextInput style={Styles.input} />
-        </View>
-
-        <View style={Styles.pickerContainer}>
-          <View style={Styles.pickerContainerChild}>
-            <Text style={Styles.locationTxt}>Location</Text>
-            <Picker
-              style={Styles.pickerMain}
-              selectedValue={selectedLocation}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLocation(itemValue)
-              }>
-              <Picker.Item label="Choose" value={0} />
-              <Picker.Item
-                label="Karachi, Pakistan"
-                value="Karachi, Pakistan"
-              />
-              <Picker.Item label="Sindh" value="Sindh" />
-            </Picker>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
           </View>
-        </View>
 
-        <View style={Styles.buttonContainer}>
-          <TouchableOpacity
-            style={Styles.buttonTouchAble}
-            onPress={() => props.navigation.navigate('ReviewYourDetails')}>
-            <Text style={Styles.buttonTxt}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </KeyboardAwareScrollView>
+          {typeText()}
+          {spearPartsFlatList()}
+
+          <FlatList
+            extraData={itemType}
+            data={
+              (routeName === 'Tablets' && tabletsData) ||
+              (routeName === 'Accessories' && accessoriesData) ||
+              []
+            }
+            renderItem={item => renderItem(item)}
+            horizontal={true}
+            style={Styles.tabletsFlatList}
+          />
+
+          <RemoveImgModal
+            showRemoveImgModal={showRemoveImgModal}
+            setShowRemoveImgModal={setShowRemoveImgModal}
+            emptyImg={emptyImg}
+          />
+          <AddImagesModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            upload={upload}
+            setShowCamera={setShowCamera}
+            click={click}
+            fullImgErr={fullImgErr}
+            {...props}
+          />
+          <AllMobilePhonesModal
+            showPhonesModal={showPhonesModal}
+            setShowPhonesModal={setShowPhonesModal}
+            {...props}
+          />
+          <AllCarsModal
+            showCarsModal={showCarsModal}
+            setShowCarsModal={setShowCarsModal}
+            {...props}
+          />
+          <LeaveModal
+            showLeaveModal={showLeaveModal}
+            setShowLeaveModal={setShowLeaveModal}
+            navigation={navigation}
+          />
+
+          {dropDown()}
+
+          {carsDropDown()}
+
+          {routeName === 'Cars' && <Text style={Styles.feulTxt}>Feul *</Text>}
+          {feulData()}
+
+          {registerDropDown()}
+
+          <View
+            style={[
+              Styles.conditionTxtContainer,
+              {
+                height:
+                  routeName === 'Mobile Phones' || routeName === 'Cars'
+                    ? responsiveScreenHeight(2)
+                    : responsiveScreenHeight(5),
+              },
+            ]}>
+            <Text style={Styles.conditionTxt}>Condition *</Text>
+          </View>
+
+          <View style={Styles.conditionSelector}>
+            <TouchableOpacity
+              style={[
+                Styles.conditions,
+                {
+                  borderWidth: 1,
+                  borderColor: itemCondition === 'NEW' ? '#279e94' : 'black',
+                },
+              ]}
+              onPress={() => setItemCondition('NEW')}>
+              <Text
+                style={{
+                  color: itemCondition === 'NEW' ? '#279e94' : '#183338',
+                  fontWeight: 'bold',
+                }}>
+                NEW
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                Styles.conditions,
+                {
+                  borderWidth: 1,
+                  borderColor: itemCondition === 'USED' ? '#279e94' : 'black',
+                },
+              ]}
+              onPress={() => setItemCondition('USED')}>
+              <Text
+                style={{
+                  color: itemCondition === 'USED' ? '#279e94' : '#183338',
+                  fontWeight: 'bold',
+                }}>
+                USED
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {routeName === 'Cars on Installments' && (
+            <View style={Styles.transTxt}>
+              <Text style={Styles.transmission}>Transmission *</Text>
+            </View>
+          )}
+
+          {installmentFlatList()}
+          {installmentDropDown()}
+          {installmentConditionSelecter()}
+          {installmentsRouteTextInput()}
+          {installmentsPlanDropDown()}
+
+          <View style={Styles.adTitileContainer}>
+            <Text style={Styles.adTitile}>Ad title *</Text>
+          </View>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
+          </View>
+
+          <View style={Styles.describeTxtContainer}>
+            <Text style={Styles.describeTxt}>
+              Describe what you are selling *
+            </Text>
+          </View>
+          <View style={Styles.inputContainer}>
+            <TextInput style={Styles.input} />
+          </View>
+
+          <View style={Styles.pickerContainer}>
+            <View style={Styles.pickerContainerChild}>
+              <Text style={Styles.locationTxt}>Location</Text>
+              <Picker
+                style={Styles.pickerMain}
+                selectedValue={selectedLocation}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedLocation(itemValue)
+                }>
+                <Picker.Item label="Choose" value={0} />
+                <Picker.Item
+                  label="Karachi, Pakistan"
+                  value="Karachi, Pakistan"
+                />
+                <Picker.Item label="Sindh" value="Sindh" />
+              </Picker>
+            </View>
+          </View>
+
+          <View style={Styles.buttonContainer}>
+            <TouchableOpacity
+              style={Styles.buttonTouchAble}
+              onPress={() => props.navigation.navigate('ReviewYourDetails')}>
+              <Text style={Styles.buttonTxt}>Next</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
+    </>
   );
 };
 

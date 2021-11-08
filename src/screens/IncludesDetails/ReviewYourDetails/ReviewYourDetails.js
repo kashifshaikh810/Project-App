@@ -1,18 +1,44 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import CheckIcon from 'react-native-vector-icons/MaterialIcons';
 import ToggleIcon from 'react-native-vector-icons/FontAwesome';
 import {Styles} from './Styles';
+import {Auth, Database} from '../../../../Setup';
 
 const ReviewYourDetails = props => {
   const [toggleOnOff, setToggleOnOff] = useState(false);
+  const [userName, setUserName] = useState(false);
+  const [userData, setUserData] = useState('');
+  let uid = Auth().currentUser.uid;
+
+  useEffect(() => {
+    Database()
+      .ref(`/userSignUp/${uid}`)
+      .on('value', snapshot => {
+        setUserData(snapshot.val());
+        setUserName(snapshot.val().userName);
+      });
+
+    return () => {
+      console.log('clean up');
+    };
+  }, []);
+
+  const postHandler = () => {
+    if (userData.userName === userName) {
+      props.navigation.navigate('AdSuccessfullyPostMsg');
+    } else {
+      Database().ref('/userSignUp/').child(uid).update({userName: userName});
+      props.navigation.navigate('AdSuccessfullyPostMsg');
+    }
+  };
+
   return (
     <View style={Styles.container}>
       <View style={Styles.headerContainer}>
         <View style={Styles.headerMain}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('AdSuccessfullyPostMsg')}>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
             <IconLeft name="chevron-left" size={22} color="#0b2a2e" />
           </TouchableOpacity>
 
@@ -33,7 +59,8 @@ const ReviewYourDetails = props => {
           <TextInput
             placeholder="Your name"
             style={Styles.txtInput}
-            defaultValue="Kashif Sheikh"
+            value={userName}
+            onChangeText={text => setUserName(text)}
           />
         </View>
       </View>
@@ -47,7 +74,7 @@ const ReviewYourDetails = props => {
             color="#218386"
             style={Styles.checkIcon}
           />
-          <Text style={Styles.phoneNum}>+923138432591</Text>
+          <Text style={Styles.phoneNum}>{userData.phone}</Text>
         </View>
       </View>
 
@@ -71,7 +98,7 @@ const ReviewYourDetails = props => {
       <View style={Styles.buttonContainer}>
         <TouchableOpacity
           style={Styles.buttonTouchAble}
-          onPress={() => props.navigation.navigate('AdSuccessfullyPostMsg')}>
+          onPress={() => postHandler()}>
           <Text style={Styles.buttonTxt}>Post Now</Text>
         </TouchableOpacity>
       </View>

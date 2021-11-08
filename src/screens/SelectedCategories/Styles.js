@@ -175,8 +175,7 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(4),
   },
   buttonContainer: {
-    height: responsiveScreenHeight(8),
-    justifyContent: 'center',
+    height: responsiveScreenHeight(15),
     alignItems: 'center',
   },
   buttonTouchAble: {
@@ -312,5 +311,46 @@ export const Styles = StyleSheet.create({
   mainFlatList: {
     width: responsiveScreenWidth(95),
     marginHorizontal: responsiveScreenWidth(4),
+  },
+  showImgesContainer: {
+    borderWidth: 0.3,
+    borderColor: '#b3b3b3',
+    width: responsiveScreenWidth(92),
+    height: responsiveScreenHeight(25),
+    backgroundColor: '#fafafa',
+  },
+  uploadHeadingAndIconContainer: {
+    flexDirection: 'row',
+    width: responsiveScreenWidth(86),
+    height: responsiveScreenHeight(6),
+    alignItems: 'center',
+  },
+  uploadHeading: {
+    color: '#052d32',
+    fontWeight: 'bold',
+  },
+  rightArrowIcon: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  scrollV: {
+    flex: 1,
+    marginHorizontal: responsiveScreenWidth(1),
+  },
+  allImges: {
+    width: responsiveScreenWidth(20),
+    height: responsiveScreenHeight(12),
+    borderRadius: 8,
+  },
+  bottomHeadingContainer: {
+    height: 50,
+    width: 310,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  bottomHeading: {
+    fontSize: 13,
+    color: '#0e3133',
   },
 });

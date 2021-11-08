@@ -9,14 +9,14 @@ const AddImagesModal = props => {
         <View style={Styles.modalMain}>
           <TouchableOpacity
             onPress={() =>
-              props.imgArr.length === 20 ? props.fullImgErr() : props.click()
+              props.imgArr.length === 10 ? props.fullImgErr() : props.click()
             }>
             <Text style={Styles.textStyles}>Take a photo</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() =>
-              props.imgArr.length === 20 ? props.fullImgErr() : props.upload()
+              props.imgArr.length === 10 ? props.fullImgErr() : props.upload()
             }>
             <Text style={Styles.textStyles}>Pick from gallery</Text>
           </TouchableOpacity>

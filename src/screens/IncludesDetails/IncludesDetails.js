@@ -41,17 +41,16 @@ const IncludesDetails = props => {
   const [camImg, setCamImg] = useState('');
 
   const upload = async () => {
-    let fileredImges = [];
     setShowModal(false);
     try {
       const file = await DocumentPicker.pickMultiple({
         type: [DocumentPicker.types.images],
       });
       for (const res of file) {
-        fileredImges.push({camera: res.uri});
+        imgArr.push({camera: res.uri});
         setImgPickerPic(res.uri);
+        setImgArr(imgArr.slice(0, 10));
       }
-      setImgArr(fileredImges.slice(0, 20));
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         setShowModal(false);
@@ -79,7 +78,7 @@ const IncludesDetails = props => {
 
   const captureImgHandler = () => {
     imgArr.push({camera: camImg});
-    setImgArr(imgArr);
+    setImgArr(imgArr.slice(0, 10));
     setCamImgCaptureDone(false);
   };
 
@@ -89,7 +88,7 @@ const IncludesDetails = props => {
   };
 
   const fullImgErr = () => {
-    Alert.alert('You can add at most 20 photos.');
+    Alert.alert('You can add at most 10 photos.');
   };
 
   return (
