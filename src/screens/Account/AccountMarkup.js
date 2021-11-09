@@ -22,13 +22,12 @@ const AccountMarkup = props => {
             {props.currentUserData ? props.currentUserData.userName : 'Log in'}
           </Text>
           <TouchableOpacity
-            disabled={!props.currentUserData}
-            activeOpacity={props.currentUserData ? 0.5 : 1}
             onPress={() =>
-              props.currentUserData &&
-              props.navigation.navigate('BasicInformation', {
-                data: props.currentUserData,
-              })
+              props.currentUserData
+                ? props.navigation.navigate('BasicInformation', {
+                    data: props.currentUserData,
+                  })
+                : props.navigation.navigate('SignUpAndSignInMenu')
             }>
             <Text style={AccountStyles.text}>
               {props.currentUserData

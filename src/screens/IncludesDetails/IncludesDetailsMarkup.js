@@ -430,6 +430,7 @@ const IncludesMarkup = props => {
           <ScrollView horizontal={true} style={Styles.scrollV}>
             <View style={{flexDirection: 'row'}}>
               {props.imgArr.map((camImg, index) => {
+                console.log(camImg);
                 return (
                   <TouchableOpacity
                     key={index}

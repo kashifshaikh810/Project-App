@@ -11,11 +11,17 @@ const BasicInformation = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const userInformation = props.route.params.data;
+  let uid = Auth()?.currentUser?.uid;
 
   const save = () => {
-    let password = userInformation.password;
-    if (email && phone && userName && aboutYou) {
-      setIsLoading(true);
+    let password = userInformation.password.toString();
+    setIsLoading(true);
+    if (
+      email !== userInformation.email &&
+      userName === userInformation.userName &&
+      phone === userInformation.phone &&
+      aboutYou === userInformation.aboutYou
+    ) {
       Auth()
         .createUserWithEmailAndPassword(email, password)
         .then(async ({user}) => {
@@ -49,7 +55,38 @@ const BasicInformation = props => {
             );
           }
         });
+      setIsLoading(false);
+    } else {
+      if (
+        userName !== userInformation.userName &&
+        aboutYou !== userInformation.aboutYou
+      ) {
+        Database()
+          .ref('/userSignUp')
+          .child(uid)
+          .update({userName: userName, aboutYou: aboutYou});
+      } else if (
+        userName !== userInformation.userName &&
+        phone !== userInformation.phone &&
+        aboutYou !== userInformation.aboutYou
+      ) {
+        Database()
+          .ref('/userSignUp')
+          .child(uid)
+          .update({userName: userName, aboutYou: aboutYou, phone: phone});
+      } else if (userName !== userInformation.userName) {
+        Database().ref('/userSignUp').child(uid).update({userName: userName});
+        setIsLoading(false);
+      } else if (phone !== userInformation.phone) {
+        Database().ref('/userSignUp').child(uid).update({phone: phone});
+        setIsLoading(false);
+      } else if (aboutYou !== userInformation.aboutYou || aboutYou) {
+        Database().ref('/userSignUp').child(uid).update({aboutYou: aboutYou});
+        setIsLoading(false);
+      }
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const userNameHandler = text => {

@@ -16,7 +16,7 @@ const SignUpAndSignInMenu = props => {
   return (
     <ScrollView style={Styles.container}>
       <View style={Styles.iconContainer}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('ACCOUNT')}>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
           <CloseIcon name="close" size={30} />
         </TouchableOpacity>
       </View>

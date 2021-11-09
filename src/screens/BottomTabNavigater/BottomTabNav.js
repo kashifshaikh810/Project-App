@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text, TouchableOpacity, View} from 'react-native';
 import HomeIcon from 'react-native-vector-icons/FontAwesome5';
@@ -24,37 +25,29 @@ import MyAds from '../MyAds/MyAds';
 import Account from '../Account/Account';
 import {styles} from './styles';
 import {Auth} from '../../../Setup';
+import {responsiveScreenHeight} from '../../Components/Utility/ResponsiveDimensions/Responsive';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNav = props => {
   const [showTopLine, setShowTopLine] = useState('');
-  const [userId, setuserId] = useState('');
   let uid = Auth()?.currentUser?.uid;
 
   const click = routeName => {
     setShowTopLine(routeName);
-    if (uid) {
-      props.navigation.navigate('SELL');
-    } else {
-      props.navigation.navigate('SignUpAndSignInMenu');
-    }
   };
-
-  useEffect(() => {
-    setuserId(uid);
-    console.log(uid);
-    return () => {
-      console.log('cleanup');
-    };
-  }, []);
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: {fontSize: 14, fontWeight: 'bold', color: '#36585b',},
-        tabBarStyle: {backgroundColor: 'white', paddingBottom: 2, width: '100%', height: 60},
+        tabBarLabelStyle: {fontSize: 14, fontWeight: 'bold', color: '#36585b'},
+        tabBarStyle: {
+          backgroundColor: 'white',
+          paddingBottom: responsiveScreenHeight(0.8),
+          width: '100%',
+          height: responsiveScreenHeight(8),
+        },
         tabBarActiveTintColor: 'black',
         tabBarInactiveTintColor: 'black',
       }}>
@@ -83,84 +76,237 @@ const BottomTabNav = props => {
       />
       <Tab.Screen
         name={Chats_Page}
-        component={userId ? Chats : SignUpAndSignInMenu}
+        component={Chats}
         listeners={routeName => setShowTopLine(routeName)}
-        options={{
-          tabBarIcon: () => (
-            <ChatsIcon
-              style={[
-                styles.TopLine,
-                {
-                  borderTopWidth:
-                    showTopLine?.route?.name === 'CHATS' ? 3 : null,
-                },
-              ]}
-              name={
-                showTopLine?.route?.name === 'CHATS'
-                  ? 'message-processing'
-                  : 'message-processing-outline'
+        options={
+          uid
+            ? {
+                tabBarIcon: () => (
+                  <ChatsIcon
+                    style={[
+                      styles.TopLine,
+                      {
+                        borderTopWidth:
+                          showTopLine?.route?.name === 'CHATS' ? 3 : null,
+                      },
+                    ]}
+                    name={
+                      showTopLine?.route?.name === 'CHATS'
+                        ? 'message-processing'
+                        : 'message-processing-outline'
+                    }
+                    size={25}
+                  />
+                ),
               }
-              size={25}
-              onPress={() =>
-                userId ? '' : props.navigation.navigate('SignUpAndSignInMenu')
+            : {
+                tabBarButton: () => (
+                  <TouchableOpacity
+                    style={{
+                      width: 65,
+                      justifyContent: 'space-evenly',
+                      marginTop: 6,
+                      height: 45,
+                      alignItems: 'center',
+                    }}
+                    onPress={() =>
+                      props.navigation.navigate('SignUpAndSignInMenu')
+                    }>
+                    <ChatsIcon
+                      style={[
+                        styles.TopLine,
+                        {
+                          borderTopWidth:
+                            showTopLine?.route?.name === 'CHATS' ? 3 : null,
+                        },
+                      ]}
+                      name={
+                        showTopLine?.route?.name === 'CHATS'
+                          ? 'message-processing'
+                          : 'message-processing-outline'
+                      }
+                      size={25}
+                      onPress={() =>
+                        uid
+                          ? ''
+                          : props.navigation.navigate('SignUpAndSignInMenu')
+                      }
+                    />
+                    <View
+                      style={{
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        height: 25,
+                      }}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          color: '#36585b',
+                          fontSize: 14,
+                        }}>
+                        CHATS
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ),
               }
-            />
-          ),
-        }}
+        }
       />
       <Tab.Screen
         name={Sell_Page}
-        component={uid ? Categories : SignUpAndSignInMenu}
-        listeners={routeName => ({tabPress: () => click(routeName)})}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.container}>
-              <LinearGradient
-                colors={['#3e7dfa', '#39e5dc', '#fecd37']}
-                start={{x: 0.0, y: 1.2}}
-                end={{x: 1.9, y: 1.0}}
-                style={styles.grediant}>
-                <TouchableOpacity
-                  style={styles.buttonContainer}
-                  onPress={() =>
-                    userId
-                      ? props.navigation.navigate('Categories')
-                      : props.navigation.navigate('SignUpAndSignInMenu')
-                  }
-                  activeOpacity={0.9}>
-                  <MyAdsIcon name="plus" size={25} color="#222222" />
-                </TouchableOpacity>
-              </LinearGradient>
-            </View>
-          ),
-        }}
+        component={Categories}
+        listeners={routeName => click(routeName)}
+        options={
+          uid
+            ? {
+                tabBarButton: () => (
+                  <TouchableOpacity
+                    style={{
+                      width: 65,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() => props.navigation.navigate('Categories')}>
+                    <View
+                      style={[
+                        styles.container,
+                        {bottom: responsiveScreenHeight(4)},
+                      ]}>
+                      <LinearGradient
+                        colors={['#3e7dfa', '#39e5dc', '#fecd37']}
+                        start={{x: 0.0, y: 1.2}}
+                        end={{x: 1.9, y: 1.0}}
+                        style={styles.grediant}>
+                        <View style={styles.buttonContainer}>
+                          <MyAdsIcon name="plus" size={25} color="#222222" />
+                        </View>
+                      </LinearGradient>
+                    </View>
+                    <View
+                      style={{
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        height: 55,
+                      }}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          color: '#36585b',
+                          fontSize: 14,
+                        }}>
+                        SELL
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ),
+              }
+            : {
+                tabBarButton: () => (
+                  <TouchableOpacity
+                    style={{width: 64}}
+                    onPress={() =>
+                      props.navigation.navigate('SignUpAndSignInMenu')
+                    }>
+                    <View
+                      style={[
+                        styles.container,
+                        {bottom: responsiveScreenHeight(4)},
+                      ]}>
+                      <LinearGradient
+                        colors={['#3e7dfa', '#39e5dc', '#fecd37']}
+                        start={{x: 0.0, y: 1.2}}
+                        end={{x: 1.9, y: 1.0}}
+                        style={styles.grediant}>
+                        <View style={styles.buttonContainer}>
+                          <MyAdsIcon name="plus" size={25} color="#222222" />
+                        </View>
+                      </LinearGradient>
+                    </View>
+                    <View
+                      style={{
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        height: 55,
+                      }}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          color: '#36585b',
+                          fontSize: 14,
+                        }}>
+                        SELL
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ),
+              }
+        }
       />
       <Tab.Screen
         name={MyAds_Page}
         component={MyAds}
         listeners={routeName => setShowTopLine(routeName)}
-        options={{
-          tabBarIcon: () =>
-            showTopLine?.route?.name === 'MY ADS' ? (
-              <MyAdsIcon
-                style={[
-                  styles.TopLine,
-                  {
-                    borderTopWidth:
-                      showTopLine?.route?.name === 'MY ADS' ? 3 : null,
-                  },
-                ]}
-                name="heart"
-                size={25}
-              />
-            ) : (
-              <MyAdsIcon
-                style={styles.TopLine}
-                name="heart-outlined"
-                size={25}
-              />
-            ),
-        }}
+        options={
+          uid
+            ? {
+                tabBarIcon: () =>
+                  showTopLine?.route?.name === 'MY ADS' ? (
+                    <MyAdsIcon
+                      style={[
+                        styles.TopLine,
+                        {
+                          borderTopWidth:
+                            showTopLine?.route?.name === 'MY ADS' ? 3 : null,
+                        },
+                      ]}
+                      name="heart"
+                      size={25}
+                    />
+                  ) : (
+                    <MyAdsIcon
+                      style={styles.TopLine}
+                      name="heart-outlined"
+                      size={25}
+                    />
+                  ),
+              }
+            : {
+                tabBarButton: () => (
+                  <TouchableOpacity
+                    style={{
+                      width: 70,
+                      justifyContent: 'space-evenly',
+                      marginTop: 6,
+                      height: 45,
+                      alignItems: 'center',
+                    }}
+                    onPress={() =>
+                      props.navigation.navigate('SignUpAndSignInMenu')
+                    }>
+                    <MyAdsIcon
+                      style={styles.TopLine}
+                      name="heart-outlined"
+                      size={25}
+                    />
+                    <View
+                      style={{
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        height: 25,
+                      }}>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          color: '#36585b',
+                          fontSize: 14,
+                        }}>
+                        MY ADS
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ),
+              }
+        }
       />
       <Tab.Screen
         name={Account_Page}

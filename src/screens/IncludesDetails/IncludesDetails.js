@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   TouchableOpacity,
@@ -12,6 +12,8 @@ import IncludesDetailsMarkup from './IncludesDetailsMarkup';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import CheckIcon from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
+import RNFetchBlob from 'rn-fetch-blob';
+import {Storage} from '../../../Setup';
 
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
@@ -25,7 +27,9 @@ const IncludesDetails = props => {
   const [camImgCaptureDone, setCamImgCaptureDone] = useState(false);
   const [flashMode, setFlashMode] = useState(false);
   const [imgPickerPic, setImgPickerPic] = useState('');
+  const [imgData, setImgData] = useState('');
   const [imgArr, setImgArr] = useState([]);
+  const [image, setImage] = useState([]);
   const [showPhonesModal, setShowPhonesModal] = useState({
     shown: false,
     routeData: '',
@@ -39,6 +43,7 @@ const IncludesDetails = props => {
   const [itemCondition, setItemCondition] = useState('');
   const [itemType, setItemType] = useState(null);
   const [camImg, setCamImg] = useState('');
+  const storageCv = Storage().ref(`/adImages/${imgData.name}`);
 
   const upload = async () => {
     setShowModal(false);
@@ -48,8 +53,11 @@ const IncludesDetails = props => {
       });
       for (const res of file) {
         imgArr.push({camera: res.uri});
-        setImgPickerPic(res.uri);
-        setImgArr(imgArr.slice(0, 10));
+        image.push({camera: res});
+        setImgPickerPic(res);
+        setImgArr(imgArr.slice(0, 5));
+        setImage(image.slice(0, 5));
+        addImgesToStorage(imgArr);
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -59,6 +67,37 @@ const IncludesDetails = props => {
         throw err;
       }
     }
+  };
+  console.log(imgData.name, 'dd');
+
+  const addImgesToStorage = images => {
+    let imagesArr = [...images];
+    image.forEach(res => {
+      let imgType = res.camera.type;
+      setImgData(res.camera);
+      imagesArr.forEach(async (img, index) => {
+        const uri = img.camera;
+        const result = await RNFetchBlob.fs.readFile(uri, 'base64');
+        const task = storageCv.putString(result, 'base64', {
+          contentType: imgType,
+        });
+        console.log(task);
+        task.on('state_changed', taskSnapshot => {
+          console.log(
+            `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+          );
+        });
+        await task.then(imageSnapshot => {
+          console.log('Image Upload Successfully');
+          Storage()
+            .ref(imageSnapshot.metadata.fullPath)
+            .getDownloadURL()
+            .then(myDownloadURL => {
+              console.log('image ', myDownloadURL);
+            });
+        });
+      });
+    });
   };
 
   const takePicture = async camera => {
@@ -78,7 +117,7 @@ const IncludesDetails = props => {
 
   const captureImgHandler = () => {
     imgArr.push({camera: camImg});
-    setImgArr(imgArr.slice(0, 10));
+    setImgArr(imgArr.slice(0, 5));
     setCamImgCaptureDone(false);
   };
 
@@ -88,7 +127,7 @@ const IncludesDetails = props => {
   };
 
   const fullImgErr = () => {
-    Alert.alert('You can add at most 10 photos.');
+    Alert.alert('You can add at most 5 photos.');
   };
 
   return (

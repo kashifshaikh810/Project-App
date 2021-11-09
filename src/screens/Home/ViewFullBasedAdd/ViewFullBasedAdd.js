@@ -23,11 +23,13 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {dummyData} from '../Data';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {Auth} from '../../../../Setup';
 
 const ViewFullBasedAdd = props => {
   const [addToFav, setAddToFav] = useState(false);
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const routeData = props.route.params.data;
+  let uid = Auth()?.currentUser?.uid;
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -313,7 +315,11 @@ const ViewFullBasedAdd = props => {
         <TouchableOpacity
           style={Styles.buttonTextAndIconContainer}
           onPress={() =>
-            props.navigation.navigate('PrivateMessages', {itemData: routeData})
+            uid
+              ? props.navigation.navigate('PrivateMessages', {
+                  itemData: routeData,
+                })
+              : props.navigation.navigate('SignUpAndSignInMenu')
           }>
           <MessageIcon name="message1" size={17} color="white" />
           <Text style={Styles.buttonText}>Chat</Text>
