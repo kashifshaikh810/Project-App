@@ -8,6 +8,7 @@ const AddImagesModal = props => {
       <View style={Styles.modalContainer}>
         <View style={Styles.modalMain}>
           <TouchableOpacity
+            disabled={true}
             onPress={() =>
               props.imgArr.length === 10 ? props.fullImgErr() : props.click()
             }>

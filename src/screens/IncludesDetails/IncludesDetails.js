@@ -26,10 +26,9 @@ const IncludesDetails = props => {
   const [showCamera, setShowCamera] = useState(false);
   const [camImgCaptureDone, setCamImgCaptureDone] = useState(false);
   const [flashMode, setFlashMode] = useState(false);
-  const [imgPickerPic, setImgPickerPic] = useState('');
-  const [imgData, setImgData] = useState('');
+  const [isImagesLoading, setIsImagesLoading] = useState(false);
+  const [storageImagesArr, setStorageImagesArr] = useState([]);
   const [imgArr, setImgArr] = useState([]);
-  const [image, setImage] = useState([]);
   const [showPhonesModal, setShowPhonesModal] = useState({
     shown: false,
     routeData: '',
@@ -43,7 +42,6 @@ const IncludesDetails = props => {
   const [itemCondition, setItemCondition] = useState('');
   const [itemType, setItemType] = useState(null);
   const [camImg, setCamImg] = useState('');
-  const storageCv = Storage().ref(`/adImages/${imgData.name}`);
 
   const upload = async () => {
     setShowModal(false);
@@ -53,11 +51,8 @@ const IncludesDetails = props => {
       });
       for (const res of file) {
         imgArr.push({camera: res.uri});
-        image.push({camera: res});
-        setImgPickerPic(res);
-        setImgArr(imgArr.slice(0, 5));
-        setImage(image.slice(0, 5));
-        addImgesToStorage(imgArr);
+        addImgesToStorage(res);
+        setImgArr(imgArr.slice(0, 10));
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -68,36 +63,39 @@ const IncludesDetails = props => {
       }
     }
   };
-  console.log(imgData.name, 'dd');
 
-  const addImgesToStorage = images => {
-    let imagesArr = [...images];
-    image.forEach(res => {
-      let imgType = res.camera.type;
-      setImgData(res.camera);
-      imagesArr.forEach(async (img, index) => {
-        const uri = img.camera;
-        const result = await RNFetchBlob.fs.readFile(uri, 'base64');
-        const task = storageCv.putString(result, 'base64', {
-          contentType: imgType,
-        });
-        console.log(task);
-        task.on('state_changed', taskSnapshot => {
-          console.log(
-            `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-          );
-        });
-        await task.then(imageSnapshot => {
-          console.log('Image Upload Successfully');
-          Storage()
-            .ref(imageSnapshot.metadata.fullPath)
-            .getDownloadURL()
-            .then(myDownloadURL => {
-              console.log('image ', myDownloadURL);
-            });
-        });
+  console.log('arr', storageImagesArr);
+
+  const addImgesToStorage = async images => {
+    try {
+      setIsImagesLoading(true);
+      let imageData = images;
+      const uri = images.uri;
+      const result = await RNFetchBlob.fs.readFile(uri, 'base64');
+      const storage = await Storage().ref(`/adImages/${imageData.name}`);
+      const task = storage.putString(result, 'base64', {
+        contentType: imageData.type,
       });
-    });
+      task.on('state_changed', taskSnapshot => {
+        console.log(
+          `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+        );
+      });
+      await task.then(imageSnapshot => {
+        console.log('Image Upload Successfully');
+        Storage()
+          .ref(imageSnapshot.metadata.fullPath)
+          .getDownloadURL()
+          .then(myDownloadURL => {
+            console.log('download URL image ', myDownloadURL);
+            storageImagesArr.push({adImages: myDownloadURL});
+            setStorageImagesArr(storageImagesArr);
+            setIsImagesLoading(false);
+          });
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const takePicture = async camera => {
@@ -127,7 +125,7 @@ const IncludesDetails = props => {
   };
 
   const fullImgErr = () => {
-    Alert.alert('You can add at most 5 photos.');
+    Alert.alert('You can add at most 10 photos.');
   };
 
   return (
@@ -184,6 +182,7 @@ const IncludesDetails = props => {
         showRemoveImgModal={showRemoveImgModal}
         setShowRemoveImgModal={setShowRemoveImgModal}
         fullImgErr={fullImgErr}
+        isImagesLoading={isImagesLoading}
       />
     </View>
   );

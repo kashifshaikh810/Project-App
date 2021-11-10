@@ -353,4 +353,21 @@ export const Styles = StyleSheet.create({
     fontSize: 13,
     color: '#0e3133',
   },
+  imagesLoader: {
+    width: responsiveScreenWidth(80),
+    height: responsiveScreenHeight(12),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  desInput: {
+    flex: 1,
+    marginHorizontal: responsiveScreenWidth(4),
+    paddingHorizontal: responsiveScreenWidth(3),
+    minWidth: responsiveScreenWidth(92),
+    minHeight: responsiveScreenHeight(7),
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#183338',
+    textAlignVertical: 'center',
+  },
 });

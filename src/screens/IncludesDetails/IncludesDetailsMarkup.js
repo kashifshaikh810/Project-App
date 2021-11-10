@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Image,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import PlusIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -418,7 +419,7 @@ const IncludesMarkup = props => {
         <View style={Styles.showImgesContainer}>
           <TouchableOpacity
             style={{alignItems: 'center'}}
-            onPress={() => setShowModal(true)}>
+            onPress={() => (props.isImagesLoading ? '' : setShowModal(true))}>
             <View style={Styles.uploadHeadingAndIconContainer}>
               <Text style={Styles.uploadHeading}>UPLOAD UP TO 10 PHOTOS</Text>
               <View style={Styles.rightArrowIcon}>
@@ -430,7 +431,6 @@ const IncludesMarkup = props => {
           <ScrollView horizontal={true} style={Styles.scrollV}>
             <View style={{flexDirection: 'row'}}>
               {props.imgArr.map((camImg, index) => {
-                console.log(camImg);
                 return (
                   <TouchableOpacity
                     key={index}
@@ -438,10 +438,17 @@ const IncludesMarkup = props => {
                     onPress={() =>
                       setShowRemoveImgModal({shown: true, indexNum: index})
                     }>
-                    <Image
-                      source={{uri: camImg.camera}}
-                      style={Styles.allImges}
-                    />
+                    {props.isImagesLoading ? (
+                      <View style={Styles.imagesLoader}>
+                        <ActivityIndicator size={60} color="green" />
+                        <Text>Loading please wait a few sec...</Text>
+                      </View>
+                    ) : (
+                      <Image
+                        source={{uri: camImg.camera}}
+                        style={Styles.allImges}
+                      />
+                    )}
                   </TouchableOpacity>
                 );
               })}
@@ -652,7 +659,11 @@ const IncludesMarkup = props => {
             </Text>
           </View>
           <View style={Styles.inputContainer}>
-            <TextInput style={Styles.input} />
+            <TextInput
+              style={Styles.desInput}
+              returnKeyType="go"
+              multiline={true}
+            />
           </View>
 
           <View style={Styles.pickerContainer}>
@@ -665,11 +676,22 @@ const IncludesMarkup = props => {
                   setSelectedLocation(itemValue)
                 }>
                 <Picker.Item label="Choose" value={0} />
+                <Picker.Item label="Karachi, Malir" value="Karachi, Malir" />
                 <Picker.Item
-                  label="Karachi, Pakistan"
-                  value="Karachi, Pakistan"
+                  label="Lahor, Minar-e-Pakistan"
+                  value="Lahor, Minar-e-Pakistan"
                 />
-                <Picker.Item label="Sindh" value="Sindh" />
+                <Picker.Item
+                  label="Sindh, Karachi Gate"
+                  value="Sindh, Karachi Gate"
+                />
+                <Picker.Item
+                  label="Panjab, Guray gao"
+                  value="Panjab, Guray gao"
+                />
+                <Picker.Item label="Karachi, Saddar Town" value="Karachi, Saddar Town" />
+                <Picker.Item label="Karachi, Sindhi Hotel" value="Karachi, Sindhi Hotel" />
+                <Picker.Item label="Blochistan, Mola Chotak" value="Blochistan, Mola Chotak" />
               </Picker>
             </View>
           </View>
