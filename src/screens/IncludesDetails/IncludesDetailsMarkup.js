@@ -526,7 +526,12 @@ const IncludesMarkup = props => {
             Price *
           </Text>
           <View style={Styles.inputContainer}>
-            <TextInput style={Styles.input} />
+            <TextInput
+              style={Styles.input}
+              value={props.price}
+              onChangeText={text => props.setPrice(text)}
+              keyboardType="numeric"
+            />
           </View>
 
           {typeText()}
@@ -650,7 +655,11 @@ const IncludesMarkup = props => {
             <Text style={Styles.adTitile}>Ad title *</Text>
           </View>
           <View style={Styles.inputContainer}>
-            <TextInput style={Styles.input} />
+            <TextInput
+              style={Styles.input}
+              value={props.adTitile}
+              onChangeText={text => props.setAdTitile(text)}
+            />
           </View>
 
           <View style={Styles.describeTxtContainer}>
@@ -663,6 +672,8 @@ const IncludesMarkup = props => {
               style={Styles.desInput}
               returnKeyType="go"
               multiline={true}
+              value={props.adFullDescription}
+              onChangeText={text => props.setAdFullDescription(text)}
             />
           </View>
 
@@ -675,7 +686,7 @@ const IncludesMarkup = props => {
                 onValueChange={(itemValue, itemIndex) =>
                   setSelectedLocation(itemValue)
                 }>
-                <Picker.Item label="Choose" value={0} />
+                <Picker.Item label="Choose" value="" />
                 <Picker.Item label="Karachi, Malir" value="Karachi, Malir" />
                 <Picker.Item
                   label="Lahor, Minar-e-Pakistan"
@@ -689,17 +700,92 @@ const IncludesMarkup = props => {
                   label="Panjab, Guray gao"
                   value="Panjab, Guray gao"
                 />
-                <Picker.Item label="Karachi, Saddar Town" value="Karachi, Saddar Town" />
-                <Picker.Item label="Karachi, Sindhi Hotel" value="Karachi, Sindhi Hotel" />
-                <Picker.Item label="Blochistan, Mola Chotak" value="Blochistan, Mola Chotak" />
+                <Picker.Item
+                  label="Karachi, Saddar Town"
+                  value="Karachi, Saddar Town"
+                />
+                <Picker.Item
+                  label="Karachi, Sindhi Hotel"
+                  value="Karachi, Sindhi Hotel"
+                />
+                <Picker.Item
+                  label="Blochistan, Mola Chotak"
+                  value="Blochistan, Mola Chotak"
+                />
+                <Picker.Item
+                  label="Punjab, Sher Shah"
+                  value="Punjab, Sher Shah"
+                />
+                <Picker.Item
+                  label="Pakistan, Kashmir"
+                  value="Pakistan, Kashmir"
+                />
+                <Picker.Item
+                  label="Karachi, Highway"
+                  value="Karachi, Highway"
+                />
+                <Picker.Item
+                  label="Hydrabad, Naya Gaon"
+                  value="Hydrabad, Naya Gaon"
+                />
+                <Picker.Item
+                  label="Karachi, Ajmer Nagri"
+                  value="Karachi, Ajmer Nagri"
+                />
+                <Picker.Item
+                  label="Karachi, Quaid-e-Azam Mazar"
+                  value="Karachi, Quaid-e-Azam Mazar"
+                />
+                <Picker.Item
+                  label="Karachi, Nadran by Pass"
+                  value="Karachi, Nadran by Pass"
+                />
+                <Picker.Item
+                  label="Karachi, Ancholi"
+                  value="Karachi, Ancholi"
+                />
+                <Picker.Item label="Karachi, Nagan" value="Karachi, Nagan" />
+                <Picker.Item
+                  label="Karachi, Numiash"
+                  value="Karachi, Numiash"
+                />
+                <Picker.Item
+                  label="Karachi, North Nazimabad"
+                  value="Karachi, North Nazimabad"
+                />
+                <Picker.Item
+                  label="Karachi, Power House"
+                  value="Karachi, Power House"
+                />
               </Picker>
             </View>
           </View>
 
           <View style={Styles.buttonContainer}>
             <TouchableOpacity
-              style={Styles.buttonTouchAble}
-              onPress={() => props.navigation.navigate('ReviewYourDetails')}>
+              // disabled={
+              //   !props.imgArr ||
+              //   !props.price ||
+              //   !props.selectedLocation ||
+              //   !props.adTitile ||
+              //   !itemCondition ||
+              //   !props.adFullDescription
+              // }
+              style={[
+                Styles.buttonTouchAble,
+                {
+                  backgroundColor:
+                    (props.imgArr &&
+                      props.price &&
+                      props.selectedLocation &&
+                      props.adTitile &&
+                      itemCondition &&
+                      props.adFullDescription &&
+                      'black') ||
+                    '#e4e7ee',
+                },
+              ]}
+              onPress={() => props.nextButton()}>
               <Text style={Styles.buttonTxt}>Next</Text>
             </TouchableOpacity>
           </View>

@@ -181,7 +181,6 @@ export const Styles = StyleSheet.create({
   buttonTouchAble: {
     width: responsiveScreenWidth(90),
     height: responsiveScreenHeight(6),
-    backgroundColor: '#e4e7ee',
     borderRadius: responsiveHeight(0.8),
     justifyContent: 'center',
     alignItems: 'center',

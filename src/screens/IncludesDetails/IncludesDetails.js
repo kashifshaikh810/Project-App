@@ -13,7 +13,7 @@ import CloseIcon from 'react-native-vector-icons/AntDesign';
 import CheckIcon from 'react-native-vector-icons/Feather';
 import {Styles} from './Styles';
 import RNFetchBlob from 'rn-fetch-blob';
-import {Storage} from '../../../Setup';
+import {Auth, Database, Storage} from '../../../Setup';
 
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
@@ -42,6 +42,11 @@ const IncludesDetails = props => {
   const [itemCondition, setItemCondition] = useState('');
   const [itemType, setItemType] = useState(null);
   const [camImg, setCamImg] = useState('');
+  const [price, setPrice] = useState('');
+  const [adTitile, setAdTitile] = useState('');
+  const [adFullDescription, setAdFullDescription] = useState('');
+  const [currentUserData, setCurrentUserData] = useState('');
+  let routeName = props.route.params.routeData.name;
 
   const upload = async () => {
     setShowModal(false);
@@ -52,7 +57,7 @@ const IncludesDetails = props => {
       for (const res of file) {
         imgArr.push({camera: res.uri});
         addImgesToStorage(res);
-        setImgArr(imgArr.slice(0, 10));
+        setImgArr(imgArr.slice(0, 5));
       }
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -63,8 +68,6 @@ const IncludesDetails = props => {
       }
     }
   };
-
-  console.log('arr', storageImagesArr);
 
   const addImgesToStorage = async images => {
     try {
@@ -125,8 +128,50 @@ const IncludesDetails = props => {
   };
 
   const fullImgErr = () => {
-    Alert.alert('You can add at most 10 photos.');
+    Alert.alert('You can add at most 5 photos.');
   };
+
+  const nextButton = () => {
+    let uid = Auth()?.currentUser?.uid;
+    let joinDate = Auth()?.currentUser.metadata.creationTime;
+    let userName = currentUserData.userName;
+    console.log(storageImagesArr);
+    if (
+      storageImagesArr &&
+      price &&
+      itemCondition &&
+      adTitile &&
+      adFullDescription &&
+      selectedLocation
+    ) {
+      Database().ref(`/userAds/${uid}`).push({
+        userId: uid,
+        adImages: storageImagesArr,
+        price: price,
+        type: routeName,
+        condition: itemCondition,
+        titile: adTitile,
+        location: selectedLocation,
+        description: adFullDescription,
+        joinDate: joinDate,
+        userName: userName,
+      });
+      props.navigation.navigate('ReviewYourDetails');
+    }
+  };
+
+  useEffect(() => {
+    let uid = Auth()?.currentUser?.uid;
+    Database()
+      .ref(`/userSignUp/${uid}`)
+      .on('value', snapshot => {
+        console.log(snapshot.val());
+        setCurrentUserData(snapshot.val());
+      });
+    return () => {
+      console.log('cleanup');
+    };
+  }, [routeName]);
 
   return (
     <View>
@@ -183,6 +228,13 @@ const IncludesDetails = props => {
         setShowRemoveImgModal={setShowRemoveImgModal}
         fullImgErr={fullImgErr}
         isImagesLoading={isImagesLoading}
+        price={price}
+        setPrice={setPrice}
+        adTitile={adTitile}
+        setAdTitile={setAdTitile}
+        adFullDescription={adFullDescription}
+        setAdFullDescription={setAdFullDescription}
+        nextButton={nextButton}
       />
     </View>
   );

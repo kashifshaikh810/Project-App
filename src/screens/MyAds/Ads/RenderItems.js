@@ -7,7 +7,8 @@ import HeartIcon from 'react-native-vector-icons/Entypo';
 import ThreeDotsIcon from 'react-native-vector-icons/Feather';
 import MyAdsDeleteModal from '../../../Components/Modals/MyAdsDeleteModal/MyAdsDeleteModal';
 
-export const renderItems = ({item}, props, showModal, setShowModal) => {
+export const renderItems = ({item, index}, props, showModal, setShowModal) => {
+  console.log(item.adImages[0].adImages, 'dd');
   return (
     <View style={Styles.mainContainer}>
       <TouchableOpacity
@@ -41,13 +42,13 @@ export const renderItems = ({item}, props, showModal, setShowModal) => {
 
         <View style={Styles.midSectionContainer}>
           <View>
-            <Image source={item.adImg} style={Styles.adImgStyle} />
+            <Image source={{uri: item.adImages[index].adImages}} style={Styles.adImgStyle} />
           </View>
           <View style={Styles.adDescriptionContainerStyle}>
             <Text numberOfLines={1} style={Styles.adDescriptionStyle}>
-              {item.adDescription}
+              {item.titile}
             </Text>
-            {item.type !== 'Sold' && <Text>Rs {item.rs}</Text>}
+            {item.type !== 'Sold' && <Text>Rs {item.price}</Text>}
 
             <View style={Styles.iconsRowContainer}>
               <View style={Styles.heartIconContainer}>

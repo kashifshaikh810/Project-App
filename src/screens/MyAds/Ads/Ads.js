@@ -1,17 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {Styles} from './Styles';
 import ArrowDown from 'react-native-vector-icons/MaterialIcons';
 import {dummyData} from './DummyData';
 import {renderItems} from './RenderItems';
 import SortingAdsModal from '../../../Components/Modals/SortingAdsModal/SortingAdsModal';
+import {Auth, Database} from '../../../../Setup';
 
 const Ads = props => {
   const [showModal, setShowModal] = useState(false);
+  const [userAdData, setUserAdData] = useState(false);
   const [showSortingAdsModal, setShowSortingAdsModal] = useState({
     shown: false,
     data: '',
   });
+
+  console.log(props);
+
+  useEffect(() => {
+    let uid = Auth()?.currentUser?.uid;
+    Database()
+      .ref(`/userAds/${uid}`)
+      .on('value', snapshot => {
+        let data = Object.values(snapshot.val());
+        setUserAdData(data);
+      });
+    return () => {
+      console.log('cleanup');
+    };
+  }, []);
+
   return (
     <View style={Styles.container}>
       <View style={Styles.borderBottom}>
@@ -49,10 +67,8 @@ const Ads = props => {
       </View> */}
 
       <FlatList
-        data={dummyData}
-        renderItem={item =>
-          renderItems(item, dummyData, props, showModal, setShowModal)
-        }
+        data={userAdData}
+        renderItem={item => renderItems(item, props, showModal, setShowModal)}
       />
     </View>
   );
