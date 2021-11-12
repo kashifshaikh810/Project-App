@@ -80,7 +80,7 @@ export const Styles = StyleSheet.create({
   },
   renderItemContainer: {
     height: responsiveScreenHeight(40),
-    borderLeftWidth: 4,
+    borderLeftWidth: 5,
     width: responsiveScreenWidth(95),
     marginVertical: responsiveScreenHeight(1),
     borderWidth: 0.3,
@@ -147,7 +147,6 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
   },
   typeContainer: {
-    backgroundColor: '#023034',
     width: responsiveScreenWidth(25),
     height: responsiveScreenHeight(4),
     justifyContent: 'center',
@@ -172,8 +171,9 @@ export const Styles = StyleSheet.create({
   },
   buttonTouchAble: {
     borderWidth: 1,
-    width: responsiveScreenWidth(28),
-    height: responsiveScreenHeight(6),
+    flex: 1,
+    paddingHorizontal: responsiveScreenWidth(5),
+    maxHeight: responsiveScreenHeight(6),
     borderRadius: 4,
     marginHorizontal: responsiveScreenWidth(3),
     justifyContent: 'center',

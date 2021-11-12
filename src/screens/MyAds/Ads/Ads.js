@@ -10,19 +10,24 @@ import {Auth, Database} from '../../../../Setup';
 const Ads = props => {
   const [showModal, setShowModal] = useState(false);
   const [userAdData, setUserAdData] = useState(false);
+  const [keys, setKeys] = useState('');
+  const [index, setIndex] = useState('');
   const [showSortingAdsModal, setShowSortingAdsModal] = useState({
     shown: false,
     data: '',
   });
-
-  console.log(props);
 
   useEffect(() => {
     let uid = Auth()?.currentUser?.uid;
     Database()
       .ref(`/userAds/${uid}`)
       .on('value', snapshot => {
-        let data = Object.values(snapshot.val());
+        let data = snapshot.val() ? Object.values(snapshot.val()) : [];
+        let pushKeys = snapshot.val() ? Object.keys(snapshot.val()) : [];
+        data.forEach((a, i) => {
+          setIndex(i);
+        });
+        setKeys(pushKeys);
         setUserAdData(data);
       });
     return () => {
@@ -62,14 +67,22 @@ const Ads = props => {
         </View>
       </View>
 
-      {/* <View style={Styles.youDontHaveTextContainer}>
-        <Text style={Styles.youDontHaveText}>You don't have any ads yet.</Text>
-      </View> */}
+      {userAdData.length > 1 && (
+        <FlatList
+          data={userAdData}
+          renderItem={item =>
+            renderItems(item, props, showModal, setShowModal, keys, index)
+          }
+        />
+      )}
 
-      <FlatList
-        data={userAdData}
-        renderItem={item => renderItems(item, props, showModal, setShowModal)}
-      />
+      {userAdData.length === 0 && (
+        <View style={Styles.youDontHaveTextContainer}>
+          <Text style={Styles.youDontHaveText}>
+            You don't have any ads yet.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

@@ -15,9 +15,8 @@ export const Styles = StyleSheet.create({
   modalMain: {
     paddingHorizontal: responsiveHeight(3),
     backgroundColor: 'white',
-    minHeight: responsiveScreenHeight(15),
     minWidth: responsiveScreenWidth(100),
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
   },
   textStyles: {
     fontSize: responsiveFontSize(2.2),

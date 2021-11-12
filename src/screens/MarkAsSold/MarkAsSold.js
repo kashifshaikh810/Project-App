@@ -7,6 +7,8 @@ import MarkAsSoldModal from '../../Components/Modals/MarkAsSoldModal/MarkAsSoldM
 const MarkAsSold = props => {
   const [showMarkAsSoldModal, setShowMarkAsSoldModal] = useState(false);
   const routeData = props.route.params.data;
+  const ind = props.route.params.index;
+
   return (
     <View style={Styles.container}>
       <MarkAsSoldModal
@@ -27,12 +29,15 @@ const MarkAsSold = props => {
 
         <View style={Styles.midParentContainer}>
           <View style={Styles.midContainer}>
-            <Text style={Styles.adDescription}>{routeData.adDescription}</Text>
-            <Text style={Styles.rs}>Rs {routeData.rs}</Text>
+            <Text style={Styles.adDescription}>{routeData.titile}</Text>
+            <Text style={Styles.rs}>Rs {routeData.price}</Text>
           </View>
 
           <View style={Styles.imgContainer}>
-            <Image source={routeData.adImg} style={Styles.img} />
+            <Image
+              source={{uri: routeData.adImages[ind].adImages}}
+              style={Styles.img}
+            />
           </View>
         </View>
       </View>
@@ -42,7 +47,9 @@ const MarkAsSold = props => {
       </View>
 
       <View style={Styles.lastSectionParentContainer}>
-        <TouchableOpacity style={Styles.lastSectionContainer} onPress={() => setShowMarkAsSoldModal(true)}>
+        <TouchableOpacity
+          style={Styles.lastSectionContainer}
+          onPress={() => setShowMarkAsSoldModal(true)}>
           <View>
             <Image
               source={require('../../Components/Utility/Images/profile.png')}
