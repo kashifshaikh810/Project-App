@@ -135,7 +135,8 @@ const IncludesDetails = props => {
     let uid = Auth()?.currentUser?.uid;
     let joinDate = Auth()?.currentUser.metadata.creationTime;
     let userName = currentUserData.userName;
-    console.log(storageImagesArr);
+    let aa = new Date();
+    let date = aa.toISOString().split('t')[0];
     if (
       storageImagesArr &&
       price &&
@@ -154,7 +155,9 @@ const IncludesDetails = props => {
         location: selectedLocation,
         description: adFullDescription,
         joinDate: joinDate,
+        postedDate: date,
         userName: userName,
+        postType: 'Active',
       });
       props.navigation.navigate('ReviewYourDetails');
     }

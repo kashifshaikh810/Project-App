@@ -8,10 +8,14 @@ const MarkAsSold = props => {
   const [showMarkAsSoldModal, setShowMarkAsSoldModal] = useState(false);
   const routeData = props.route.params.data;
   const ind = props.route.params.index;
+  const keys = props.route.params.keys;
 
   return (
     <View style={Styles.container}>
       <MarkAsSoldModal
+        index={ind}
+        keys={keys}
+        {...props}
         showMarkAsSoldModal={showMarkAsSoldModal}
         setShowMarkAsSoldModal={setShowMarkAsSoldModal}
         heading="Mark ad as sold"

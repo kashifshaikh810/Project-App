@@ -24,12 +24,13 @@ export const Styles = StyleSheet.create({
     height: responsiveScreenHeight(8),
     justifyContent: 'center',
     alignItems: 'center',
-    width: responsiveScreenWidth(45),
   },
   dropDownText: {
     fontWeight: 'bold',
     color: '#3a5752',
     fontSize: responsiveFontSize(2.2),
+    flex: 1,
+    marginHorizontal: responsiveScreenWidth(5),
   },
   midContainer: {
     height: responsiveScreenHeight(18),

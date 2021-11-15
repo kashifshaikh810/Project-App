@@ -6,10 +6,23 @@ import {
   responsiveScreenHeight,
 } from '../../Utility/ResponsiveDimensions/Responsive';
 import {Styles} from './Styles';
+import {Auth, Database} from '../../../../Setup';
 
 const MarkAsSoldModal = props => {
   const leave = () => {
     props.setShowMarkAsSoldModal(false);
+  };
+
+  const handleSold = () => {
+    let uid = Auth()?.currentUser?.uid;
+    let key = props.keys;
+    let index = props.index;
+    Database()
+      .ref(`/userAds/${uid}`)
+      .child(key[index])
+      .update({postType: 'Sold'});
+    props.setShowMarkAsSoldModal(false);
+    props.navigation.navigate('ADS');
   };
 
   return (
@@ -51,7 +64,7 @@ const MarkAsSoldModal = props => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => props.setShowMarkAsSoldModal(false)}>
+                onPress={() => handleSold()}>
                 <Text
                   style={[
                     Styles.textStyles,

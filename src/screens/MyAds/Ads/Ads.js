@@ -8,10 +8,9 @@ import SortingAdsModal from '../../../Components/Modals/SortingAdsModal/SortingA
 import {Auth, Database} from '../../../../Setup';
 
 const Ads = props => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState({ isShow: false, index: '', postType: '', items: ''});
   const [userAdData, setUserAdData] = useState(false);
   const [keys, setKeys] = useState('');
-  const [index, setIndex] = useState('');
   const [showSortingAdsModal, setShowSortingAdsModal] = useState({
     shown: false,
     data: '',
@@ -24,12 +23,10 @@ const Ads = props => {
       .on('value', snapshot => {
         let data = snapshot.val() ? Object.values(snapshot.val()) : [];
         let pushKeys = snapshot.val() ? Object.keys(snapshot.val()) : [];
-        data.forEach((a, i) => {
-          setIndex(i);
-        });
         setKeys(pushKeys);
         setUserAdData(data);
       });
+
     return () => {
       console.log('cleanup');
     };
@@ -42,9 +39,9 @@ const Ads = props => {
           style={Styles.dropDownContainer}
           onPress={() => setShowSortingAdsModal({shown: true})}>
           <Text style={Styles.dropDownText}>
-            {showSortingAdsModal.data || 'Active Ads (0)'}
-          </Text>
+            {showSortingAdsModal.data}
           <ArrowDown name="keyboard-arrow-down" size={25} />
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -52,6 +49,7 @@ const Ads = props => {
         showSortingAdsModal={showSortingAdsModal}
         setShowSortingAdsModal={setShowSortingAdsModal}
         dummyData={dummyData}
+        data={userAdData}
       />
 
       <View style={Styles.midContainer}>
@@ -71,8 +69,9 @@ const Ads = props => {
         <FlatList
           data={userAdData}
           renderItem={item =>
-            renderItems(item, props, showModal, setShowModal, keys, index)
+            renderItems(item, props, showModal, setShowModal, keys)
           }
+          keyExtractor={(item, index) => index.toString()}
         />
       )}
 

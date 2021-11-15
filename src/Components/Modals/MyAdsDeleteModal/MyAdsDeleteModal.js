@@ -6,26 +6,26 @@ import {Styles} from './Styles';
 
 const MyAdsDeleteModal = props => {
   return (
-    <Modal visible={props.showModal} transparent animationType="fade">
+    <Modal visible={props.showModal.isShow} transparent animationType="fade">
       <View style={Styles.modalContainer}>
         <View
           style={[
             Styles.modalMain,
             {
               height:
-                props.item.postType === 'Active'
+                props.showModal.postType === 'Active'
                   ? responsiveScreenHeight(35)
                   : responsiveScreenHeight(15),
             },
           ]}>
-          {props.item.postType === 'Active' && (
+          {props.showModal.postType === 'Active' && (
             <TouchableOpacity onPress={() => props.handleEditOnPress()}>
               <Text style={Styles.textStyles}>Edit</Text>
             </TouchableOpacity>
           )}
 
-          {props.item.postType === 'Active' && (
-            <TouchableOpacity onPress={() => props.handleDeactivateOnPress(props.index)}>
+          {props.showModal.postType === 'Active' && (
+            <TouchableOpacity onPress={() => props.handleDeactivateOnPress()}>
               <Text style={Styles.textStyles}>Deactivate</Text>
             </TouchableOpacity>
           )}
@@ -34,13 +34,13 @@ const MyAdsDeleteModal = props => {
             <Text style={[Styles.textStyles, {color: 'red'}]}>Delete</Text>
           </TouchableOpacity>
 
-          {props.item.postType === 'Active' && (
+          {props.showModal.postType === 'Active' && (
             <TouchableOpacity onPress={() => props.handleMarkAsSoldOnPress()}>
               <Text style={Styles.textStyles}>Mark as sold</Text>
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity onPress={() => props.setShowModal(false)}>
+          <TouchableOpacity onPress={() => props.setShowModal({ isShow: false})}>
             <Text style={Styles.textStyles}>Cancel</Text>
           </TouchableOpacity>
         </View>

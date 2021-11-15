@@ -5,9 +5,10 @@ import CloseIcon from 'react-native-vector-icons/AntDesign';
 // import {data} from './Data';
 
 const SortingAdsModal = props => {
+  console.log(props.data);
   const data = [
-    {name: `${`View all (${props.dummyData.length})`}`, id: 1},
-    {name: 'Active Ads (0)'},
+    {name: `${`View all (${props.data.length || 0})`}`, id: 1},
+    {name: `${`Active Ads (${props.data.length || 0})`}`},
     {name: 'Inactive Ads (2)'},
     {name: 'Pending Ads (0)'},
     {name: 'Moderated Ads (0)'},

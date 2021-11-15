@@ -29,12 +29,12 @@ export const renderItems = (
     'Nov',
     'Dec',
   ];
-  let date = new Date(item.joinDate).getDate();
-  let year = new Date(item.joinDate).getFullYear() % 100;
-  let month = new Date(item.joinDate);
+  let date = new Date(item.postedDate).getDate();
+  let year = new Date(item.postedDate).getFullYear() % 100;
+  let month = new Date(item.postedDate);
   let monthName = monthNamesArr[month.getMonth()];
 
-  let futureDate = new Date(item.joinDate);
+  let futureDate = new Date(item.postedDate);
   futureDate.setDate(futureDate.getDate() + 30);
   let res = futureDate;
   let nextThirteenDate = new Date(res).getDate();
@@ -43,19 +43,26 @@ export const renderItems = (
   let nextMonthName = monthNamesArr[nextMonth.getMonth()];
 
   const handleDeleteOnPress = () => {
-    console.log('handleDeleteOnPress');
+    let uid = Auth()?.currentUser?.uid;
+    Database().ref(`/userAds/${uid}/${keys[showModal.index]}`).remove();
+    setShowModal(false);
   };
 
-  const handleDeactivateOnPress = d => {
+  const handleDeactivateOnPress = a => {
     let uid = Auth()?.currentUser?.uid;
-      // Database()
-      //   .ref('userAds')
-      //   .child(keys[i])
-      //   .update({postType: 'Disabled'});
+    Database()
+      .ref(`/userAds/${uid}`)
+      .child(keys[showModal.index])
+      .update({postType: 'Disabled'});
   };
 
   const handleMarkAsSoldOnPress = () => {
-    console.log('handleMarkAsSoldOnPress');
+    props.navigation.navigate('MarkAsSold', {
+      data: showModal.item,
+      index: showModal.index,
+      keys: keys,
+    });
+    setShowModal({isShow: false});
   };
 
   const handleEditOnPress = () => {
@@ -77,10 +84,12 @@ export const renderItems = (
           item.postType === 'Rejected' && {
             borderLeftColor: 'red',
           },
+          item.postType === 'Expired' && {
+            borderLeftColor: 'red',
+          },
         ]}
         onPress={() =>
-          // props.navigation.navigate('ViewFullAd', {data: item, props: props})
-          console.log(index)
+          props.navigation.navigate('ViewFullAd', {data: item, props: props})
         }>
         <View style={Styles.dateContainer}>
           <Text style={Styles.fromText}>FROM: </Text>
@@ -98,13 +107,18 @@ export const renderItems = (
           )}
 
           {item.type !== 'Sold' && (
-            <View style={Styles.threeDotsIconContainer}>
-              <ThreeDotsIcon
-                name="more-vertical"
-                size={20}
-                onPress={() => setShowModal(true)}
-              />
-            </View>
+            <TouchableOpacity
+              style={Styles.threeDotsIconContainer}
+              onPress={() =>
+                setShowModal({
+                  isShow: true,
+                  index: index,
+                  postType: item.postType,
+                  item: item,
+                })
+              }>
+              <ThreeDotsIcon name="more-vertical" size={20} />
+            </TouchableOpacity>
           )}
         </View>
 
@@ -168,6 +182,12 @@ export const renderItems = (
               item.postType === 'Rejected' && {
                 backgroundColor: 'red',
               },
+              item.postType === 'Expired' && {
+                backgroundColor: 'red',
+              },
+              item.postType === 'Disabled' && {
+                backgroundColor: '#023034',
+              },
             ]}>
             <Text style={Styles.type}>{item.postType}</Text>
           </View>
@@ -184,13 +204,21 @@ export const renderItems = (
               Your ad is prohibited on OLX.
             </Text>
           )}
+          {item.postType === 'Disabled' && (
+            <Text style={Styles.descriptionType}>
+              Your ad is disabled on OLX.
+            </Text>
+          )}
+          {item.postType === 'Expired' && (
+            <Text style={Styles.descriptionType}>This ad was expire</Text>
+          )}
         </View>
 
         <View style={Styles.buttonContainer}>
           <TouchableOpacity
             style={Styles.buttonTouchAble}
             onPress={() =>
-              item.postType !== 'Delete' &&
+              item.postType === 'Delete' &&
               props.navigation.navigate('MarkAsSold', {
                 data: item,
                 index: index,
@@ -199,6 +227,7 @@ export const renderItems = (
             <Text style={Styles.button}>
               {(item.postType === 'Active' && 'Sell faster now') ||
                 (item.postType === 'Sold' && 'Delete') ||
+                (item.postType === 'Expired' && 'learn more') ||
                 (item.postType === 'Rejected' && 'learn more') ||
                 (item.postType === 'Disabled' && 'Republish')}
             </Text>

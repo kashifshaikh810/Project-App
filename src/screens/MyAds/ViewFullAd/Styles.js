@@ -159,4 +159,14 @@ export const Styles = StyleSheet.create({
     color: '#14383d',
     fontSize: responsiveScreenFontSize(2.2),
   },
+  imgModalContainer: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  modalCloseIcon: {
+    height: responsiveScreenHeight(6),
+    justifyContent: 'flex-end',
+    width: responsiveScreenWidth(20),
+    alignItems: 'center',
+  },
 });
