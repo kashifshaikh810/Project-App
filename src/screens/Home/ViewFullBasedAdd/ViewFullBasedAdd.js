@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,6 +9,7 @@ import {
   Image,
   FlatList,
   Modal,
+  BackHandler,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
@@ -27,9 +29,33 @@ import {Auth} from '../../../../Setup';
 
 const ViewFullBasedAdd = props => {
   const [addToFav, setAddToFav] = useState(false);
+  const [imagesArr, setimagesArr] = useState([]);
   const [showFullImageModal, setShowFullImageModal] = useState(false);
+  const defaultImg = require('../../../Components/Utility/Images/defaultImage.png');
   const routeData = props.route.params.data;
   let uid = Auth()?.currentUser?.uid;
+  const monthNamesArr = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  let date = new Date(routeData.joinDate);
+  let year = date.getFullYear();
+  let monthName = monthNamesArr[date.getMonth()];
+
+  let futureDate = new Date(routeData.postedDate || routeData.joinDate);
+  futureDate.setDate(futureDate.getDate() + 30);
+  let res = futureDate?.toISOString().split('T')[0];
+  let beforeThirteenDate = res.split('-');
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -51,63 +77,13 @@ const ViewFullBasedAdd = props => {
     );
   };
 
-  const images = [
-    {
-      // Simplest usage.
-      url: '',
-
-      // width: number
-      // height: number
-      // Optional, if you know the image size, you can set the optimization performance
-
-      // You can pass props to <Image />.
-      props: {
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-    {
-      url: '',
-      props: {
-        // Or you can set source directory.
-        source: routeData.image,
-      },
-    },
-  ];
+  useEffect(() => {
+    routeData.adImages.map(aa => {
+      let imagesCopy = aa.adImages;
+      imagesArr.push({url: imagesCopy});
+      setimagesArr(imagesArr);
+    });
+  }, [routeData.adImages]);
 
   const renderItems = ({item}) => {
     return (
@@ -141,6 +117,7 @@ const ViewFullBasedAdd = props => {
       </View>
     );
   };
+
   return (
     <>
       <View style={Styles.headerParent}>
@@ -161,13 +138,15 @@ const ViewFullBasedAdd = props => {
           activeOpacity={1}
           onPress={() => setShowFullImageModal(true)}>
           <ImageBackground
-            source={routeData.image}
+            source={
+              routeData.adImages
+                ? {uri: routeData.adImages[0].adImages}
+                : defaultImg
+            }
             style={Styles.backgroundImg}>
             <View style={[Styles.imagesCountParent, {flexDirection: 'row'}]}>
               <View style={Styles.backImgFeaturedTxtContainer}>
-                <Text style={Styles.backImgFeaturedTxt}>
-                  {routeData.featured}
-                </Text>
+                <Text style={Styles.backImgFeaturedTxt}>FEATURED</Text>
               </View>
               <View
                 style={[
@@ -175,7 +154,9 @@ const ViewFullBasedAdd = props => {
                   {marginHorizontal: 0, marginVertical: 0},
                 ]}>
                 <View style={Styles.imagesCountContainer}>
-                  <Text style={Styles.imagesCount}>1/{images.length}</Text>
+                  <Text style={Styles.imagesCount}>
+                    1/{routeData.adImages.length}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -184,7 +165,7 @@ const ViewFullBasedAdd = props => {
 
         <View style={Styles.rsAndDescriptionContainer}>
           <View style={Styles.rsAndDescription}>
-            <Text style={Styles.midRs}>Rs {routeData.rs}</Text>
+            <Text style={Styles.midRs}>Rs {routeData.price}</Text>
             <View style={Styles.heartIconContainer}>
               <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
                 <HeartIcon
@@ -196,7 +177,7 @@ const ViewFullBasedAdd = props => {
             </View>
           </View>
           <Text style={Styles.adDescription} numberOfLines={2}>
-            {routeData.description}
+            {routeData.titile}
           </Text>
         </View>
 
@@ -205,22 +186,34 @@ const ViewFullBasedAdd = props => {
           <Text style={{flex: 1}}>{routeData.location}</Text>
 
           <View style={Styles.expireDateContainer}>
-            <Text>{routeData.date}</Text>
+            <Text>
+              {beforeThirteenDate[2]}/{beforeThirteenDate[1]}/
+              {beforeThirteenDate[0]}
+            </Text>
           </View>
         </View>
 
         <View style={{alignItems: 'center'}}>
           <View style={Styles.lastContainerOnDetails}>
-            {routeData.rs ? (
+            {routeData.price ? (
               <>
                 <Text style={Styles.details}>Details</Text>
                 <View style={Styles.priceContainer}>
                   <Text style={Styles.price}>Price</Text>
 
                   <View style={Styles.rsContainer}>
-                    <Text style={Styles.rs}>{routeData.rs}</Text>
+                    <Text style={Styles.rs}>{routeData.price}</Text>
                   </View>
                 </View>
+
+                <View style={Styles.priceContainer}>
+                  <Text style={Styles.price}>Type</Text>
+
+                  <View style={Styles.rsContainer}>
+                    <Text style={Styles.rs}>{routeData.type}</Text>
+                  </View>
+                </View>
+
                 <View style={Styles.conditionContainer}>
                   <Text style={Styles.price}>Condition</Text>
                   <View style={Styles.rsContainer}>
@@ -245,7 +238,7 @@ const ViewFullBasedAdd = props => {
                 renderTruncatedFooter={_renderTruncatedFooter}
                 renderRevealedFooter={_renderRevealedFooter}>
                 <Text style={Styles.fullDescription}>
-                  {routeData.fullDescription}
+                  {routeData.description}
                 </Text>
               </ReadMore>
             </SafeAreaView>
@@ -261,6 +254,8 @@ const ViewFullBasedAdd = props => {
             onPress={() =>
               props.navigation.navigate('OtherUserProfile', {
                 userData: routeData,
+                year: year,
+                monthName: monthName,
               })
             }>
             <View style={Styles.profileSectionContainer}>
@@ -272,8 +267,10 @@ const ViewFullBasedAdd = props => {
               </View>
 
               <View style={Styles.usernameAndDataContainer}>
-                <Text style={Styles.username}>{routeData.username}</Text>
-                <Text>Member since {routeData.joinDate}</Text>
+                <Text style={Styles.username}>{routeData.userName}</Text>
+                <Text>
+                  Member since {monthName} {year}
+                </Text>
                 <Text style={[Styles.username, {color: '#3366ce'}]}>
                   SEE PROFILE
                 </Text>
@@ -307,7 +304,7 @@ const ViewFullBasedAdd = props => {
               onPress={() => setShowFullImageModal(false)}>
               <CloseIcon name="close" size={30} color="white" />
             </TouchableOpacity>
-            <ImageViewer imageUrls={images} />
+            <ImageViewer imageUrls={imagesArr} />
           </View>
         </Modal>
       </ScrollView>

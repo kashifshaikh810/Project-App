@@ -5,6 +5,28 @@ import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import {HomeStyles} from './HomeStyles';
 
 export const renderItems = ({item}, props) => {
+  const monthNamesArr = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  let month = new Date(item.postedDate);
+  let monthName = monthNamesArr[month.getMonth()];
+  let date = new Date(item.postedDate).getDate();
+
+  let monthCopy = new Date(item.joinDate);
+  let monthNameCopy = monthNamesArr[monthCopy.getMonth()];
+  let dateCopy = new Date(item.joinDate).getDate();
+
   return (
     <View style={HomeStyles.renderItemContainer}>
       <TouchableOpacity
@@ -12,10 +34,12 @@ export const renderItems = ({item}, props) => {
         onPress={() =>
           props.navigation.navigate('ViewFullBasedAdd', {data: item})
         }>
-        <ImageBackground source={item.image} style={HomeStyles.imgBackground}>
+        <ImageBackground
+          source={{uri: item.adImages[0].adImages}}
+          style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>
-              <Text style={HomeStyles.featuredText}>{item.featured}</Text>
+              <Text style={HomeStyles.featuredText}>FEATURED</Text>
             </View>
             <View style={HomeStyles.iconContainer}>
               <View style={HomeStyles.iconMain}>
@@ -25,17 +49,19 @@ export const renderItems = ({item}, props) => {
           </View>
         </ImageBackground>
 
-        <Text style={HomeStyles.rsStyle}>Rs {item.rs}</Text>
+        <Text style={HomeStyles.rsStyle}>Rs {item.price}</Text>
         <View style={HomeStyles.flexContainer}>
           <Text style={HomeStyles.description} numberOfLines={1}>
-            {item.description}
+            {item.titile}
           </Text>
           <View style={HomeStyles.rowContainer}>
             <Text style={HomeStyles.locationStyle} numberOfLines={1}>
               {item.location}
             </Text>
             <View style={HomeStyles.dateContainer}>
-              <Text style={HomeStyles.locationStyle}>{item.date}</Text>
+              <Text style={HomeStyles.locationStyle}>
+                {date || dateCopy} {monthName || monthNameCopy}
+              </Text>
             </View>
           </View>
         </View>
@@ -93,7 +119,10 @@ export const renderIcons = ({item}, props) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        props.navigation.navigate('SelectedCategories', {routeData: name, routeName: 'Home'})
+        props.navigation.navigate('SelectedCategories', {
+          routeData: name,
+          routeName: 'Home',
+        })
       }>
       <View>{item.icon}</View>
       {item.iconName.length > 14 ? (

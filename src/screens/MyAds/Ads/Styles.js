@@ -184,4 +184,10 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.1),
     fontWeight: 'bold',
   },
+  myAdsLoader: {
+    height: '50%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

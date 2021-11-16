@@ -137,7 +137,7 @@ export const renderItems = (
         <View style={Styles.midSectionContainer}>
           <View>
             <Image
-              source={{uri: item.adImages[index].adImages}}
+              source={{uri: item?.adImages[0]?.adImages}}
               style={Styles.adImgStyle}
             />
           </View>

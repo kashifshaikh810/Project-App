@@ -18,6 +18,7 @@ import {Auth, Database, Storage} from '../../../Setup';
 const IncludesDetails = props => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showRemoveImgModal, setShowRemoveImgModal] = useState({
     shown: false,
     indexNum: '',
@@ -132,6 +133,7 @@ const IncludesDetails = props => {
   };
 
   const nextButton = () => {
+    setIsLoading(true);
     let uid = Auth()?.currentUser?.uid;
     let joinDate = Auth()?.currentUser.metadata.creationTime;
     let userName = currentUserData.userName;
@@ -160,6 +162,7 @@ const IncludesDetails = props => {
         postType: 'Active',
       });
       props.navigation.navigate('ReviewYourDetails');
+      setIsLoading(false);
     }
   };
 
@@ -238,6 +241,7 @@ const IncludesDetails = props => {
         adFullDescription={adFullDescription}
         setAdFullDescription={setAdFullDescription}
         nextButton={nextButton}
+        isLoading={isLoading}
       />
     </View>
   );

@@ -17,6 +17,10 @@ const OtherUserProfile = props => {
   const [showModal, setShowModal] = useState(false);
   const [addToFav, setAddToFav] = useState({bool: false, id: ''});
   const data = props.route.params.userData;
+  const year = props.route.params.year;
+  const monthName = props.route.params.monthName;
+
+  console.log(year, monthName);
 
   const dummyDataTwo = [
     {
@@ -76,9 +80,9 @@ const OtherUserProfile = props => {
         <View style={Styles.renderItemContent}>
           <ImageBackground source={item.image} style={Styles.imgBackground}>
             <View style={Styles.insideContainer}>
-            <View style={Styles.featuredTextContainer}>
-              <Text style={Styles.featuredText}>{item.featured}</Text>
-            </View>
+              <View style={Styles.featuredTextContainer}>
+                <Text style={Styles.featuredText}>{item.featured}</Text>
+              </View>
               <View style={Styles.iconContainer}>
                 <TouchableOpacity
                   style={Styles.iconMain}
@@ -143,8 +147,10 @@ const OtherUserProfile = props => {
             style={Styles.profileImg}
           />
           <View style={Styles.usernameAndDateContainer}>
-            <Text style={Styles.username}>{data.username}</Text>
-            <Text style={Styles.joinDate}>Member since {data.joinDate}</Text>
+            <Text style={Styles.username}>{data.userName}</Text>
+            <Text style={Styles.joinDate}>
+              Member since {monthName} {year}
+            </Text>
           </View>
         </View>
       </View>

@@ -62,6 +62,7 @@ const IncludesMarkup = props => {
     setShowRemoveImgModal,
     emptyImg,
     fullImgErr,
+    isLoading,
   } = props;
   let routeName = props.route.params.routeData.name;
 
@@ -763,14 +764,14 @@ const IncludesMarkup = props => {
 
           <View style={Styles.buttonContainer}>
             <TouchableOpacity
-              // disabled={
-              //   !props.imgArr ||
-              //   !props.price ||
-              //   !props.selectedLocation ||
-              //   !props.adTitile ||
-              //   !itemCondition ||
-              //   !props.adFullDescription
-              // }
+              disabled={
+                !props.imgArr ||
+                !props.price ||
+                !props.selectedLocation ||
+                !props.adTitile ||
+                !itemCondition ||
+                !props.adFullDescription
+              }
               style={[
                 Styles.buttonTouchAble,
                 {
@@ -786,7 +787,11 @@ const IncludesMarkup = props => {
                 },
               ]}
               onPress={() => props.nextButton()}>
-              <Text style={Styles.buttonTxt}>Next</Text>
+              {isLoading ? (
+                <ActivityIndicator size={20} color="#b3b3b3" />
+              ) : (
+                <Text style={Styles.buttonTxt}>Next</Text>
+              )}
             </TouchableOpacity>
           </View>
         </ScrollView>

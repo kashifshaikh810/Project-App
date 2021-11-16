@@ -198,7 +198,7 @@ const PrivateMessagesMarkup = props => {
           </TouchableOpacity>
           <View style={Styles.imgBackContainer}>
             <ImageBackground
-              source={itemData.contentImg || itemData.image}
+              source={{uri: itemData.adImages[0].adImages}}
               style={Styles.imgBack}
               imageStyle={{borderRadius: 10}}>
               <View
@@ -232,10 +232,10 @@ const PrivateMessagesMarkup = props => {
           <View
             style={Styles.headerChildTextContainer}>
             <Text style={Styles.headerChildText}>
-             Rs {itemData.rs || '100.00'}
+             Rs {itemData.price}
             </Text>
             <Text numberOfLines={1} style={Styles.headerChildText}>
-              {itemData.description || 'this is dummy line abcde 1234 iwi jfwjffw'}
+              {itemData.titile}
             </Text>
           </View>
           <View

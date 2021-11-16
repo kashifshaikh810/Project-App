@@ -22,9 +22,10 @@ const ViewFullAd = props => {
   const routeData = props.route.params.data;
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const [imagesArr, setimagesArr] = useState([]);
-  let futureDate = new Date(routeData.postedDate);
+  let futureDate = new Date(routeData.postedDate || routeData.joinDate);
   futureDate.setDate(futureDate.getDate() + 30);
-  let res = futureDate;
+  let res = futureDate?.toISOString().split('T')[0];
+  let beforeThirteenDate = res.split('-');
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -95,7 +96,7 @@ const ViewFullAd = props => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <Modal visible={showFullImageModal}>
+        <Modal visible={showFullImageModal} animationType="fade">
           <View style={Styles.imgModalContainer}>
             <TouchableOpacity
               activeOpacity={1}
@@ -145,7 +146,8 @@ const ViewFullAd = props => {
           <View style={Styles.expireDateContainer}>
             <Text>YOUR AD EXPIRES ON</Text>
             <Text>
-              {/* {date}/{month}/{year} */}
+              {beforeThirteenDate[2]}/{beforeThirteenDate[1]}/
+              {beforeThirteenDate[0]}
             </Text>
           </View>
         </View>

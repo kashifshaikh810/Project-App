@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import DropIcon from 'react-native-vector-icons/MaterialIcons';
@@ -16,6 +17,7 @@ import {renderItems, renderItemsTwo, renderIcons} from './AllRendersItem';
 import {iconsData, dummyData, dummyDataTwo} from './Data';
 
 const HomeMarkup = props => {
+  console.log(props.isLoading);
   return (
     <ScrollView>
       <View style={HomeStyles.areaContainer}>
@@ -57,11 +59,17 @@ const HomeMarkup = props => {
       <View>
         <Text style={HomeStyles.basedHeading}>Based on your search</Text>
 
-        <FlatList
-          data={dummyData}
-          renderItem={item => renderItems(item, props)}
-          horizontal={true}
-        />
+        {props.isLoading ? (
+          <View style={{height: 190, width: '100%', justifyContent: 'center'}}>
+            <ActivityIndicator size={50} color="#b3b3b3" />
+          </View>
+        ) : (
+          <FlatList
+            data={props.allAdsData}
+            renderItem={item => renderItems(item, props)}
+            horizontal={true}
+          />
+        )}
 
         <Text style={HomeStyles.freshHeading}>Fresh recommendations</Text>
 
