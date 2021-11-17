@@ -166,15 +166,17 @@ const ViewFullBasedAdd = props => {
         <View style={Styles.rsAndDescriptionContainer}>
           <View style={Styles.rsAndDescription}>
             <Text style={Styles.midRs}>Rs {routeData.price}</Text>
-            <View style={Styles.heartIconContainer}>
-              <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
-                <HeartIcon
-                  name={addToFav ? 'heart' : 'heart-o'}
-                  size={17}
-                  color={addToFav ? '#fece37' : 'black'}
-                />
-              </TouchableOpacity>
-            </View>
+            {routeData.userId !== uid && (
+              <View style={Styles.heartIconContainer}>
+                <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
+                  <HeartIcon
+                    name={addToFav ? 'heart' : 'heart-o'}
+                    size={17}
+                    color={addToFav ? '#fece37' : 'black'}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
           <Text style={Styles.adDescription} numberOfLines={2}>
             {routeData.titile}
@@ -267,7 +269,9 @@ const ViewFullBasedAdd = props => {
               </View>
 
               <View style={Styles.usernameAndDataContainer}>
-                <Text style={Styles.username}>{routeData.userName}</Text>
+                <Text style={Styles.username}>
+                  {routeData.userName} {routeData.userId === uid && '(You)'}
+                </Text>
                 <Text>
                   Member since {monthName} {year}
                 </Text>
@@ -308,30 +312,32 @@ const ViewFullBasedAdd = props => {
           </View>
         </Modal>
       </ScrollView>
-      <View style={Styles.threeButtonsContainer}>
-        <TouchableOpacity
-          style={Styles.buttonTextAndIconContainer}
-          onPress={() =>
-            uid
-              ? props.navigation.navigate('PrivateMessages', {
-                  itemData: routeData,
-                })
-              : props.navigation.navigate('SignUpAndSignInMenu')
-          }>
-          <MessageIcon name="message1" size={17} color="white" />
-          <Text style={Styles.buttonText}>Chat</Text>
-        </TouchableOpacity>
+      {routeData.userId !== uid && (
+        <View style={Styles.threeButtonsContainer}>
+          <TouchableOpacity
+            style={Styles.buttonTextAndIconContainer}
+            onPress={() =>
+              uid
+                ? props.navigation.navigate('PrivateMessages', {
+                    itemData: routeData,
+                  })
+                : props.navigation.navigate('SignUpAndSignInMenu')
+            }>
+            <MessageIcon name="message1" size={17} color="white" />
+            <Text style={Styles.buttonText}>Chat</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={Styles.buttonTextAndIconContainer}>
-          <LocationIcon name="call-outline" size={17} color="white" />
-          <Text style={Styles.buttonText}>Call</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={Styles.buttonTextAndIconContainer}>
+            <LocationIcon name="call-outline" size={17} color="white" />
+            <Text style={Styles.buttonText}>Call</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={Styles.buttonTextAndIconContainer}>
-          <SMSIcon name="mail" size={17} color="white" />
-          <Text style={Styles.buttonText}>SMS</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={Styles.buttonTextAndIconContainer}>
+            <SMSIcon name="mail" size={17} color="white" />
+            <Text style={Styles.buttonText}>SMS</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </>
   );
 };

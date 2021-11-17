@@ -10,6 +10,7 @@ export const HomeStyles = StyleSheet.create({
   renderItemContainer: {
     width: responsiveScreenWidth(39),
     marginHorizontal: responsiveHeight(2.8),
+    marginVertical: responsiveScreenHeight(1),
     alignItems: 'center',
   },
   renderItemContent: {
@@ -140,8 +141,8 @@ export const HomeStyles = StyleSheet.create({
     paddingTop: responsiveHeight(2),
   },
   arrowAndButtonContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    height: responsiveScreenHeight(22),
+    width: responsiveScreenWidth(100),
     alignItems: 'center',
   },
   arrowMain: {

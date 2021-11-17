@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -17,81 +17,110 @@ import {renderItems, renderItemsTwo, renderIcons} from './AllRendersItem';
 import {iconsData, dummyData, dummyDataTwo} from './Data';
 
 const HomeMarkup = props => {
-  console.log(props.isLoading);
+  const [scrollVal, setScrollVal] = useState('');
   return (
-    <ScrollView>
-      <View style={HomeStyles.areaContainer}>
-        <LocationIcon name="location-outline" size={20} />
-        <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
-        <View style={HomeStyles.topIconsContainer}>
-          <DropIcon name="keyboard-arrow-down" size={20} />
-        </View>
-      </View>
-
-      <View style={HomeStyles.areaContainer}>
-        <SearchIcon name="search" size={20} />
-        <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
-        <View style={HomeStyles.topIconsContainer}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('NotificationMain')}>
-            <SearchIcon name="bell" size={20} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={HomeStyles.categoriesContainer}>
-        <Text>Browse Categories</Text>
-        <TouchableOpacity
-          style={HomeStyles.topIconsContainer}
-          onPress={() =>
-            props.navigation.navigate('AllCategories', {routeName: 'Home'})
-          }>
-          <Text style={HomeStyles.sellAll}>See all</Text>
-        </TouchableOpacity>
-      </View>
-
-      <FlatList
-        data={iconsData}
-        renderItem={item => renderIcons(item, props)}
-        horizontal={true}
-      />
-
-      <View>
-        <Text style={HomeStyles.basedHeading}>Based on your search</Text>
-
-        {props.isLoading ? (
-          <View style={{height: 190, width: '100%', justifyContent: 'center'}}>
-            <ActivityIndicator size={50} color="#b3b3b3" />
+    <>
+      {scrollVal > 0 && (
+        <View style={HomeStyles.areaContainer}>
+          <SearchIcon name="search" size={20} />
+          <Text style={HomeStyles.areaContent}>
+            Find Cars, Mobile Phones and more
+          </Text>
+          <View style={HomeStyles.topIconsContainer}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('NotificationMain')}>
+              <SearchIcon name="bell" size={20} />
+            </TouchableOpacity>
           </View>
-        ) : (
+        </View>
+      )}
+      <ScrollView onScroll={e => setScrollVal(e.nativeEvent.contentOffset.y)}>
+        <View>
+          <View style={HomeStyles.areaContainer}>
+            <LocationIcon name="location-outline" size={20} />
+            <Text style={HomeStyles.areaContent}>Karachi, Sindh</Text>
+            <View style={HomeStyles.topIconsContainer}>
+              <DropIcon name="keyboard-arrow-down" size={20} />
+            </View>
+          </View>
+
+          {scrollVal === 0 && (
+            <View style={HomeStyles.areaContainer}>
+              <SearchIcon name="search" size={20} />
+              <Text style={HomeStyles.areaContent}>
+                Find Cars, Mobile Phones and more
+              </Text>
+              <View style={HomeStyles.topIconsContainer}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('NotificationMain')}>
+                  <SearchIcon name="bell" size={20} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
+          <View style={HomeStyles.categoriesContainer}>
+            <Text>Browse Categories</Text>
+            <TouchableOpacity
+              style={HomeStyles.topIconsContainer}
+              onPress={() =>
+                props.navigation.navigate('AllCategories', {routeName: 'Home'})
+              }>
+              <Text style={HomeStyles.sellAll}>See all</Text>
+            </TouchableOpacity>
+          </View>
+
           <FlatList
-            data={props.allAdsData}
-            renderItem={item => renderItems(item, props)}
+            data={iconsData}
+            renderItem={item => renderIcons(item, props)}
             horizontal={true}
           />
-        )}
 
-        <Text style={HomeStyles.freshHeading}>Fresh recommendations</Text>
+          <View>
+            {props.allAdsData === false && (
+              <>
+                <Text style={HomeStyles.basedHeading}>
+                  Based on your search
+                </Text>
+                <FlatList
+                  data={dummyDataTwo}
+                  renderItem={item => renderItemsTwo(item, props)}
+                  horizontal={true}
+                />
+              </>
+            )}
 
-        <FlatList
-          data={dummyDataTwo}
-          renderItem={item => renderItemsTwo(item, props)}
-          horizontal={true}
-        />
-      </View>
+            <Text style={HomeStyles.freshHeading}>Fresh recommendations</Text>
 
-      <View style={HomeStyles.arrowAndButtonContainer}>
-        <View style={HomeStyles.arrowMain}>
-          <Image
-            source={require('../../Components/Utility/Images/home.png')}
-            style={HomeStyles.arrow}
-          />
+            {props.isLoading ? (
+              <View
+                style={{height: 190, width: '100%', justifyContent: 'center'}}>
+                <ActivityIndicator size={50} color="#b3b3b3" />
+              </View>
+            ) : (
+              <FlatList
+                data={props.allAdsData}
+                renderItem={item => renderItems(item, props)}
+                // horizontal={true}
+                numColumns={2}
+              />
+            )}
+          </View>
+
+          <View style={HomeStyles.arrowAndButtonContainer}>
+            <View style={HomeStyles.arrowMain}>
+              <Image
+                source={require('../../Components/Utility/Images/home.png')}
+                style={HomeStyles.arrow}
+              />
+            </View>
+            <TouchableOpacity style={HomeStyles.startButton}>
+              <Text style={HomeStyles.start}>START</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity style={HomeStyles.startButton}>
-          <Text style={HomeStyles.start}>START</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 
