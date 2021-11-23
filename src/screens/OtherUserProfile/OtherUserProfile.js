@@ -64,7 +64,7 @@ const OtherUserProfile = props => {
       <View style={Styles.renderItemContainer}>
         <View style={Styles.renderItemContent}>
           <ImageBackground
-            source={{uri: item.adImages[0].adImages}}
+            source={item ? {uri: item?.adImages[0]?.adImages} : {}}
             style={Styles.imgBackground}>
             <View style={Styles.insideContainer}>
               <View style={Styles.featuredTextContainer}>

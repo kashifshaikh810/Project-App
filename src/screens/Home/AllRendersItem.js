@@ -35,7 +35,7 @@ export const renderItems = ({item}, props) => {
           props.navigation.navigate('ViewFullBasedAdd', {data: item})
         }>
         <ImageBackground
-          source={{uri: item.adImages[0].adImages}}
+          source={item ? {uri: item?.adImages[0]?.adImages} : {}}
           style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>
