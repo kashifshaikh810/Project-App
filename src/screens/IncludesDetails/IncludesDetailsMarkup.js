@@ -608,13 +608,13 @@ const IncludesMarkup = props => {
                 Styles.conditions,
                 {
                   borderWidth: 1,
-                  borderColor: itemCondition === 'NEW' ? '#279e94' : 'black',
+                  borderColor: itemCondition === 'New' ? '#279e94' : 'black',
                 },
               ]}
-              onPress={() => setItemCondition('NEW')}>
+              onPress={() => setItemCondition('New')}>
               <Text
                 style={{
-                  color: itemCondition === 'NEW' ? '#279e94' : '#183338',
+                  color: itemCondition === 'New' ? '#279e94' : '#183338',
                   fontWeight: 'bold',
                 }}>
                 NEW
@@ -626,13 +626,13 @@ const IncludesMarkup = props => {
                 Styles.conditions,
                 {
                   borderWidth: 1,
-                  borderColor: itemCondition === 'USED' ? '#279e94' : 'black',
+                  borderColor: itemCondition === 'Used' ? '#279e94' : 'black',
                 },
               ]}
-              onPress={() => setItemCondition('USED')}>
+              onPress={() => setItemCondition('Used')}>
               <Text
                 style={{
-                  color: itemCondition === 'USED' ? '#279e94' : '#183338',
+                  color: itemCondition === 'Used' ? '#279e94' : '#183338',
                   fontWeight: 'bold',
                 }}>
                 USED

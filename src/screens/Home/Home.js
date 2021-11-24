@@ -15,16 +15,17 @@ const Home = props => {
       Database()
         .ref('/userAds/')
         .on('value', snapshot => {
-          let usersAds = Object.values(snapshot.val());
-          let arr = usersAds;
-          arr.forEach((items, index) => {
-            let allAds = Object.values(items);
-            allAds.forEach((ads, i) => {
-              adsArr.push(ads);
-              setAllAdsData(adsArr);
-              setIsLoading(false);
+            let usersAds = Object.values(snapshot.val());
+            let arr = usersAds;
+            arr.forEach((items, index) => {
+              let allAds = Object.values(items);
+              allAds.forEach((ads, i) => {
+                adsArr.push(ads);
+                console.log(adsArr, 'dd');
+                setAllAdsData(adsArr);
+                setIsLoading(false);
+              });
             });
-          });
         });
     });
 

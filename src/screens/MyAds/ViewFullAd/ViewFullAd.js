@@ -22,7 +22,7 @@ const ViewFullAd = props => {
   const routeData = props.route.params.data;
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const [imagesArr, setimagesArr] = useState([]);
-  let futureDate = new Date(routeData.postedDate || routeData.joinDate);
+  let futureDate = new Date(routeData.postedDate);
   futureDate.setDate(futureDate.getDate() + 30);
   let res = futureDate?.toISOString().split('T')[0];
   let beforeThirteenDate = res.split('-');

@@ -55,16 +55,13 @@ const OtherUserProfile = props => {
     let date = new Date(item.postedDate);
     let monthName = monthNamesArray[date.getMonth()];
     let postDate = new Date(item.postedDate).getDate();
-
-    let monthCopy = new Date(item.joinDate);
-    let monthNameCopy = monthNamesArray[monthCopy.getMonth()];
-    let dateCopy = new Date(item.joinDate).getDate();
+    let images = item.adImages
 
     return (
       <View style={Styles.renderItemContainer}>
         <View style={Styles.renderItemContent}>
           <ImageBackground
-            source={item ? {uri: item?.adImages[0]?.adImages} : {}}
+            source={!!images ? {uri: images[0].adImages} : []}
             style={Styles.imgBackground}>
             <View style={Styles.insideContainer}>
               <View style={Styles.featuredTextContainer}>
@@ -105,7 +102,7 @@ const OtherUserProfile = props => {
               </Text>
               <View style={Styles.dateContainer}>
                 <Text style={Styles.locationStyle}>
-                  {postDate || dateCopy} {monthName || monthNameCopy}
+                  {postDate} {monthName}
                 </Text>
               </View>
             </View>

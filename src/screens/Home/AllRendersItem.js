@@ -4,7 +4,7 @@ import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import {HomeStyles} from './HomeStyles';
 
-export const renderItems = ({item}, props) => {
+export const renderItems = ({item, index}, props) => {
   const monthNamesArr = [
     'Jan',
     'Feb',
@@ -26,6 +26,7 @@ export const renderItems = ({item}, props) => {
   let monthCopy = new Date(item.joinDate);
   let monthNameCopy = monthNamesArr[monthCopy.getMonth()];
   let dateCopy = new Date(item.joinDate).getDate();
+  let images = item.adImages
 
   return (
     <View style={HomeStyles.renderItemContainer}>
@@ -35,7 +36,7 @@ export const renderItems = ({item}, props) => {
           props.navigation.navigate('ViewFullBasedAdd', {data: item})
         }>
         <ImageBackground
-          source={item ? {uri: item?.adImages[0]?.adImages} : {}}
+          source={!!images ? {uri: images[0].adImages} : []}
           style={HomeStyles.imgBackground}>
           <View style={HomeStyles.insideContainer}>
             <View style={HomeStyles.featuredTextContainer}>

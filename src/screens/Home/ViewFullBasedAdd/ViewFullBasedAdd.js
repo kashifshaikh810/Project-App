@@ -9,7 +9,6 @@ import {
   Image,
   FlatList,
   Modal,
-  BackHandler,
 } from 'react-native';
 import IconLeft from 'react-native-vector-icons/Feather';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
@@ -78,7 +77,7 @@ const ViewFullBasedAdd = props => {
   };
 
   useEffect(() => {
-    routeData.adImages.map(aa => {
+    routeData?.adImages?.map(aa => {
       let imagesCopy = aa.adImages;
       imagesArr.push({url: imagesCopy});
       setimagesArr(imagesArr);
@@ -155,7 +154,7 @@ const ViewFullBasedAdd = props => {
                 ]}>
                 <View style={Styles.imagesCountContainer}>
                   <Text style={Styles.imagesCount}>
-                    1/{routeData.adImages.length}
+                    1/{routeData?.adImages?.length}
                   </Text>
                 </View>
               </View>

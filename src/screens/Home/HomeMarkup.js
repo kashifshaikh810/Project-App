@@ -18,6 +18,7 @@ import {iconsData, dummyData, dummyDataTwo} from './Data';
 
 const HomeMarkup = props => {
   const [scrollVal, setScrollVal] = useState('');
+
   return (
     <>
       {scrollVal > 0 && (
@@ -44,7 +45,7 @@ const HomeMarkup = props => {
             </View>
           </View>
 
-          {scrollVal === 0 && (
+          {!scrollVal && (
             <View style={HomeStyles.areaContainer}>
               <SearchIcon name="search" size={20} />
               <Text style={HomeStyles.areaContent}>
@@ -91,6 +92,12 @@ const HomeMarkup = props => {
             )}
 
             <Text style={HomeStyles.freshHeading}>Fresh recommendations</Text>
+           {!props.allAdsData && <View style={{height: 400, justifyContent: 'center', alignItems: 'center'}}>
+             <Text style={HomeStyles.basedHeading}>
+                  No data found
+                </Text>
+           </View>
+                }
 
             {props.isLoading ? (
               <View

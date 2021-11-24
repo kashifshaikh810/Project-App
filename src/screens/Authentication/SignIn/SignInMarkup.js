@@ -77,7 +77,7 @@ const SignInMarkup = props => {
 
         <View style={Styles.buttonParentContainer}>
           <TouchableOpacity
-            disabled={!props.email && !props.password}
+            disabled={!props.email || !props.password}
             style={[
               Styles.buttonContainer,
               {
