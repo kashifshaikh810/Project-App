@@ -1,26 +1,68 @@
-import React from 'react';
-import { Button, StatusBar, Text, TextInput, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { Button, ScrollView, StatusBar, Text, TextInput, View } from 'react-native';
 import Nav from './src/screens/Navigation/Nav';
 import { useNetInfo } from "@react-native-community/netinfo";
-import {Provider, useSelector} from 'react-redux'
+import {Provider, useSelector, useDispatch} from 'react-redux'
 import store from './src/redux/Store/Store';
+import {AddList, RemoveList, UpdateList} from './src/redux/Actions/Actions'
 
 export const Testing = () => {
-  const list = useSelector((state) => state.add.list);
+  const [val, setVal] = useState('');
+  const [arrVal, setArrVal] = useState([]);
+  const [edit, setEdit] = useState({edit: false, index: '', existVal: ''});
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.add.todo);
+
+
+  useEffect(() => {
+    setArrVal(list);
+  }, [list])
+
+  const add = () => {
+    if(val){
+      dispatch(AddList(val));
+      setVal('');
+    }
+  }
+
+  const editFunc = (arr, index) => {
+    setEdit({edit: true, index: index, existVal: arr});
+    setVal(arr)
+  }
+
+  const update = () => {
+    console.log(edit.index);
+    dispatch(UpdateList(edit.index, val, edit.existVal))
+    setEdit({edit: false})
+    setVal('');
+  }
+
+  const deleteList = (index) => {
+      arrVal.splice(index, 1)
+      dispatch(RemoveList(index))
+  }
 
   return (
     <View>
-      <TextInput placeholder="Text" />
-      <Button title="click" />
+      <TextInput placeholder="Text" value={val} onChangeText={text => setVal(text)} />
+      <Button title={edit.edit ? "update" : "add"} onPress={() => edit.edit ? update() : add()} />
       
       {
-        list.map((arr) => {
+        arrVal.map((arr, index) => {
           return (
-            <View>
-              <Text>{arr.list}</Text>
+            <ScrollView key={index}>
+            <View style={{flexDirection: 'row', marginHorizontal: 10, marginVertical: 20}}>
+              <Text>{arr}</Text>
+              <View style={{width: 100, marginHorizontal: 10, marginVertical: 10}}>
+             <Button title="delete" onPress={() => deleteList(index)} />
+              </View>
+              <View style={{width: 100, marginHorizontal: 10, marginVertical: 10}}>
+             <Button title="edit" onPress={() => editFunc(arr, index)} />
+             </View>
             </View>
+          </ScrollView>
           )
-        })
+        }) 
       }
     </View>
   )
@@ -31,7 +73,7 @@ const App = () => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" backgroundColor="grey" />
-      {/* {
+      {
         net.isConnected &&
         <Nav />
       }
@@ -39,11 +81,11 @@ const App = () => {
         <Text style={{fontSize: 15, color: 'red'}}>
           No Internet Connection
         </Text>
-      </View>} */}
+      </View>}
 
-  <Provider store={store}>
+  {/* <Provider store={store}>
     <Testing />
-  </Provider>
+  </Provider> */}
     </View>
   );
 };

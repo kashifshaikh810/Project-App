@@ -15,6 +15,7 @@ const Home = props => {
       Database()
         .ref('/userAds/')
         .on('value', snapshot => {
+          if(snapshot.val()){
             let usersAds = Object.values(snapshot.val());
             let arr = usersAds;
             arr.forEach((items, index) => {
@@ -26,6 +27,9 @@ const Home = props => {
                 setIsLoading(false);
               });
             });
+          }else{
+            setIsLoading(false);
+          }
         });
     });
 
