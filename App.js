@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Button, ScrollView, StatusBar, Text, TextInput, View } from 'react-native';
+import { Button, ScrollView, StatusBar, Text, TextInput, View, Keyboard } from 'react-native';
 import Nav from './src/screens/Navigation/Nav';
 import { useNetInfo } from "@react-native-community/netinfo";
 import {Provider, useSelector, useDispatch} from 'react-redux'
@@ -12,6 +12,7 @@ export const Testing = () => {
   const [edit, setEdit] = useState({edit: false, index: '', existVal: ''});
   const dispatch = useDispatch();
   const list = useSelector((state) => state.add.todo);
+  const inputRef = React.useRef()
 
 
   useEffect(() => {
@@ -19,7 +20,11 @@ export const Testing = () => {
   }, [list])
 
   const add = () => {
-    if(val){
+    if(val.indexOf(" ") === 0 || val.length === 0){
+      alert('Please fill out')
+      Keyboard.dismiss()
+      setVal('')
+    }else{
       dispatch(AddList(val));
       setVal('');
     }
@@ -28,10 +33,10 @@ export const Testing = () => {
   const editFunc = (arr, index) => {
     setEdit({edit: true, index: index, existVal: arr});
     setVal(arr)
+    inputRef.current.focus()
   }
 
   const update = () => {
-    console.log(edit.index);
     dispatch(UpdateList(edit.index, val, edit.existVal))
     setEdit({edit: false})
     setVal('');
@@ -44,7 +49,7 @@ export const Testing = () => {
 
   return (
     <View>
-      <TextInput placeholder="Text" value={val} onChangeText={text => setVal(text)} />
+      <TextInput placeholder="Text" value={val} onChangeText={text => setVal(text)} ref={inputRef} />
       <Button title={edit.edit ? "update" : "add"} onPress={() => edit.edit ? update() : add()} />
       
       {
@@ -72,7 +77,7 @@ const App = () => {
   const net = useNetInfo();
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" backgroundColor="grey" />
+      {/* <StatusBar barStyle="dark-content" backgroundColor="grey" />
       {
         net.isConnected &&
         <Nav />
@@ -81,11 +86,11 @@ const App = () => {
         <Text style={{fontSize: 15, color: 'red'}}>
           No Internet Connection
         </Text>
-      </View>}
+      </View>} */}
 
-  {/* <Provider store={store}>
+  <Provider store={store}>
     <Testing />
-  </Provider> */}
+  </Provider>
     </View>
   );
 };
