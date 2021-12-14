@@ -24,7 +24,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {dummyData} from '../Data';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import {Auth} from '../../../../Setup';
+import {Auth, Database} from '../../../../Setup';
 
 const ViewFullBasedAdd = props => {
   const [addToFav, setAddToFav] = useState(false);
@@ -75,6 +75,21 @@ const ViewFullBasedAdd = props => {
       </View>
     );
   };
+
+  const goToChat = () => {
+    // let receiverId = routeData.userId;
+    if(uid){
+      props.navigation.navigate('PrivateMessages', {
+        itemData: routeData,
+      })
+      let dd = new Date();
+      let msgDate = dd.toISOString().split('t')[0];
+      Database().ref(`/chatListData/${uid}`).push({chatList: routeData, msgDate});
+    }else{
+      props.navigation.navigate('SignUpAndSignInMenu')
+    }
+                
+  }
 
   useEffect(() => {
     routeData?.adImages?.map(aa => {
@@ -316,11 +331,7 @@ const ViewFullBasedAdd = props => {
           <TouchableOpacity
             style={Styles.buttonTextAndIconContainer}
             onPress={() =>
-              uid
-                ? props.navigation.navigate('PrivateMessages', {
-                    itemData: routeData,
-                  })
-                : props.navigation.navigate('SignUpAndSignInMenu')
+              goToChat()
             }>
             <MessageIcon name="message1" size={17} color="white" />
             <Text style={Styles.buttonText}>Chat</Text>

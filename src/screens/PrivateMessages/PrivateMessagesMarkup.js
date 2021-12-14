@@ -27,7 +27,6 @@ import {responsiveScreenWidth} from '../../Components/Utility/ResponsiveDimensio
 
 const PrivateMessagesMarkup = props => {
   const itemData = props.route.params.itemData;
-  console.log(itemData);
 
   const sendMessagesInput = () => {
     if (props.sendShortMessage === 'cancel') {
@@ -238,6 +237,13 @@ const PrivateMessagesMarkup = props => {
     }
   };
 
+  let msgType = Styles.custMsg;
+  let alignSelf = Styles.flexStart;
+
+  // if (props.receiverId === props.senderId) {
+  //   msgType = Styles.myMsg;
+  //             alignSelf = Styles.flexEnd;
+  // }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' && 'padding'}
@@ -265,7 +271,7 @@ const PrivateMessagesMarkup = props => {
         </View>
         <View style={Styles.userNameContainer}>
           <Text style={Styles.userName}>
-            {itemData.userName || itemData.username}
+            {itemData.userName}
           </Text>
           <Text style={Styles.lastActive}>
             {props.inputMessage.length > 5 ? 'Typing...' : 'Last active 4 Sep'}
@@ -295,23 +301,26 @@ const PrivateMessagesMarkup = props => {
 
       <View style={Styles.scrollViewContainer}>
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-          {props?.arr?.map((message, index) => {
+          {props?.arr?.map((aa, index) => {
+            // if(aa.senderId === props.senderId){
+
+            // }
             return (
               <>
-                {message.length === 2 && (
+                {/* {aa.msg.length === 2 && (
                   <View style={Styles.dateContainer}>
                     <Text style={Styles.date}>Aug 23, 2021</Text>
                   </View>
-                )}
+                )} */}
                 <View key={index} style={Styles.messageContainer}>
                   <View style={Styles.messageBackground}>
-                    <Text style={Styles.message}>{message}</Text>
+                    <Text style={Styles.message}>{aa.msg}</Text>
 
                     <View style={Styles.timeContainer}>
                       <View style={Styles.timeMain}>
                         <Text style={Styles.time}>20:10</Text>
 
-                        {message ? (
+                        {aa.message ? (
                           <CheckSingleIcon
                             name="checkmark-done"
                             size={13}
@@ -332,14 +341,14 @@ const PrivateMessagesMarkup = props => {
             );
           })}
 
-          {props?.arr?.map((message, index) => {
+          {props?.sender?.map((dd, index) => {
             return (
               <>
-                {message.length === 2 && (
+                {/* {dd.msg.length === 2 && (
                   <View style={Styles.dateContainer}>
                     <Text style={Styles.date}>Aug 23, 2021</Text>
                   </View>
-                )}
+                )} */}
                 <View
                   key={index}
                   style={[Styles.messageContainer, {alignItems: 'flex-start'}]}>
@@ -348,7 +357,7 @@ const PrivateMessagesMarkup = props => {
                       Styles.messageBackground,
                       {backgroundColor: '#cbd5d6'},
                     ]}>
-                    <Text style={Styles.message}>{message}</Text>
+                    <Text style={Styles.message}>{dd.msg}</Text>
 
                     <View style={Styles.timeContainer}>
                       <View

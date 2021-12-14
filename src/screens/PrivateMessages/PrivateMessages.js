@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import PrivateMessagesMarkup from './PrivateMessagesMarkup';
+import {Auth, Database} from '../../../Setup';
 
 const PrivateMessages = props => {
   const [showModal, setShowModal] = useState(false);
@@ -8,21 +9,32 @@ const PrivateMessages = props => {
   const [sendShortMessage, setSendShortMessage] = useState('cancel');
   const [defaultMessage, setDefaultMessage] = useState('');
   const [arr, setArr] = useState([]);
+  let receiverId = props.route.params.itemData.userId;
+  let data = props.route.params.itemData;
+  let senderId = Auth().currentUser.uid;
 
   const sendMessages = () => {
-    arr.push(inputMessage);
-    setArr(arr);
+    let dd = new Date();
+    let date = dd.toISOString().split('t')[0];
+    let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
+    Database().ref(`/chatMessages/${pathRes}`).push({senderId: senderId, receiverId: receiverId, time: date, receiverName: data.userName, msg: inputMessage});
     setInputMessage('');
   };
 
   useEffect(() => {
     setDefaultMessage('Hello');
-    if (defaultMessage) {
-      arr.push(defaultMessage);
-      setArr(arr);
-    }
     setDefaultMessage('');
+    fetchMessages();
   }, [defaultMessage]);
+
+  const fetchMessages = () => {
+    let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
+    Database().ref(`/chatMessages/${pathRes}`).on("value", (snapshot) => {
+      let messageData = snapshot.val() ? Object.values(snapshot.val()) : []
+      setArr(messageData)
+      console.log(messageData, "????");
+    })
+  }
 
   return (
     <>

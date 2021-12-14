@@ -77,7 +77,7 @@ const App = () => {
   const net = useNetInfo();
   return (
     <View style={{ flex: 1 }}>
-      {/* <StatusBar barStyle="dark-content" backgroundColor="grey" />
+      <StatusBar barStyle="dark-content" backgroundColor="grey" />
       {
         net.isConnected &&
         <Nav />
@@ -86,11 +86,13 @@ const App = () => {
         <Text style={{fontSize: 15, color: 'red'}}>
           No Internet Connection
         </Text>
-      </View>} */}
+      </View>}
 
-  <Provider store={store}>
+{/* practice todo with pure redux */}
+
+  {/* <Provider store={store}>
     <Testing />
-  </Provider>
+  </Provider> */}
     </View>
   );
 };

@@ -352,4 +352,24 @@ export const Styles = StyleSheet.create({
     color: '#edf5f6',
     fontWeight: 'bold',
   },
+  custMsg: {
+    backgroundColor: '#EDEDED',
+    borderTopRightRadius: 22,
+    borderTopLeftRadius: 22,
+    borderBottomRightRadius: 22,
+    borderBottomLeftRadius: 0,
+  },
+  flexStart: {
+    alignSelf: 'flex-start',
+  },
+  myMsg: {
+    backgroundColor: '#72bed0',
+    borderTopRightRadius: 22,
+    borderTopLeftRadius: 22,
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 22,
+  },
+  flexEnd: {
+    alignSelf: 'flex-end',
+  },
 });

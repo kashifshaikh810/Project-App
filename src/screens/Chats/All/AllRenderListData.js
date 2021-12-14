@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import ThreeDotsIcon from 'react-native-vector-icons/Feather';
 import PhoneIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -18,38 +17,61 @@ import UnreadChatModal from '../../../Components/Modals/UnreadChatModal/UnreadCh
 import AllChatModal from '../../../Components/Modals/AllChatModal/AllChatModal';
 import ImportantChatModal from '../../../Components/Modals/ImportantChatModal/ImportantChatModal';
 
-export const renderItems = ({item}, props, navigation) => {
+export const renderItems = ({item, index}, props, navigation) => {
+  let data = item.chatList;
+  let date = item.msgDate;
+
+  const monthNamesArr = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  let month = new Date(date);
+  let monthName = monthNamesArr[month.getMonth()];
+  let msgDate = new Date(date).getDate();
+
   return (
+    <>
+    {props?.uid !== data?.userId &&
     <TouchableOpacity
       onPress={() =>
         navigation.navigate('PrivateMessages', {
-          itemData: item,
+          itemData: data,
           propsData: props,
           navigation: navigation,
         })
       }>
       <View style={Styles.renderContainer}>
         <View style={Styles.renderContentContainer}>
-          <Text>{item.date}</Text>
+          <Text>{msgDate} {monthName}</Text>
         </View>
         <View style={Styles.dataContainer}>
           <View style={Styles.imgBackContainer}>
             <ImageBackground
-              source={item.contentImg}
+              source={{uri: data.adImages[0].adImages}}
               style={Styles.backImg}
               imageStyle={{borderRadius: 6}}>
               <View style={Styles.profileImgContainer}>
-                <Image source={item.profileImg} style={Styles.profileImg} />
+                <Image source={require('../../../Components/Utility/Images/profile.png')} style={Styles.profileImg} />
               </View>
             </ImageBackground>
           </View>
 
           <View style={Styles.container}>
             <Text style={Styles.userName} numberOfLines={1}>
-              {item.userName}
+              {data.userName}
             </Text>
             <Text style={Styles.message} numberOfLines={1}>
-              {item.message}
+              {data.message || "test"}
             </Text>
 
             {item.addTime === 'Number viewed' ? (
@@ -79,7 +101,7 @@ export const renderItems = ({item}, props, navigation) => {
           <ThreeDotsIcon
             name="more-vertical"
             size={20}
-            onPress={() => props.setShowModal(true)}
+            onPress={() => props.setShowModal({ show: true, index: index})}
           />
         </View>
 
@@ -87,6 +109,8 @@ export const renderItems = ({item}, props, navigation) => {
       </View>
       <View style={Styles.line} />
     </TouchableOpacity>
+    }
+    </>
   );
 };
 

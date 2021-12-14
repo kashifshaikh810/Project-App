@@ -6,39 +6,36 @@ import {Database} from '../.../../../../Setup';
 
 const Home = props => {
   const [allAdsData, setAllAdsData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
-      setIsLoading(true);
-      let adsArr = [];
-      Database()
-        .ref('/userAds/')
-        .on('value', snapshot => {
-          if(snapshot.val()){
-            let usersAds = Object.values(snapshot.val());
-            let arr = usersAds;
-            arr.forEach((items, index) => {
-              let allAds = Object.values(items);
-              allAds.forEach((ads, i) => {
-                adsArr.push(ads);
-                console.log(adsArr, 'dd');
-                setAllAdsData(adsArr);
-                setIsLoading(false);
-              });
-            });
-          }else{
-            setIsLoading(false);
-          }
-        });
+      getAllData()
     });
 
     return unsubscribe;
   }, [props.navigation]);
 
+  const getAllData = () => {
+    let adsArr = [];
+    Database()
+      .ref('/userAds/')
+      .on('value', snapshot => {
+        if(snapshot.val()){
+          let usersAds = Object.values(snapshot.val());
+          usersAds.forEach((items, index) => {
+            let allAds = Object.values(items);
+            allAds.forEach(async(ads, i) => {
+              await adsArr.push(ads);
+              setAllAdsData(adsArr);
+            });
+          });
+        }
+      });
+  }
+
   return (
     <View>
-      <HomeMarkup {...props} allAdsData={allAdsData} isLoading={isLoading} />
+      <HomeMarkup {...props} allAdsData={allAdsData} />
     </View>
   );
 };

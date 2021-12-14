@@ -99,19 +99,12 @@ const HomeMarkup = props => {
            </View>
                 }
 
-            {props.isLoading ? (
-              <View
-                style={{height: 190, width: '100%', justifyContent: 'center'}}>
-                <ActivityIndicator size={50} color="#b3b3b3" />
-              </View>
-            ) : (
               <FlatList
                 data={props.allAdsData}
                 renderItem={item => renderItems(item, props)}
                 // horizontal={true}
                 numColumns={2}
               />
-            )}
           </View>
 
           <View style={HomeStyles.arrowAndButtonContainer}>

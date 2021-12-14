@@ -17,6 +17,7 @@ import {
 
 const AllMarkup = props => {
   const navigation = useNavigation();
+
   return (
     <View>
       <View style={Styles.allContainer}>
@@ -61,13 +62,22 @@ const AllMarkup = props => {
       <View style={Styles.line} />
 
       {/* All route data */}
-      {props.showColor === 'all' && (
-        <View style={Styles.allChatStyle}>
-          <FlatList
-            data={allDummyData}
-            renderItem={item => renderItems(item, props, navigation)}
-          />
-        </View>
+      {props.chatListData.length > 0 && props.isLoading ? (
+        <>
+          <View
+            style={{height: '85%', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <Text>Loading...</Text>
+          </View>
+        </>
+      ) : (
+        props.showColor === 'all' && (
+          <View style={Styles.allChatStyle}>
+            <FlatList
+              data={props.chatListData}
+              renderItem={item => renderItems(item, props, navigation)}
+            />
+          </View>
+        )
       )}
 
       {/* unread route data */}
@@ -85,7 +95,9 @@ const AllMarkup = props => {
         <View style={Styles.allChatStyle}>
           <FlatList
             data={importantChatDummyData}
-            renderItem={item => importantChatrenderItems(item, props, navigation)}
+            renderItem={item =>
+              importantChatrenderItems(item, props, navigation)
+            }
           />
         </View>
       )}
