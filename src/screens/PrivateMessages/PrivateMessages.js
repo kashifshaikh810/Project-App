@@ -30,10 +30,9 @@ const PrivateMessages = props => {
   const fetchMessages = () => {
     let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
     Database().ref(`/chatMessages/${pathRes}`).on("value", (snapshot) => {
-      let messageData = snapshot.val() ? Object.values(snapshot.val()) : []
+      let messageData = snapshot.val() ? Object.values(snapshot.val()).reverse() : []
       setArr(messageData)
-      console.log(messageData, "????");
-    })
+    });
   }
 
   return (
@@ -50,6 +49,7 @@ const PrivateMessages = props => {
         setSendShortMessage={setSendShortMessage}
         defaultMessage={defaultMessage}
         setDefaultMessage={setDefaultMessage}
+        senderId={senderId}
       />
     </>
   );

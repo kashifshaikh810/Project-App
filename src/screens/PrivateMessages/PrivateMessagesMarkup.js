@@ -24,6 +24,7 @@ import HandOkayIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ChatDeleteModal from '../../Components/Modals/ChatDeleteModal/ChatDeleteModal';
 import {responsiveScreenWidth} from '../../Components/Utility/ResponsiveDimensions/Responsive';
+import moment from 'moment';
 
 const PrivateMessagesMarkup = props => {
   const itemData = props.route.params.itemData;
@@ -237,13 +238,6 @@ const PrivateMessagesMarkup = props => {
     }
   };
 
-  let msgType = Styles.custMsg;
-  let alignSelf = Styles.flexStart;
-
-  // if (props.receiverId === props.senderId) {
-  //   msgType = Styles.myMsg;
-  //             alignSelf = Styles.flexEnd;
-  // }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' && 'padding'}
@@ -302,31 +296,66 @@ const PrivateMessagesMarkup = props => {
       <View style={Styles.scrollViewContainer}>
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           {props?.arr?.map((aa, index) => {
-            // if(aa.senderId === props.senderId){
+              const monthNamesArr = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'April',
+                'May',
+                'Jun',
+                'July',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+              ];
+            let date = new Date(aa.time);
+            let monthName = monthNamesArr[date.getMonth()];
+            let hours = new Date(aa.time).getHours();
+            let minute = new Date(aa.time).getMinutes();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minute = minute.toString().padStart(2, '0');
+            let msgTime = hours + ':' + minute + ' ' + ampm;
 
-            // }
+            const currentDate = moment(aa.time).format(
+              'DD/MM/YYYY',
+            );
+
+            const dateRes = index === 0
+                  || moment(props.arr[index - 1].time).format(
+                    'DD/MM/YYYY',
+                  ) !== currentDate
+                  ? currentDate
+                  : '';
+
             return (
               <>
-                {/* {aa.msg.length === 2 && (
+                {dateRes.length > 1 && (
                   <View style={Styles.dateContainer}>
-                    <Text style={Styles.date}>Aug 23, 2021</Text>
+                    <Text style={Styles.date}> {dateRes ? monthName : ''} {dateRes[0]}{dateRes[1]}, {dateRes[6]}{dateRes[7]}{dateRes[8]}{dateRes[9]} </Text>
                   </View>
-                )} */}
-                <View key={index} style={Styles.messageContainer}>
-                  <View style={Styles.messageBackground}>
+                )}
+                <View key={index} style={[Styles.messageContainer, {alignItems: aa.senderId === props.senderId ? "flex-end" : "flex-start"}]}>
+                  <View style={[Styles.messageBackground, {
+                   backgroundColor: aa.senderId === props.senderId ? '#cfdbfd' : '#f3f3f3',
+                  }]}>
                     <Text style={Styles.message}>{aa.msg}</Text>
 
                     <View style={Styles.timeContainer}>
                       <View style={Styles.timeMain}>
-                        <Text style={Styles.time}>20:10</Text>
+                        <Text style={Styles.time}>{msgTime}</Text>
 
-                        {aa.message ? (
+                        {aa.senderId === props.senderId && aa.message ? ( 
                           <CheckSingleIcon
                             name="checkmark-done"
                             size={13}
                             color="#3ca1ab"
                           />
                         ) : (
+                          aa.senderId === props.senderId &&
                           <CheckSingleIcon
                             name="checkmark-outline"
                             size={13}
@@ -341,35 +370,6 @@ const PrivateMessagesMarkup = props => {
             );
           })}
 
-          {props?.sender?.map((dd, index) => {
-            return (
-              <>
-                {/* {dd.msg.length === 2 && (
-                  <View style={Styles.dateContainer}>
-                    <Text style={Styles.date}>Aug 23, 2021</Text>
-                  </View>
-                )} */}
-                <View
-                  key={index}
-                  style={[Styles.messageContainer, {alignItems: 'flex-start'}]}>
-                  <View
-                    style={[
-                      Styles.messageBackground,
-                      {backgroundColor: '#cbd5d6'},
-                    ]}>
-                    <Text style={Styles.message}>{dd.msg}</Text>
-
-                    <View style={Styles.timeContainer}>
-                      <View
-                        style={[Styles.timeMain, {justifyContent: 'flex-end'}]}>
-                        <Text style={Styles.time}>20:10</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </>
-            );
-          })}
         </ScrollView>
       </View>
 

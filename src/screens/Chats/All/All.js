@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import AllMarkup from './AllMarkup';
 import {Auth, Database} from '../../../../Setup';
 
-const All = (props) => {
+const All = props => {
   const [showColor, setShowColor] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState({show: false, index: ''});
@@ -18,18 +18,20 @@ const All = (props) => {
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       setIsLoading(true);
-      let arr = []
-      Database().ref(`/chatListData/${uid}`).on("value", async (snapshot) => {
-        let snap = await snapshot.val()
-        let data = snap ? Object?.values(snap) : [];
-        let keys = snap ? Object?.keys(snap) : [];
-        setKeys(keys);
-        data.forEach(chatData => {
-          arr.push(chatData)
-          setChatListData(arr);
-          setIsLoading(false);
+      let arr = [];
+      Database()
+        .ref(`/chatListData/${uid}`)
+        .on('value', async snapshot => {
+          let snap = await snapshot.val();
+          let data = snap ? Object?.values(snap) : [];
+          let keys = snap ? Object?.keys(snap) : [];
+          setKeys(keys);
+          data.forEach(chatData => {
+            arr.push(chatData);
+            setChatListData(arr);
+            setIsLoading(false);
+          });
         });
-      })
     });
 
     return unsubscribe;
@@ -37,6 +39,11 @@ const All = (props) => {
 
   const deleteChat = () => {
     Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).remove();
+    setShowModal({show: false});
+  };
+
+  const markAsImportant = () => {
+    Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).child('chatList').update({mark: "important"})
     setShowModal({show: false});
   }
 
@@ -51,6 +58,7 @@ const All = (props) => {
         uid={uid}
         deleteChat={deleteChat}
         isLoading={isLoading}
+        markAsImportant={markAsImportant}
       />
     </View>
   );

@@ -16,6 +16,9 @@ import {Styles} from '../Styles';
 import UnreadChatModal from '../../../Components/Modals/UnreadChatModal/UnreadChatModal';
 import AllChatModal from '../../../Components/Modals/AllChatModal/AllChatModal';
 import ImportantChatModal from '../../../Components/Modals/ImportantChatModal/ImportantChatModal';
+import { Database } from '../../../../Setup';
+
+let message = null;
 
 export const renderItems = ({item, index}, props, navigation) => {
   let data = item.chatList;
@@ -38,6 +41,16 @@ export const renderItems = ({item, index}, props, navigation) => {
   let month = new Date(date);
   let monthName = monthNamesArr[month.getMonth()];
   let msgDate = new Date(date).getDate();
+  let pathRes = `${props.uid}${data.userId}`.split('').sort().join('');
+  Database().ref(`/chatMessages/${pathRes}`).on("value", async (snapshot) => {
+    let snap = await snapshot.val()
+    let data = snap ? Object?.values(snap) : [];
+    console.log(data[index], 'dada');
+
+    let msg = data ? data[index].msg : ""
+    message = msg
+  })
+
 
   return (
     <>
@@ -51,9 +64,19 @@ export const renderItems = ({item, index}, props, navigation) => {
         })
       }>
       <View style={Styles.renderContainer}>
-        <View style={Styles.renderContentContainer}>
+        <View style={Styles.renderContainerChild}>
+          <View style={Styles.main}>
+            <View style={Styles.importanatContainer}>
+              <Text style={Styles.importanat} numberOfLines={1}>
+                {data.mark || ''}
+              </Text>
+            </View>
+          </View>
+          <View style={Styles.renderContentContainer}>
           <Text>{msgDate} {monthName}</Text>
+          </View>
         </View>
+        
         <View style={Styles.dataContainer}>
           <View style={Styles.imgBackContainer}>
             <ImageBackground
@@ -71,7 +94,7 @@ export const renderItems = ({item, index}, props, navigation) => {
               {data.userName}
             </Text>
             <Text style={Styles.message} numberOfLines={1}>
-              {data.message || "test"}
+              {data.titile}
             </Text>
 
             {item.addTime === 'Number viewed' ? (
@@ -86,6 +109,7 @@ export const renderItems = ({item, index}, props, navigation) => {
               </View>
             ) : (
               <View style={Styles.iconsContainer}>
+                <Text numberOfLines={1}>{message}</Text>
                 <CheckSingleIcon
                   name="checkmark-outline"
                   size={12}

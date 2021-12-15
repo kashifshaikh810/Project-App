@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, BackHandler, Alert} from 'react-native';
 import HomeMarkup from './HomeMarkup';
-import {Database} from '../.../../../../Setup';
+import {Auth, Database} from '../.../../../../Setup';
 
 const Home = props => {
   const [allAdsData, setAllAdsData] = useState();

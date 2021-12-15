@@ -104,7 +104,6 @@ export const Styles = StyleSheet.create({
     marginVertical: responsiveScreenHeight(0.5),
   },
   messageBackground: {
-    backgroundColor: '#cfdbfd',
     flex: 1,
     paddingHorizontal: responsiveScreenWidth(1.5),
     borderRadius: 8,
@@ -371,5 +370,43 @@ export const Styles = StyleSheet.create({
   },
   flexEnd: {
     alignSelf: 'flex-end',
+  },
+  sellingContainer: {
+    height: responsiveScreenHeight(70),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    height: responsiveScreenHeight(38),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  noMessageImg: {
+    width: responsiveScreenWidth(35),
+    height: responsiveScreenHeight(17),
+    borderRadius: responsiveHeight(15),
+  },
+  button: {
+    fontSize: responsiveFontSize(2.3),
+    fontWeight: 'bold',
+  },
+  noMessageTxt: {
+    fontSize: responsiveFontSize(2.8),
+    fontWeight: 'bold',
+    color: '#143836',
+  },
+  titileText: {
+    fontSize: responsiveFontSize(1.9),
+    maxWidth: responsiveScreenWidth(65),
+    textAlign: 'center',
+    color: '#95a9aa',
+  },
+  buttonContainer: {
+    width: responsiveScreenWidth(90),
+    height: responsiveScreenHeight(6),
+    backgroundColor: '#023034',
+    borderRadius: responsiveHeight(0.8),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

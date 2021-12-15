@@ -118,7 +118,8 @@ export const Styles = StyleSheet.create({
   iconsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: responsiveScreenWidth(20),
+    flex: 1,
+    // width: responsiveScreenWidth(60),
     alignItems: 'center',
   },
   iconsContainerTwo: {

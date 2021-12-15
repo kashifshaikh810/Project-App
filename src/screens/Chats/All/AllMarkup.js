@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {Styles} from '../Styles';
@@ -18,15 +18,41 @@ import {
 const AllMarkup = props => {
   const navigation = useNavigation();
 
+  const showNoMessages = () => {
+    if(props.chatListData.length === 0){
+    return (
+      <View style={Styles.sellingContainer}>
+      <View style={Styles.contentContainer}>
+        <Image
+          source={require('../../../Components/Utility/Images/noMessages.png')}
+          style={Styles.noMessageImg}
+        />
+
+        <Text style={Styles.noMessageTxt}>No messages, yet?</Text>
+        <Text style={Styles.titileText}>
+          We'll keep messages for my any items you're selling in here
+        </Text>
+
+        <TouchableOpacity
+          style={Styles.buttonContainer}
+          onPress={() => navigation.navigate('Categories')}>
+          <Text style={[Styles.button, {color: 'white'}]}>Start selling</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+    )
+  }
+  }
+
   return (
     <View>
-      <View style={Styles.allContainer}>
+      {props.chatListData.length >= 1 && ( <><View style={Styles.allContainer}>
+        {showNoMessages()}
         <TouchableOpacity
           style={[
             Styles.allStyle,
             {
-              backgroundColor:
-                props.showColor === 'all' ? '#609f96' : '#f1f1f1',
+              backgroundColor: props.showColor === 'all' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'all' ? 1 : 0,
             },
           ]}
@@ -37,8 +63,7 @@ const AllMarkup = props => {
           style={[
             Styles.unreadChatStyle,
             {
-              backgroundColor:
-                props.showColor === 'unreadchat' ? '#609f96' : '#f1f1f1',
+              backgroundColor: props.showColor === 'unreadchat' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'unreadchat' ? 1 : 0,
             },
           ]}
@@ -49,20 +74,17 @@ const AllMarkup = props => {
           style={[
             Styles.importantStyle,
             {
-              backgroundColor:
-                props.showColor === 'important' ? '#609f96' : '#f1f1f1',
+              backgroundColor: props.showColor === 'important' ? '#609f96' : '#f1f1f1',
               borderWidth: props.showColor !== 'important' ? 1 : 0,
             },
           ]}
           onPress={() => props.ChangePageOnClick('important')}>
           <Text>Important</Text>
         </TouchableOpacity>
-      </View>
-
-      <View style={Styles.line} />
+      </View><View style={Styles.line} /></> )}
 
       {/* All route data */}
-      {props.chatListData.length > 0 && props.isLoading ? (
+      {props.isLoading ? (
         <>
           <View
             style={{height: '85%', width: '100%', justifyContent: 'center', alignItems: 'center'}}>

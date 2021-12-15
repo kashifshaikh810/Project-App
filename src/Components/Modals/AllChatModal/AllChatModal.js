@@ -11,8 +11,8 @@ const AllChatModal = props => {
             <Text style={[Styles.textStyles, {color: 'red'}]}>Delete chat</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Text style={Styles.textStyles}>Mark as important</Text>
+          <TouchableOpacity onPress={() => props.markAsImportant()}>
+            <Text style={Styles.textStyles}>{props.mark === "important" ? "Remove important" : "Mark as important"}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => props.setShowModal({ show: false})}>
