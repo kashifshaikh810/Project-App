@@ -17,7 +17,6 @@ import {
 
 const AllMarkup = props => {
   const navigation = useNavigation();
-
   const showNoMessages = () => {
     if(props.chatListData.length === 0){
     return (
@@ -30,14 +29,33 @@ const AllMarkup = props => {
 
         <Text style={Styles.noMessageTxt}>No messages, yet?</Text>
         <Text style={Styles.titileText}>
-          We'll keep messages for my any items you're selling in here
+          We'll keep messages for my any items you're buying in here
         </Text>
 
         <TouchableOpacity
           style={Styles.buttonContainer}
-          onPress={() => navigation.navigate('Categories')}>
-          <Text style={[Styles.button, {color: 'white'}]}>Start selling</Text>
+          onPress={() => navigation.navigate('HOME')}>
+          <Text style={[Styles.button, {color: 'white'}]}>Start chating</Text>
         </TouchableOpacity>
+      </View>
+    </View>
+    )
+  }}
+
+  const showErrNoMessages = () => {
+    if(props.mark === true){
+    return (
+      <View style={[Styles.sellingContainer, {height: '45%'}]}>
+      <View style={[Styles.contentContainer, {height: 230}]}>
+        <Image
+          source={require('../../../Components/Utility/Images/noMessages.png')}
+          style={Styles.noMessageImg}
+        />
+
+        <Text style={Styles.noMessageTxt}>You're all up to date</Text>
+        <Text style={Styles.titileText}>
+          You have no important chats
+        </Text>
       </View>
     </View>
     )
@@ -113,10 +131,11 @@ const AllMarkup = props => {
       )}
 
       {/* important route data */}
+      {showErrNoMessages()}
       {props.showColor === 'important' && (
         <View style={Styles.allChatStyle}>
           <FlatList
-            data={importantChatDummyData}
+            data={props.chatListData}
             renderItem={item =>
               importantChatrenderItems(item, props, navigation)
             }

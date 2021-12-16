@@ -111,15 +111,15 @@ export const Styles = StyleSheet.create({
   },
   message: {
     marginVertical: responsiveHeight(2),
-    maxWidth: responsiveScreenWidth(60),
-    minWidth: responsiveScreenWidth(60),
+    maxWidth: responsiveScreenWidth(50),
+    // minWidth: responsiveScreenWidth(60),
     fontSize: responsiveFontSize(2),
   },
   iconsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flex: 1,
-    // width: responsiveScreenWidth(60),
+    minWidth: responsiveScreenWidth(40),
     alignItems: 'center',
   },
   iconsContainerTwo: {
