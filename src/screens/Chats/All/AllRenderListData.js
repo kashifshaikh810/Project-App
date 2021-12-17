@@ -39,7 +39,7 @@ export const renderItems = ({item, index}, props, navigation) => {
   let monthName = monthNamesArr[month.getMonth()];
   let msgDate = new Date(date).getDate();
   let aa = [...props.lastMessage]
-  let message = aa.reverse()[index];
+  let message = aa[index];
 
   return (
     <>
@@ -206,7 +206,7 @@ export const importantChatrenderItems = ({item, index}, props, navigation) => {
   let monthName = monthNamesArr[month.getMonth()];
   let msgDate = new Date(date).getDate();
   let aa = [...props.lastMessage]
-  let message = aa.reverse()[index];
+  let message = aa[index];
  
   return (    
     <>

@@ -238,6 +238,12 @@ const PrivateMessagesMarkup = props => {
     }
   };
 
+  const changeVal = (e) => {
+   let res = e.nativeEvent.contentOffset.y = 2000
+   props.setChangePosition(res);
+   console.log(res, 'vaal');
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' && 'padding'}
@@ -294,7 +300,10 @@ const PrivateMessagesMarkup = props => {
       </TouchableOpacity>
 
       <View style={Styles.scrollViewContainer}>
-        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false} 
+        ref={props.scrollViewRef}
+        onContentSizeChange={() => props.scrollViewRef.current.scrollToEnd({ animated: true })}
+        >
           {props?.arr?.map((aa, index) => {
               const monthNamesArr = [
                 'Jan',

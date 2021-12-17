@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import PrivateMessagesMarkup from './PrivateMessagesMarkup';
 import {Auth, Database} from '../../../Setup';
 
@@ -9,9 +9,11 @@ const PrivateMessages = props => {
   const [sendShortMessage, setSendShortMessage] = useState('cancel');
   const [defaultMessage, setDefaultMessage] = useState('');
   const [arr, setArr] = useState([]);
+  const [changePosition, setChangePosition] = useState('');
   let receiverId = props.route.params.itemData.userId;
   let data = props.route.params.itemData;
   let senderId = Auth().currentUser.uid;
+  const scrollViewRef = useRef();
 
   const sendMessages = () => {
     let dd = new Date();
@@ -50,6 +52,9 @@ const PrivateMessages = props => {
         defaultMessage={defaultMessage}
         setDefaultMessage={setDefaultMessage}
         senderId={senderId}
+        changePosition={changePosition}
+        setChangePosition={setChangePosition}
+        scrollViewRef={scrollViewRef}
       />
     </>
   );

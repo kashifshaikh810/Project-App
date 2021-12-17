@@ -13,6 +13,7 @@ const All = props => {
   const [mark, setMark] = useState('');
   let uid = Auth()?.currentUser?.uid;
 
+
   const ChangePageOnClick = para => {
     setShowColor(para);
   };
@@ -22,7 +23,7 @@ const All = props => {
         getChatListData();
         getMessagesData();
         setShowModal({show: false});
-    });
+      });
 
     return unsubscribe;
   }, [props.navigation]);
@@ -39,6 +40,12 @@ const All = props => {
         setKeys(keys);
         data.forEach(chatData => {
           arr.push(chatData);
+          // sorting by date 
+          arr.sort(function compare(a, b) {
+            var dateA = new Date(a.msgDate);
+            var dateB = new Date(b.msgDate);
+            return dateA - dateB;
+          });
           let res = arr.every((a) => {
             return a.chatList.mark === 'RemoveImportant';
           })
@@ -64,33 +71,20 @@ const All = props => {
   }
 
   const deleteChat = () => {
-    setIsLoading(true)
     Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).remove();
-    setIsLoading(false);
+    getChatListData();
     setShowModal({show: false});
   };
 
   const markAsImportant = () => {
-    setIsLoading(true);
-    Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).child('chatList').update({mark: "important"}).then((res) => {
-      console.log(res);
-      setShowModal({show: false});
-      setIsLoading(false);
-    }).catch((err) => {
-      console.log(err);
-    })
+    Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).child('chatList').update({mark: "important"});
+    getChatListData();
     setShowModal({show: false});
   }
 
   const RemoveImportant = () => {
-    setIsLoading(true);
-    Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).child('chatList').update({mark: "RemoveImportant"}).then((res) => {
-      console.log(res);
-      setShowModal({show: false});
-      setIsLoading(false);
-    }).catch((err) => {
-      console.log(err);
-    })
+    Database().ref(`chatListData/${uid}/${keys[showModal.index]}`).child('chatList').update({mark: "RemoveImportant"});
+    getChatListData();
     setShowModal({show: false});
   }
 
