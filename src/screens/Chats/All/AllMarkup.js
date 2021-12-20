@@ -111,7 +111,7 @@ const AllMarkup = props => {
       )}
 
       {/* All route data */}
-      {props.isLoading ? (
+      {props.chatListData.length > 0 ? props.isLoading ? (
         <>
           <View
             style={{
@@ -129,10 +129,11 @@ const AllMarkup = props => {
             <FlatList
               data={props.chatListData}
               renderItem={item => renderItems(item, props, navigation)}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
         )
-      )}
+      ) : showNoMessages()}
 
       {/* unread route data */}
       {props.showColor === 'unreadchat' && (
@@ -153,6 +154,7 @@ const AllMarkup = props => {
             renderItem={item =>
               importantChatrenderItems(item, props, navigation)
             }
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       )}

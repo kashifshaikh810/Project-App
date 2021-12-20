@@ -138,6 +138,7 @@ const IncludesDetails = props => {
     let joinDate = Auth()?.currentUser.metadata.creationTime;
     let userName = currentUserData.userName;
     let aa = new Date();
+    let heart = false;
     let date = aa.toISOString().split('t')[0];
     if (
       storageImagesArr &&
@@ -160,6 +161,7 @@ const IncludesDetails = props => {
         postedDate: date,
         userName: userName,
         postType: 'Active',
+        heart: heart
       });
       props.navigation.navigate('ReviewYourDetails');
       setIsLoading(false);

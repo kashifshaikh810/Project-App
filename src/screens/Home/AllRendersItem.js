@@ -29,7 +29,8 @@ export const renderItems = ({item, index}, props) => {
   let images = item.adImages
 
   return (
-    <View style={HomeStyles.renderItemContainer}>
+    <>
+  {item.postType !== "Sold" || item.postType !== "Disabled" ? <View style={HomeStyles.renderItemContainer}>
       <TouchableOpacity
         style={HomeStyles.renderItemContent}
         onPress={() =>
@@ -42,11 +43,11 @@ export const renderItems = ({item, index}, props) => {
             <View style={HomeStyles.featuredTextContainer}>
               <Text style={HomeStyles.featuredText}>FEATURED</Text>
             </View>
-            <View style={HomeStyles.iconContainer}>
-              <View style={HomeStyles.iconMain}>
-                <MyAdsIcon name="heart-outlined" size={16} color="white" />
-              </View>
-            </View>
+           {props.uid !== item.userId && <View style={HomeStyles.iconContainer}>
+              <TouchableOpacity style={HomeStyles.iconMain} onPress={() => item.heart === true ? props.removeToFav(index) : props.addToFav(item, index)}>
+                <MyAdsIcon name={item.heart === true ? "heart" : "heart-outlined"} size={16} color="white" />
+              </TouchableOpacity>
+            </View>}
           </View>
         </ImageBackground>
 
@@ -67,7 +68,8 @@ export const renderItems = ({item, index}, props) => {
           </View>
         </View>
       </TouchableOpacity>
-    </View>
+    </View> : []}
+    </>
   );
 };
 

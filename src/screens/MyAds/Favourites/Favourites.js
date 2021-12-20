@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,127 +8,82 @@ import {
 } from 'react-native';
 import {Styles} from './Styles';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
-import HeartWhite from 'react-native-vector-icons/Ionicons';
+import {Auth, Database} from '../../../../Setup';
 
-const dummyDataTwo = [
-  {
-    username: 'Car Concept Karachi',
-    joinDate: 'May 2016',
-    description: 'Oppo ads selling no minor issue',
-    rs: '20,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Karachi',
-    date: '02/05/2010',
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription: 'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
-  },
-  {
-    username: 'Suleman Khan',
-    joinDate: 'June 2018',
-    description: 'Car for selling no working',
-    rs: '30,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Sindh',
-    date: '07/02/2018',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription: 'iidoqdduqduqwdhqdhqwdhdqdqwdqwdqwpkpmvfmvvkdjnvovjvovowjvowjv.lkn;vjwovjwvommmmsdsdsd',
-  },
-  {
-    username: 'Ayesha Sheikh',
-    joinDate: 'May 2020',
-    description: 'bads 4 urgent sell contact me please',
-    rs: '15,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Punjab',
-    date: '05/03/2014',
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription: 'ppqoqqoeqeqeiohurgiuerhgiernjgnrlnwnl;mlm;mpkmo;ank;ononfaofjnjfno;afna;ofjna;ofjn;on',
-  },
-  {
-    username: 'Kamran Warsi',
-    joinDate: 'May 2013',
-    description: 'crolla for sell new condition contact me fast',
-    rs: '100,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Sarhad Karachi',
-    date: '01/05/2013',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription: 'oiifiefieifieiiefieifieifefieifeifiefieififiefieifeifefifieiiefiefefeifeifiefieiiefiefiiei',
-  },
-  {
-    username: 'Ahmed Khan',
-    joinDate: 'May 2018',
-    description: 'mazda new condition for sell 2021 model',
-    rs: '200,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, blochistan sakkhar',
-    date: '08/01/2019',
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription: 'yewuyuryeuryeyryeryyeryryeryyeyryeyryyeyryerreyreyyyuewryweurweyryweurwerywruruyweurywerweuryu',
-  },
-  {
-    username: 'Kadir Shah',
-    joinDate: 'May 2021',
-    description: 'car selling need cash serious buyer contact me',
-    rs: '250,000',
-    image: require('../../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, New, Karachi',
-    date: '07/05/2020',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription: 'd;ohougheuhmxlmkoqvoqqovnvvnkjnckjnknkjnkanasasdasdasdasdasdasdasdasddadasdasdalkvndovvvvwvnoivwvnowievn',
-  },
-];
+export const renderItemsTwo = ({item, index}, props, userIds, pushKeys) => {
+  const removeToFav = (i) => {
+    Database().ref(`/userAds/${userIds[i]}`).child(pushKeys[i]).update({heart: false});
+  }
 
-export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
+  console.log(item);
   return (
-    <TouchableOpacity
+    <>
+   {item.heart ? <TouchableOpacity
       style={Styles.renderItemContainer}
       activeOpacity={1}
       onPress={() =>
         props.navigation.navigate('ViewMyFullFavourtiesAd', {data: item})
       }>
       <View style={Styles.renderItemContent}>
-        <ImageBackground source={item.image} style={Styles.imgBackground}>
+        <ImageBackground source={{uri: item.adImages[0].adImages}} style={Styles.imgBackground}>
           <View style={Styles.insideContainer}>
             <View style={Styles.iconContainer}>
-              {isChange ? (
-                <HeartWhite
-                  name="heart-circle"
-                  size={25}
-                  onPress={() => setIsChange(!isChange)}
-                />
-              ) : (
                 <TouchableOpacity
                   style={Styles.iconMain}
-                  onPress={() => setIsChange(true)}>
-                  <MyAdsIcon name="heart-outlined" size={25} color="white" />
+                  onPress={() => removeToFav(index)}>
+                  <MyAdsIcon name="heart" size={16} color="white" />
                 </TouchableOpacity>
-              )}
             </View>
           </View>
         </ImageBackground>
 
         <View>
           <Text style={Styles.description} numberOfLines={2}>
-            {item.description}
+            {item.titile}
           </Text>
         </View>
         <View style={Styles.flexContainer}>
-          <Text style={Styles.rsStyle}>Rs {item.rs}</Text>
+          <Text style={Styles.rsStyle}>Rs {item.price}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity> : []}
+    </>
   );
 };
 
 const Favourites = props => {
-  const [isChange, setIsChange] = useState(false);
+  const [allAdsData, setAllAdsData] = useState();
+  const [userIds, setuserIds] = useState('');
+  const [pushKeys, setpushKeys] = useState('');
+  const [favOrNot, setfavOrNot] = useState('');
+  let uid = Auth().currentUser.uid;
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      getAllData()
+    });
+
+    return unsubscribe;
+  }, [props.navigation]);
+
+  const getAllData = () => {
+    let arr = [];
+    Database()
+      .ref(`/addToFav/${uid}`)
+      .on('value', snapshot => {
+        if(snapshot.val()){
+          let favAds = Object.values(snapshot.val());
+          favAds.forEach((items, index) => {
+            let favAd = Object.values(items);
+            favAd.forEach((ads, i) => {
+              arr.push(ads);
+              setAllAdsData(arr);
+            });
+          });
+        }
+      });
+  }
+
   return (
     <View style={Styles.container}>
       <View style={Styles.midContainer}>
@@ -143,10 +98,15 @@ const Favourites = props => {
           </View>
         </View>
       </View>
+     
+     {/* {
+       allAdsData.length > 0 &&  
+      <View style={{width: '100%', height: 300, justifyContent: 'center', alignItems: 'center'}}><Text>You haven't liked anything yet.</Text></View>
+     } */}
 
       <FlatList
-        data={dummyDataTwo}
-        renderItem={item => renderItemsTwo(item, props, isChange, setIsChange)}
+        data={allAdsData}
+        renderItem={item => renderItemsTwo(item, props)}
         numColumns={2}
       />
     </View>

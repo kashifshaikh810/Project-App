@@ -12,15 +12,26 @@ const PrivateMessages = props => {
   const [changePosition, setChangePosition] = useState('');
   let receiverId = props.route.params.itemData.userId;
   let data = props.route.params.itemData;
+  let name = props.route.params.routeName;
   let senderId = Auth().currentUser.uid;
   const scrollViewRef = useRef();
 
   const sendMessages = () => {
-    let dd = new Date();
-    let date = dd.toISOString().split('t')[0];
-    let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
-    Database().ref(`/chatMessages/${pathRes}`).push({senderId: senderId, receiverId: receiverId, time: date, receiverName: data.userName, msg: inputMessage});
-    setInputMessage('');
+    if(name === 'PrivateMessages' && inputMessage){
+      let dd = new Date();
+      let msgDate = dd.toISOString().split('t')[0];
+      Database().ref(`/chatListData/${senderId}`).push({chatList: data, msgDate});
+      let date = dd.toISOString().split('t')[0];
+      let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
+      Database().ref(`/chatMessages/${pathRes}`).push({senderId: senderId, receiverId: receiverId, time: date, receiverName: data.userName, msg: inputMessage});
+      setInputMessage('');
+    }else{
+      let dd = new Date();
+      let date = dd.toISOString().split('t')[0];
+      let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
+      Database().ref(`/chatMessages/${pathRes}`).push({senderId: senderId, receiverId: receiverId, time: date, receiverName: data.userName, msg: inputMessage});
+      setInputMessage('');
+    }
   };
 
   useEffect(() => {
@@ -33,7 +44,12 @@ const PrivateMessages = props => {
     let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
     Database().ref(`/chatMessages/${pathRes}`).on("value", (snapshot) => {
       let messageData = snapshot.val() ? Object.values(snapshot.val()).reverse() : []
-      setArr(messageData)
+      messageData.sort(function compare(a, b) {
+        var dateA = new Date(a.time);
+        var dateB = new Date(b.time);
+        return dateA - dateB;
+      });
+      setArr(messageData);
     });
   }
 

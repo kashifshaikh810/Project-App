@@ -81,10 +81,8 @@ const ViewFullBasedAdd = props => {
     if(uid){
       props.navigation.navigate('PrivateMessages', {
         itemData: routeData,
+        routeName: 'PrivateMessages',
       })
-      let dd = new Date();
-      let msgDate = dd.toISOString().split('t')[0];
-      Database().ref(`/chatListData/${uid}`).push({chatList: routeData, msgDate});
     }else{
       props.navigation.navigate('SignUpAndSignInMenu')
     }
@@ -184,9 +182,9 @@ const ViewFullBasedAdd = props => {
               <View style={Styles.heartIconContainer}>
                 <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
                   <HeartIcon
-                    name={addToFav ? 'heart' : 'heart-o'}
+                    name={routeData.heart ? 'heart' : 'heart-o'}
                     size={17}
-                    color={addToFav ? '#fece37' : 'black'}
+                    color={routeData.heart ? "#fece37" : "black"}
                   />
                 </TouchableOpacity>
               </View>

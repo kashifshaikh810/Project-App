@@ -139,6 +139,30 @@ const ViewMyFullFavourtiesAd = props => {
       </View>
     );
   };
+
+  let futureDate = new Date(routeData.postedDate);
+  futureDate.setDate(futureDate.getDate() + 30);
+  let res = futureDate?.toISOString().split('T')[0];
+  let beforeThirteenDate = res.split('-');
+
+  const monthNamesArr = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  let date = new Date(routeData.joinDate);
+  let year = date.getFullYear();
+  let monthName = monthNamesArr[date.getMonth()];
+
   return (
     <>
       <View style={Styles.headerParent}>
@@ -158,12 +182,12 @@ const ViewMyFullFavourtiesAd = props => {
       <ScrollView style={Styles.container}>
         <TouchableOpacity activeOpacity={1} onPress={() => setShowFullImageModal(true)}>
           <ImageBackground
-            source={routeData.image}
+            source={{uri: routeData.adImages[0].adImages}}
             style={Styles.backgroundImg}>
             <View style={[Styles.imagesCountParent, {flexDirection: 'row'}]}>
               <View style={Styles.backImgFeaturedTxtContainer}>
                 <Text style={Styles.backImgFeaturedTxt}>
-                  {routeData.featured}
+                  FEATURED
                 </Text>
               </View>
               <View
@@ -181,19 +205,19 @@ const ViewMyFullFavourtiesAd = props => {
 
         <View style={Styles.rsAndDescriptionContainer}>
           <View style={Styles.rsAndDescription}>
-            <Text style={Styles.midRs}>Rs {routeData.rs}</Text>
+            <Text style={Styles.midRs}>Rs {routeData.price}</Text>
             <View style={Styles.heartIconContainer}>
-              <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
+              <TouchableOpacity>
                 <HeartIcon
-                  name={addToFav ? 'heart-o' : 'heart'}
+                  name={routeData.heart ? 'heart' : 'heart-o'}
                   size={17}
-                  color={addToFav ? 'black' : '#fece37'}
+                  color={routeData.heart ? '#fece37' : 'black'}
                 />
               </TouchableOpacity>
             </View>
           </View>
           <Text style={Styles.adDescription} numberOfLines={2}>
-            {routeData.description}
+            {routeData.titile}
           </Text>
         </View>
 
@@ -202,20 +226,21 @@ const ViewMyFullFavourtiesAd = props => {
           <Text style={{flex: 1}}>{routeData.location}</Text>
 
           <View style={Styles.expireDateContainer}>
-            <Text>{routeData.date}</Text>
+            <Text>{beforeThirteenDate[2]}/{beforeThirteenDate[1]}/
+              {beforeThirteenDate[0]}</Text>
           </View>
         </View>
 
         <View style={{alignItems: 'center'}}>
           <View style={Styles.lastContainerOnDetails}>
-            {routeData.rs ? (
+            {routeData.price ? (
               <>
                 <Text style={Styles.details}>Details</Text>
                 <View style={Styles.priceContainer}>
                   <Text style={Styles.price}>Price</Text>
 
                   <View style={Styles.rsContainer}>
-                    <Text style={Styles.rs}>{routeData.rs}</Text>
+                    <Text style={Styles.rs}>{routeData.price}</Text>
                   </View>
                 </View>
                 <View style={Styles.conditionContainer}>
@@ -242,7 +267,7 @@ const ViewMyFullFavourtiesAd = props => {
                 renderTruncatedFooter={_renderTruncatedFooter}
                 renderRevealedFooter={_renderRevealedFooter}>
                 <Text style={Styles.fullDescription}>
-                  {routeData.fullDescription}
+                  {routeData.description}
                 </Text>
               </ReadMore>
             </SafeAreaView>
@@ -258,6 +283,8 @@ const ViewMyFullFavourtiesAd = props => {
             onPress={() =>
               props.navigation.navigate('OtherUserProfile', {
                 userData: routeData,
+                year: year,
+                monthName: monthName,
               })
             }>
             <View style={Styles.profileSectionContainer}>
@@ -269,8 +296,8 @@ const ViewMyFullFavourtiesAd = props => {
               </View>
 
               <View style={Styles.usernameAndDataContainer}>
-                <Text style={Styles.username}>{routeData.username}</Text>
-                <Text>Member since {routeData.joinDate}</Text>
+                <Text style={Styles.username}>{routeData.userName}</Text>
+                <Text>Member since {monthName} {year}</Text>
                 <Text style={[Styles.username, {color: '#3366ce'}]}>
                   SEE PROFILE
                 </Text>
