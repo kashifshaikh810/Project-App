@@ -18,10 +18,10 @@ import {iconsData, dummyData, dummyDataTwo} from './Data';
 
 const HomeMarkup = props => {
   const [scrollVal, setScrollVal] = useState('');
-
+  
   return (
     <>
-      {scrollVal > 0 && (
+      {/* {scrollVal > 0 && (
         <View style={HomeStyles.areaContainer}>
           <SearchIcon name="search" size={20} />
           <Text style={HomeStyles.areaContent}>
@@ -34,8 +34,10 @@ const HomeMarkup = props => {
             </TouchableOpacity>
           </View>
         </View>
-      )}
-      <ScrollView onScroll={e => setScrollVal(e.nativeEvent.contentOffset.y)}>
+      )} */}
+      <ScrollView 
+      // onScroll={e => setScrollVal(e.nativeEvent.contentOffset.y)}
+      >
         <View>
           <View style={HomeStyles.areaContainer}>
             <LocationIcon name="location-outline" size={20} />

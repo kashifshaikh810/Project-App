@@ -25,9 +25,9 @@ import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 const ViewMyFullFavourtiesAd = props => {
-  const [addToFav, setAddToFav] = useState(false);
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const routeData = props.route.params.data;
+  const heart = props.route.params.heart;
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -209,9 +209,9 @@ const ViewMyFullFavourtiesAd = props => {
             <View style={Styles.heartIconContainer}>
               <TouchableOpacity>
                 <HeartIcon
-                  name={routeData.heart ? 'heart' : 'heart-o'}
+                  name={heart ? 'heart' : 'heart-o'}
                   size={17}
-                  color={routeData.heart ? '#fece37' : 'black'}
+                  color={heart ? '#fece37' : 'black'}
                 />
               </TouchableOpacity>
             </View>

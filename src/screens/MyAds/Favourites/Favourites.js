@@ -5,27 +5,32 @@ import {
   TouchableOpacity,
   FlatList,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import {Styles} from './Styles';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
-import {Auth, Database} from '../../../../Setup';
+import {Auth, Database, firebase} from '../../../../Setup';
 
-export const renderItemsTwo = ({item, index}, props, userIds, pushKeys) => {
+export const renderItemsTwo = ({item, index}, props, dataPushKeys, setAllAdsData) => {
   const removeToFav = (i) => {
-    Database().ref(`/userAds/${userIds[i]}`).child(pushKeys[i]).update({heart: false});
+      let uid = Auth().currentUser.uid;
+      Database().ref(`/addToFav/${uid}/${dataPushKeys[i]}`).remove();
+      setAllAdsData([]);
   }
 
-  console.log(item);
   return (
     <>
-   {item.heart ? <TouchableOpacity
+   <TouchableOpacity
       style={Styles.renderItemContainer}
       activeOpacity={1}
       onPress={() =>
-        props.navigation.navigate('ViewMyFullFavourtiesAd', {data: item})
+        props.navigation.navigate('ViewMyFullFavourtiesAd', {data: item.items, heart: item.heart})
       }>
       <View style={Styles.renderItemContent}>
-        <ImageBackground source={{uri: item.adImages[0].adImages}} style={Styles.imgBackground}>
+        <ImageBackground 
+        source={{uri: item.items.adImages[0].adImages}}
+         style={Styles.imgBackground}
+        >
           <View style={Styles.insideContainer}>
             <View style={Styles.iconContainer}>
                 <TouchableOpacity
@@ -39,49 +44,52 @@ export const renderItemsTwo = ({item, index}, props, userIds, pushKeys) => {
 
         <View>
           <Text style={Styles.description} numberOfLines={2}>
-            {item.titile}
+            {item.items.titile}
           </Text>
         </View>
         <View style={Styles.flexContainer}>
-          <Text style={Styles.rsStyle}>Rs {item.price}</Text>
+          <Text style={Styles.rsStyle}>Rs {item.items.price}</Text>
         </View>
       </View>
-    </TouchableOpacity> : []}
+    </TouchableOpacity>
     </>
   );
 };
 
 const Favourites = props => {
-  const [allAdsData, setAllAdsData] = useState();
-  const [userIds, setuserIds] = useState('');
-  const [pushKeys, setpushKeys] = useState('');
-  const [favOrNot, setfavOrNot] = useState('');
-  let uid = Auth().currentUser.uid;
+  const [allAdsData, setAllAdsData] = useState([]);
+  const [dataPushKeys, setDataPushKeys] = useState('');
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
-      getAllData()
+      getAllData();
     });
 
     return unsubscribe;
   }, [props.navigation]);
 
   const getAllData = () => {
+    let uid = firebase?.auth()?.currentUser?.uid;
     let arr = [];
+    setisLoading(true);
     Database()
       .ref(`/addToFav/${uid}`)
       .on('value', snapshot => {
-        if(snapshot.val()){
-          let favAds = Object.values(snapshot.val());
-          favAds.forEach((items, index) => {
-            let favAd = Object.values(items);
-            favAd.forEach((ads, i) => {
-              arr.push(ads);
-              setAllAdsData(arr);
-            });
+        if(snapshot.val() === null){
+          setisLoading(false);
+        }else{
+          let favAds = snapshot.val() ? Object.values(snapshot.val()) : [];
+          let keys = snapshot.val() ? Object.keys(snapshot.val()) : [];
+          setDataPushKeys(keys);
+          favAds.forEach(async(items, index) => {
+            let favAd = items;
+            await arr.push(favAd);
+            setAllAdsData(arr);
+            setisLoading(false);
           });
         }
-      });
+      })
   }
 
   return (
@@ -99,16 +107,16 @@ const Favourites = props => {
         </View>
       </View>
      
-     {/* {
-       allAdsData.length > 0 &&  
+     {
+       allAdsData.length === 0 &&  
       <View style={{width: '100%', height: 300, justifyContent: 'center', alignItems: 'center'}}><Text>You haven't liked anything yet.</Text></View>
-     } */}
+     }
 
-      <FlatList
+     {isLoading ? <ActivityIndicator size={50} color="green" /> : <FlatList
         data={allAdsData}
-        renderItem={item => renderItemsTwo(item, props)}
+        renderItem={item => renderItemsTwo(item, props, dataPushKeys, setAllAdsData)}
         numColumns={2}
-      />
+      />}
     </View>
   );
 };

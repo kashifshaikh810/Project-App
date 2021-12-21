@@ -45,7 +45,7 @@ export const renderItems = ({item, index}, props) => {
             </View>
            {props.uid !== item.userId && <View style={HomeStyles.iconContainer}>
               <TouchableOpacity style={HomeStyles.iconMain} onPress={() => item.heart === true ? props.removeToFav(index) : props.addToFav(item, index)}>
-                <MyAdsIcon name={item.heart === true ? "heart" : "heart-outlined"} size={16} color="white" />
+                <MyAdsIcon name={props.data.heart === true && props.data.id === item.userId ? "heart" : "heart-outlined"} size={16} color="white" />
               </TouchableOpacity>
             </View>}
           </View>
