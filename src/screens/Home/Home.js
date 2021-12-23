@@ -2,35 +2,32 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, View} from 'react-native';
 import HomeMarkup from './HomeMarkup';
-import {Auth, Database} from '../.../../../../Setup';
+import {firebase, Database} from '../.../../../../Setup';
 
 const Home = props => {
   const [allAdsData, setAllAdsData] = useState();
-  const [data, setData] = useState('');
-  let uid = Auth().currentUser.uid;
-
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      getAllData();
-      getDataForRemoveToFav();
-    });
-
-    return unsubscribe;
-  }, [props.navigation]);
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  let uid = firebase.auth()?.currentUser?.uid;
 
   const getDataForRemoveToFav = () => {
-  let uid = Auth().currentUser.uid;
+    let uid = firebase.auth()?.currentUser?.uid;
+    setIsLoading(true);
+    let arr = [];
     Database()
       .ref(`/addToFav/${uid}`)
       .on('value', snapshot => {
-        if(snapshot.val()){
-          let data = Object.values(snapshot.val());
-          data.forEach((a) => setData({heart: a.heart, id: a.items.userId}))
-        }
+          let data = snapshot.val() ? Object.values(snapshot.val()) : [] && setData({});
+            data && data?.filter(async(a) => {
+              await arr.push({heart: a.heart, id: a.items.userId})
+              setData(arr.reverse())
+            });
+            setIsLoading(false);
       });
   }
 
   const getAllData = () => {
+    setIsLoading(true);
     let adsArr = [];
     Database()
       .ref('/userAds/')
@@ -42,6 +39,7 @@ const Home = props => {
             allAds.forEach(async(ads, i) => {
               await adsArr.push(ads);
               setAllAdsData(adsArr);
+              setIsLoading(false);
             });
           });
         }
@@ -49,7 +47,7 @@ const Home = props => {
   }
 
   const addToFav = (item, i) => {
-  let uid = Auth().currentUser.uid;
+  let uid = firebase.auth()?.currentUser?.uid;
     Database().ref(`/addToFav/${uid}`).push({items: item, heart: true});
   };
 
@@ -59,6 +57,15 @@ const Home = props => {
       Alert.alert("Warnning... ! Please go to your favourites and remove it...")
   }
 
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      getAllData();
+      getDataForRemoveToFav();
+    });
+
+    return unsubscribe;
+  }, [props.navigation]);
+  
   return (
     <View>
       <HomeMarkup {...props} allAdsData={allAdsData}
@@ -66,6 +73,7 @@ const Home = props => {
       removeToFav={removeToFav}
       uid={uid}
       data={data}
+      isLoading={isLoading}
       />
     </View>
   );

@@ -27,6 +27,8 @@ export const renderItems = ({item, index}, props) => {
   let monthNameCopy = monthNamesArr[monthCopy.getMonth()];
   let dateCopy = new Date(item.joinDate).getDate();
   let images = item.adImages
+  let res =  props?.data ? props?.data[index]?.id || props?.data[0]?.id :  '';
+  let heartRes = props?.data ? props?.data[index]?.heart || props?.data[0]?.heart : '';
 
   return (
     <>
@@ -34,7 +36,7 @@ export const renderItems = ({item, index}, props) => {
       <TouchableOpacity
         style={HomeStyles.renderItemContent}
         onPress={() =>
-          props.navigation.navigate('ViewFullBasedAdd', {data: item})
+          props.navigation.navigate('ViewFullBasedAdd', {data: item, heart: heartRes})
         }>
         <ImageBackground
           source={!!images ? {uri: images[0].adImages} : []}
@@ -44,8 +46,10 @@ export const renderItems = ({item, index}, props) => {
               <Text style={HomeStyles.featuredText}>FEATURED</Text>
             </View>
            {props.uid !== item.userId && <View style={HomeStyles.iconContainer}>
-              <TouchableOpacity style={HomeStyles.iconMain} onPress={() => item.heart === true ? props.removeToFav(index) : props.addToFav(item, index)}>
-                <MyAdsIcon name={props.data.heart === true && props.data.id === item.userId ? "heart" : "heart-outlined"} size={16} color="white" />
+              <TouchableOpacity 
+              style={HomeStyles.iconMain} 
+              onPress={() => props.uid ? heartRes && res === item.userId ? props.removeToFav(index) : props.addToFav(item, index) : props.navigation.navigate("SignUpAndSignInMenu")}>
+                <MyAdsIcon name={heartRes && res === item.userId ? "heart" : "heart-outlined"} size={16} color="white" />
               </TouchableOpacity>
             </View>}
           </View>

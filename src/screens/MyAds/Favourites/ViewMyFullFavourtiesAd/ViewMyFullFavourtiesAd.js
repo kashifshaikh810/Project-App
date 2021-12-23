@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -23,11 +23,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {dummyData} from '../../../Home/Data';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {Database, firebase} from '../../../../../Setup';
 
 const ViewMyFullFavourtiesAd = props => {
   const [showFullImageModal, setShowFullImageModal] = useState(false);
+  const [userData, setUserData] = useState('');
   const routeData = props.route.params.data;
   const heart = props.route.params.heart;
+  let uid = firebase?.auth()?.currentUser?.uid;
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -163,6 +166,19 @@ const ViewMyFullFavourtiesAd = props => {
   let year = date.getFullYear();
   let monthName = monthNamesArr[date.getMonth()];
 
+  useEffect(() => {
+    data();
+  }, [])
+
+  const data = () => {
+    Database()
+      .ref(`/userSignUp/${routeData.userId}`)
+      .on('value', snapshot => {
+        let data = snapshot ? snapshot?.val() : {};
+        setUserData(data);
+      });
+  };
+
   return (
     <>
       <View style={Styles.headerParent}>
@@ -206,7 +222,7 @@ const ViewMyFullFavourtiesAd = props => {
         <View style={Styles.rsAndDescriptionContainer}>
           <View style={Styles.rsAndDescription}>
             <Text style={Styles.midRs}>Rs {routeData.price}</Text>
-            <View style={Styles.heartIconContainer}>
+           {uid === routeData.userId ? null : <View style={Styles.heartIconContainer}>
               <TouchableOpacity>
                 <HeartIcon
                   name={heart ? 'heart' : 'heart-o'}
@@ -214,7 +230,7 @@ const ViewMyFullFavourtiesAd = props => {
                   color={heart ? '#fece37' : 'black'}
                 />
               </TouchableOpacity>
-            </View>
+            </View>}
           </View>
           <Text style={Styles.adDescription} numberOfLines={2}>
             {routeData.titile}
@@ -241,6 +257,13 @@ const ViewMyFullFavourtiesAd = props => {
 
                   <View style={Styles.rsContainer}>
                     <Text style={Styles.rs}>{routeData.price}</Text>
+                  </View>
+                </View>
+                <View style={Styles.priceContainer}>
+                  <Text style={Styles.price}>Type</Text>
+
+                  <View style={Styles.rsContainer}>
+                    <Text style={Styles.rs}>{routeData.type}</Text>
                   </View>
                 </View>
                 <View style={Styles.conditionContainer}>
@@ -285,18 +308,19 @@ const ViewMyFullFavourtiesAd = props => {
                 userData: routeData,
                 year: year,
                 monthName: monthName,
+                userInfo: userData,
               })
             }>
             <View style={Styles.profileSectionContainer}>
               <View>
                 <Image
-                  source={require('../../../../Components/Utility/Images/profile.png')}
-                  style={Styles.profileImg}
+                  source={userData?.dpImage ? {uri: userData.dpImage} : require('../../../../Components/Utility/Images/profile.png')}
+                  style={[Styles.profileImg, userData?.dpImage && {borderRadius: 50}]}
                 />
               </View>
 
               <View style={Styles.usernameAndDataContainer}>
-                <Text style={Styles.username}>{routeData.userName}</Text>
+                <Text style={Styles.username}>{routeData.userName} {uid === routeData.userId ? "(You)" : ""}</Text>
                 <Text>Member since {monthName} {year}</Text>
                 <Text style={[Styles.username, {color: '#3366ce'}]}>
                   SEE PROFILE
@@ -335,11 +359,11 @@ const ViewMyFullFavourtiesAd = props => {
           </View>
         </Modal>
       </ScrollView>
-      <View style={Styles.threeButtonsContainer}>
+     {uid === routeData.userId ? null : <View style={Styles.threeButtonsContainer}>
         <TouchableOpacity
           style={Styles.buttonTextAndIconContainer}
           onPress={() =>
-            props.navigation.navigate('PrivateMessages', {itemData: routeData})
+            uid ? props.navigation.navigate('PrivateMessages', {itemData: routeData}) : props.navigation.navigate("SignUpAndSignInMenu")
           }>
           <MessageIcon name="message1" size={17} color="white" />
           <Text style={Styles.buttonText}>Chat</Text>
@@ -354,7 +378,7 @@ const ViewMyFullFavourtiesAd = props => {
           <SMSIcon name="mail" size={17} color="white" />
           <Text style={Styles.buttonText}>SMS</Text>
         </TouchableOpacity>
-      </View>
+      </View>}
     </>
   );
 };

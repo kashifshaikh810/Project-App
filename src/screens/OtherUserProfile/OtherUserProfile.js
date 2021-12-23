@@ -22,6 +22,7 @@ const OtherUserProfile = props => {
   const [addToFav, setAddToFav] = useState({bool: false, id: ''});
   let uid = Auth()?.currentUser?.uid;
   const data = props.route.params.userData;
+  const userInfo = props.route.params.userInfo;
   const year = props.route.params.year;
   const monthName = props.route.params.monthName;
 
@@ -131,8 +132,8 @@ const OtherUserProfile = props => {
       <View style={Styles.profileSectionBottomLine}>
         <View style={Styles.profileSectionContainer}>
           <Image
-            source={require('../../Components/Utility/Images/profile.png')}
-            style={Styles.profileImg}
+            source={userInfo.dpImage ? {uri: userInfo.dpImage} : require('../../Components/Utility/Images/profile.png')}
+            style={[Styles.profileImg, userInfo.dpImage && {borderRadius: 50}]}
           />
           <View style={Styles.usernameAndDateContainer}>
             <Text style={Styles.username}>

@@ -13,8 +13,8 @@ const AccountMarkup = props => {
       <View style={AccountStyles.container}>
         <View>
           <Image
-            source={require('../../Components/Utility/Images/profile.png')}
-            style={AccountStyles.image}
+            source={props?.currentUserData?.dpImage ? {uri: props.currentUserData.dpImage} : require('../../Components/Utility/Images/profile.png')}
+            style={[AccountStyles.image, props?.currentUserData?.dpImage && {borderRadius: 50}]}
           />
         </View>
         <View style={AccountStyles.main}>

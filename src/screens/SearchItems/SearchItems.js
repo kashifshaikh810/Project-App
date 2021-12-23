@@ -16,96 +16,28 @@ import MenuIcon from 'react-native-vector-icons/AntDesign';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import CompareVerticalIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
-import HeartWhite from 'react-native-vector-icons/Ionicons';
-
-const dummyDataTwo = [
-  {
-    username: 'Car Concept Karachi',
-    joinDate: 'May 2016',
-    description: 'Oppo ads selling no minor issue',
-    rs: '20,000',
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Karachi',
-    date: '02/05/2010',
-    dateOfM: `${27}Jul`,
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription:
-      'fkewguhpqghpq3ghp3q9g3[0qhgpq3g9hkjcnvlaivjnievnaeivunpoevuhgpqgh0[qghq0ghkjnvvjnov',
-  },
-  {
-    username: 'Suleman Khan',
-    joinDate: 'June 2018',
-    description: 'Car for selling no working',
-    rs: '30,000',
-    dateOfM: `${27}Jul`,
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Sindh',
-    date: '07/02/2018',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription:
-      'iidoqdduqduqwdhqdhqwdhdqdqwdqwdqwpkpmvfmvvkdjnvovjvovowjvowjv.lkn;vjwovjwvommmmsdsdsd',
-  },
-  {
-    username: 'Ayesha Sheikh',
-    joinDate: 'May 2020',
-    description: 'bads 4 urgent sell contact me please',
-    rs: '15,000',
-    dateOfM: `${27}Jul`,
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Punjab',
-    date: '05/03/2014',
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription:
-      'ppqoqqoeqeqeiohurgiuerhgiernjgnrlnwnl;mlm;mpkmo;ank;ononfaofjnjfno;afna;ofjna;ofjn;on',
-  },
-  {
-    username: 'Kamran Warsi',
-    joinDate: 'May 2013',
-    description: 'crolla for sell new condition contact me fast',
-    rs: '100,000',
-    dateOfM: `${27}Jul`,
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, Sarhad Karachi',
-    date: '01/05/2013',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription:
-      'oiifiefieifieiiefieifieifefieifeifiefieififiefieifeifefifieiiefiefefeifeifiefieiiefiefiiei',
-  },
-  {
-    username: 'Ahmed Khan',
-    joinDate: 'May 2018',
-    description: 'mazda new condition for sell 2021 model',
-    rs: '200,000',
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, blochistan sakkhar',
-    date: '08/01/2019',
-    dateOfM: `${27}Jul`,
-    condition: 'New',
-    featured: 'FEATURED',
-    fullDescription:
-      'yewuyuryeuryeyryeryyeryryeryyeyryeyryyeyryerreyreyyyuewryweurweyryweurwerywruruyweurywerweuryu',
-  },
-  {
-    username: 'Kadir Shah',
-    joinDate: 'May 2021',
-    description: 'car selling need cash serious buyer contact me',
-    rs: '250,000',
-    dateOfM: `${27}Jul`,
-    image: require('../../Components/Utility/Images/sofa.jpg'),
-    location: 'Pakistan, New, Karachi',
-    date: '07/05/2020',
-    condition: 'Used',
-    featured: 'FEATURED',
-    fullDescription:
-      'd;ohougheuhmxlmkoqvoqqovnvvnkjnckjnknkjnkanasasdasdasdasdasdasdasdasddadasdasdalkvndovvvvwvnoivwvnowievn',
-  },
-];
+import {firebase, Database} from '../../../Setup';
 
 export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
+  const monthNamesArr = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'April',
+    'May',
+    'Jun',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  let date = new Date(item.postedDate);
+  let postDate = date.getDate();
+  let monthName = monthNamesArr[date.getMonth()];
+  let uid = firebase?.auth()?.currentUser?.uid;
+
   return (
     <TouchableOpacity
       style={Styles.renderItemContainer}
@@ -114,37 +46,39 @@ export const renderItemsTwo = ({item}, props, isChange, setIsChange) => {
         props.navigation.navigate('ViewMyFullFavourtiesAd', {data: item})
       }>
       <View style={Styles.renderItemContent}>
-        <ImageBackground source={item.image} style={Styles.imgBackground}>
-          <View style={Styles.insideContainer}>
-            <View style={Styles.iconContainer}>
-              {isChange ? (
-                <HeartWhite
-                  name="heart-circle"
-                  size={25}
-                  onPress={() => setIsChange(!isChange)}
-                />
-              ) : (
+        <ImageBackground
+          source={{uri: item.adImages[0].adImages}}
+          style={Styles.imgBackground}>
+          {uid === item.userId ? null : (
+            <View style={Styles.insideContainer}>
+              <View style={Styles.iconContainer}>
                 <TouchableOpacity
                   style={Styles.iconMain}
-                  onPress={() => setIsChange(true)}>
+                  onPress={() =>
+                    uid
+                      ? console.log('work')
+                      : props.navigation.navigate('SignUpAndSignInMenu')
+                  }>
                   <MyAdsIcon name="heart-outlined" size={25} color="white" />
                 </TouchableOpacity>
-              )}
+              </View>
             </View>
-          </View>
+          )}
         </ImageBackground>
 
-        <Text style={Styles.rsStyle}>Rs {item.rs}</Text>
+        <Text style={Styles.rsStyle}>Rs {item.price}</Text>
         <View style={Styles.flexContainer}>
           <Text style={Styles.description} numberOfLines={1}>
-            {item.description}
+            {item.titile}
           </Text>
           <View style={Styles.rowContainer}>
             <Text style={Styles.locationStyle} numberOfLines={1}>
               {item.location}
             </Text>
             <View style={Styles.dateContainer}>
-              <Text style={Styles.locationStyle}>{item.dateOfM}</Text>
+              <Text style={Styles.locationStyle}>
+                {postDate} {monthName}
+              </Text>
             </View>
           </View>
         </View>
@@ -163,9 +97,36 @@ const SearchItems = props => {
   const [closeLocation, setCloseLocation] = useState(false);
   const [closeItem, setCloseItem] = useState(false);
   const [isChange, setIsChange] = useState(false);
+  const [allAdsData, setAllAdsData] = useState();
 
   useEffect(() => {
     setCloseItem(false);
+  }, [name]);
+
+  useEffect(() => {
+    if(closeItem){
+      props.navigation.setParams({sortName: null});
+    }
+  }, [closeItem]);
+
+  useEffect(() => {
+    let adsArr = [];
+    Database()
+      .ref('/userAds/')
+      .on('value', snapVal => {
+        let data = snapVal.val() ? Object.values(snapVal.val()) : [];
+        data.forEach(items => {
+          let allAds = Object.values(items);
+          adsArr.push(allAds);
+          let res = adsArr.flat(Infinity);
+          let fnfRes = res.filter(itemType => {
+            return name
+              ? itemType.type === name
+              : itemType.type === sortName.name;
+          });
+          setAllAdsData(fnfRes.length !== 0 ? fnfRes : res);
+        });
+      });
   }, [name]);
 
   return (
@@ -195,12 +156,13 @@ const SearchItems = props => {
             <BoxIcon name="CodeSandbox" size={30} color="#000e17" />
           </View>
           <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('SortItemsOptions', {
-                itemData: sortName,
-                selection: selection || 0,
-              })
-            }>
+          // onPress={() =>
+          //   props.navigation.navigate('SortItemsOptions', {
+          //     itemData: sortName,
+          //     selection: selection || 0,
+          //   })
+          // }
+          >
             <CompareVerticalIcon
               name="compare-vertical"
               size={28}
@@ -231,7 +193,7 @@ const SearchItems = props => {
             </View>
           )}
 
-          {closeItem ? null : (
+          {!name ? <View /> : (
             <View style={Styles.selectionButtonContainer}>
               <Text>{sortName?.name || sortName || name}</Text>
               <TouchableOpacity onPress={() => setCloseItem(true)}>
@@ -251,21 +213,32 @@ const SearchItems = props => {
         <Text style={Styles.resultText}>
           Showing result for
           <Text style={Styles.sortName}>
-            {' '}{sortName?.name || sortName || name}
+            {' '}
+            {sortName?.name || sortName || name || "All"}
           </Text>
         </Text>
         <View style={Styles.adNumbersContainer}>
           <View style={Styles.adNumbersMain}>
-            <Text style={Styles.adNumbers}>10,000+ ads</Text>
+            <Text style={Styles.adNumbers}>
+              {allAdsData?.length} {allAdsData?.length === 1 ? 'ad' : 'ads'}
+            </Text>
           </View>
         </View>
       </View>
 
-      <FlatList
-        data={dummyDataTwo}
-        renderItem={item => renderItemsTwo(item, props, isChange, setIsChange)}
-        numColumns={2}
-      />
+      {allAdsData?.length === 0 ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>No results available </Text>
+        </View>
+      ) : (
+        <FlatList
+          data={allAdsData}
+          renderItem={item =>
+            renderItemsTwo(item, props, isChange, setIsChange)
+          }
+          numColumns={2}
+        />
+      )}
     </View>
   );
 };

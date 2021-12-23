@@ -28,10 +28,12 @@ import {Auth, Database} from '../../../../Setup';
 
 const ViewFullBasedAdd = props => {
   const [addToFav, setAddToFav] = useState(false);
+  const [userData, setUserData] = useState('');
   const [imagesArr, setimagesArr] = useState([]);
   const [showFullImageModal, setShowFullImageModal] = useState(false);
   const defaultImg = require('../../../Components/Utility/Images/defaultImage.png');
   const routeData = props.route.params.data;
+  const heart = props.route.params.heart;
   let uid = Auth()?.currentUser?.uid;
   const monthNamesArr = [
     'Jan',
@@ -96,6 +98,12 @@ const ViewFullBasedAdd = props => {
       setimagesArr(imagesArr);
     });
   }, [routeData.adImages]);
+
+  useEffect(() => {
+      Database().ref(`/userSignUp/${routeData.userId}`).on("value", (snapshot) => {
+        setUserData(snapshot.val());
+      })
+  }, [routeData]);
 
   const renderItems = ({item}) => {
     return (
@@ -180,11 +188,11 @@ const ViewFullBasedAdd = props => {
             <Text style={Styles.midRs}>Rs {routeData.price}</Text>
             {routeData.userId !== uid && (
               <View style={Styles.heartIconContainer}>
-                <TouchableOpacity onPress={() => setAddToFav(!addToFav)}>
+                <TouchableOpacity>
                   <HeartIcon
-                    name={routeData.heart ? 'heart' : 'heart-o'}
+                    name={heart ? 'heart' : 'heart-o'}
                     size={17}
-                    color={routeData.heart ? "#fece37" : "black"}
+                    color={heart ? "#fece37" : "black"}
                   />
                 </TouchableOpacity>
               </View>
@@ -270,13 +278,14 @@ const ViewFullBasedAdd = props => {
                 userData: routeData,
                 year: year,
                 monthName: monthName,
+                userInfo: userData,
               })
             }>
             <View style={Styles.profileSectionContainer}>
               <View>
                 <Image
-                  source={require('../../../Components/Utility/Images/profile.png')}
-                  style={Styles.profileImg}
+                  source={userData.dpImage ? {uri: userData.dpImage} : require('../../../Components/Utility/Images/profile.png')}
+                  style={[Styles.profileImg, userData.dpImage && {borderRadius: 50}]}
                 />
               </View>
 

@@ -11,11 +11,13 @@ import {Styles} from './Styles';
 import MyAdsIcon from 'react-native-vector-icons/Entypo';
 import {Auth, Database, firebase} from '../../../../Setup';
 
-export const renderItemsTwo = ({item, index}, props, dataPushKeys, setAllAdsData) => {
+export const renderItemsTwo = ({item, index}, props, dataPushKeys, setAllAdsData, allAdsData) => {
   const removeToFav = (i) => {
       let uid = Auth().currentUser.uid;
       Database().ref(`/addToFav/${uid}/${dataPushKeys[i]}`).remove();
-      setAllAdsData([]);
+      if(allAdsData.length === 1){
+        setAllAdsData([]);
+      }
   }
 
   return (
@@ -114,7 +116,7 @@ const Favourites = props => {
 
      {isLoading ? <ActivityIndicator size={50} color="green" /> : <FlatList
         data={allAdsData}
-        renderItem={item => renderItemsTwo(item, props, dataPushKeys, setAllAdsData)}
+        renderItem={item => renderItemsTwo(item, props, dataPushKeys, setAllAdsData, allAdsData)}
         numColumns={2}
       />}
     </View>

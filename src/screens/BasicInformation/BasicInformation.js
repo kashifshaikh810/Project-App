@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import BasicInformationMarkup from './BasicInformationMarkup';
-import {Database, Auth} from '../../../Setup';
+import {Database, Auth, Storage} from '../../../Setup';
+import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
+import { Alert } from 'react-native';
 
 const BasicInformation = props => {
   const [email, setEmail] = useState('');
@@ -10,12 +13,19 @@ const BasicInformation = props => {
   const [aboutYou, setAboutYou] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState('');
-  const userInformation = props.route.params.data;
+  const [dpImage, setDpImage] = useState('');
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  let userInformation = props.route.params.data;
   let uid = Auth()?.currentUser?.uid;
 
   const save = () => {
     let password = userInformation.password.toString();
     setIsLoading(true);
+    if(dpImage) {
+      Database().ref('/userSignUp').child(uid).update({dpImage: dpImage});
+      setIsLoading(false);
+      Alert.alert("Successfully uploaded...")
+    }
     if (
       email !== userInformation.email &&
       userName === userInformation.userName &&
@@ -33,6 +43,7 @@ const BasicInformation = props => {
             aboutYou: aboutYou,
           });
           setIsLoading(false);
+          console.log('?/?????');
         })
         .catch(err => {
           setIsLoading(false);
@@ -55,7 +66,6 @@ const BasicInformation = props => {
             );
           }
         });
-      setIsLoading(false);
     } else {
       if (
         userName !== userInformation.userName &&
@@ -84,9 +94,7 @@ const BasicInformation = props => {
         Database().ref('/userSignUp').child(uid).update({aboutYou: aboutYou});
         setIsLoading(false);
       }
-      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const userNameHandler = text => {
@@ -109,13 +117,63 @@ const BasicInformation = props => {
     setErrMsg('');
   };
 
+  const upload = async () => {
+    try {
+      const file = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      for (const res of file) {
+        addImgeToStorage(res);
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log(err, 'errr');
+      } else {
+        throw err;
+      }
+    }
+  };
+
+  const addImgeToStorage = async images => {
+    setIsImageLoading(true);
+    try {
+      let imageData = images;
+      const uri = images.uri;
+      const result = await RNFetchBlob.fs.readFile(uri, 'base64');
+      const storage = await Storage().ref(`/dpImages/${imageData.name}`);
+      const task = storage.putString(result, 'base64', {
+        contentType: imageData.type,
+      });
+      task.on('state_changed', taskSnapshot => {
+        console.log(
+          `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+        );
+      });
+      await task.then(imageSnapshot => {
+        console.log('Image Upload Successfully');
+        Storage()
+          .ref(imageSnapshot.metadata.fullPath)
+          .getDownloadURL()
+          .then(myDownloadURL => {
+            console.log('download URL image ', myDownloadURL);
+            setDpImage(myDownloadURL);
+            setIsImageLoading(false);
+          });
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     setEmail(userInformation.email);
     setPhone(userInformation.phone);
     setUserName(userInformation.userName);
     setAboutYou(userInformation ? userInformation.aboutYou : '');
+    setDpImage(userInformation.dpImage);
   }, [props.route.params]);
 
+  // console.log(userInformation, dpImage);
   return (
     <>
       <BasicInformationMarkup
@@ -135,6 +193,10 @@ const BasicInformation = props => {
         emailHandler={emailHandler}
         phoneHandler={phoneHandler}
         aboutYouHandler={aboutYouHandler}
+        upload={upload}
+        userInformation={userInformation}
+        isImageLoading={isImageLoading}
+        dpImage={dpImage}
       />
     </>
   );

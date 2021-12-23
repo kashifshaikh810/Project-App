@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,13 @@ import ClockIcon from 'react-native-vector-icons/AntDesign';
 import SearchIcon from 'react-native-vector-icons/EvilIcons';
 import {responsiveScreenWidth} from '../../../Components/Utility/ResponsiveDimensions/Responsive';
 import ArrowRightIcon from 'react-native-vector-icons/MaterialIcons';
+import {firebase, Database} from '../../../../Setup';
 
 const QuickFilter = props => {
   const [onFocus, setOnFocus] = useState(false);
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
+  const [pushKeys, setPushKeys] = useState();
 
   const categoriesData = [
     {name: 'Mobiles'},
@@ -26,6 +28,11 @@ const QuickFilter = props => {
     {name: 'Property for Sale'},
     {name: 'Propert for Rent'},
   ];
+
+  const removeFromSearchList = (i) => {
+    let uid = firebase?.auth()?.currentUser?.uid;
+    Database().ref(`/searchItems/${uid}/${pushKeys[i]}`).remove();
+  }
 
   const fFocus = () => {
     setOnFocus(true);
@@ -38,6 +45,8 @@ const QuickFilter = props => {
   };
 
   const onSubmit = () => {
+    let uid = firebase?.auth()?.currentUser?.uid;
+    Database().ref(`/searchItems/${uid}`).push({searchItem: search});
     data.push(search);
     setData(data);
     setSearch('');
@@ -45,6 +54,17 @@ const QuickFilter = props => {
     Keyboard.dismiss();
     props.navigation.navigate('SearchItems', {sortName: search});
   };
+
+  useEffect(() => {
+    let uid = firebase?.auth()?.currentUser?.uid;
+    Database().ref(`/searchItems/${uid}`).on("value", (snapshotVal) => {
+      let data = snapshotVal.val() ? Object.values(snapshotVal.val()) : []
+      let keys = snapshotVal.val() ? Object.keys(snapshotVal.val()) : []
+      setPushKeys(keys);
+      setData(data);
+    })
+
+  }, []);
 
   return (
     <ScrollView style={Styles.container}>
@@ -107,12 +127,20 @@ const QuickFilter = props => {
       <View style={data.length >= 5 ? Styles.mapContainer : {}}>
         {data.map((arr, index) => {
           return (
-            <View key={index} style={Styles.searchParent}>
+            <TouchableOpacity key={index} style={Styles.searchParent} onPress={() =>
+              props.navigation.navigate('SearchItems', {sortName: arr.searchItem})
+            }>
               <View style={Styles.iconContainer}>
                 <ClockIcon name="clockcircleo" size={20} color="#052e31" />
               </View>
-              <Text style={Styles.search}>{arr}</Text>
-            </View>
+              <Text style={Styles.search}>{arr.searchItem}</Text>
+
+              <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end', marginHorizontal: 15}}>
+                <TouchableOpacity onPress={() => removeFromSearchList(index)}>
+                  <CloseIcon name="close" size={20} color="black" />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         })}
       </View>

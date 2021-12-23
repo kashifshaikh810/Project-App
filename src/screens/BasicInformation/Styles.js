@@ -47,6 +47,28 @@ export const Styles = StyleSheet.create({
     fontSize: responsiveFontSize(3),
     color: '#042f32',
   },
+  loadingImage: {
+    position: 'absolute',
+    top: 22,
+    bottom: 0,
+    right: 0,
+    left: 5,
+  },
+  cameraIconContainerChild: {
+    backgroundColor: 'green',
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 18,
+  },
+  cameraIconContainer: {
+    position: 'absolute',
+    top: 62,
+    bottom: 0,
+    right: 0,
+    left: 55,
+  },
   middileSectionInputContainer: {
     height: responsiveScreenHeight(15),
     alignItems: 'center',

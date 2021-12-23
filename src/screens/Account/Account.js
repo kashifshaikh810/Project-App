@@ -18,11 +18,12 @@ const Account = props => {
   }, [props.navigation]);
 
   const data = () => {
-    const uid = firebase?.auth()?.currentUser?.uid;
+    const uid = firebase?.auth() ? firebase?.auth()?.currentUser?.uid : '';
     Database()
       .ref(`/userSignUp/${uid}`)
       .on('value', snapshot => {
-        setCurrentUserData(snapshot.val());
+        let data = snapshot ? snapshot?.val() : {};
+        setCurrentUserData(data);
       });
   };
 

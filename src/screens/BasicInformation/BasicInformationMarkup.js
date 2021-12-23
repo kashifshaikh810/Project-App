@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
+import CameraIcon from 'react-native-vector-icons/FontAwesome';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {Styles} from './Styles';
 
@@ -41,10 +42,34 @@ const BasicInformationMarkup = props => {
             <Text style={Styles.informationTxt}>Basic information</Text>
 
             <View style={Styles.middileSectionInputContainer}>
-              <Image
-                source={require('../../Components/Utility/Images/profile.png')}
-                style={Styles.defaultImg}
-              />
+              <TouchableOpacity onPress={() => props.upload()}>
+                <Image
+                  source={
+                    props.dpImage
+                      ? {uri: props.dpImage}
+                      : require('../../Components/Utility/Images/profile.png')
+                  }
+                  style={[
+                    Styles.defaultImg,
+                    props.dpImage && {borderRadius: 50},
+                  ]}
+                />
+
+                {props.isImageLoading && (
+                  <View
+                    style={Styles.loadingImage}>
+                    <ActivityIndicator color="green" size={40} />
+                  </View>
+                )}
+
+                <View
+                  style={Styles.cameraIconContainer}>
+                  <View
+                    style={Styles.cameraIconContainerChild}>
+                    <CameraIcon name="camera" size={15} color="white" />
+                  </View>
+                </View>
+              </TouchableOpacity>
 
               <View style={Styles.inputContainer}>
                 <View style={Styles.inputContainerChild}>
