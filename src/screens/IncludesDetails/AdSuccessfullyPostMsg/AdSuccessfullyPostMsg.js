@@ -47,7 +47,7 @@ const AdSuccessfullyPostMsg = props => {
 
         <TouchableOpacity
           style={Styles.previewbuttonTouchAble}
-          onPress={() => props.navigation.navigate('ADS')}>
+          onPress={() => props.navigation.navigate('MY ADS')}>
           <Text style={Styles.previewbuttonTxt}>Preview Ad</Text>
         </TouchableOpacity>
       </View>

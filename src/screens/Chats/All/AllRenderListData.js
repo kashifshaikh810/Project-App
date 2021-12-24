@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,9 @@ import {Styles} from '../Styles';
 import UnreadChatModal from '../../../Components/Modals/UnreadChatModal/UnreadChatModal';
 import AllChatModal from '../../../Components/Modals/AllChatModal/AllChatModal';
 import ImportantChatModal from '../../../Components/Modals/ImportantChatModal/ImportantChatModal';
+import { Database } from '../../../../Setup';
+
+let lastMessage = false;
 
 export const renderItems = ({item, index}, props, navigation) => {
   let data = item.chatList;
@@ -38,8 +41,16 @@ export const renderItems = ({item, index}, props, navigation) => {
   let month = new Date(date);
   let monthName = monthNamesArr[month.getMonth()];
   let msgDate = new Date(date).getDate();
-  let aa = [...props.lastMessage]
-  let message = aa[index];
+
+  let pathRes = `${props.uid}${data.userId}`.split('').sort().join('');
+    Database()
+      .ref(`/chatMessages/${pathRes}`)
+      .on('value', (snapshot) => {
+        let snap = snapshot.val();
+        let data = snap ? Object?.values(snap) : [];
+        let res = data.shift().msg;
+        lastMessage = res;
+      });
 
   return (
     <>
@@ -98,7 +109,7 @@ export const renderItems = ({item, index}, props, navigation) => {
               </View>
             ) : (
               <View style={Styles.iconsContainer}>
-                <Text numberOfLines={1}>{message}</Text>
+                <Text numberOfLines={1}>{lastMessage}</Text>
                 <CheckSingleIcon
                   name="checkmark-outline"
                   size={12}

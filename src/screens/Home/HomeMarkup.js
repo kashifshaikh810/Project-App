@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  LogBox
 } from 'react-native';
 import LocationIcon from 'react-native-vector-icons/Ionicons';
 import DropIcon from 'react-native-vector-icons/MaterialIcons';
@@ -19,8 +18,6 @@ import {iconsData, dummyData, dummyDataTwo} from './Data';
 
 const HomeMarkup = props => {
   const [scrollVal, setScrollVal] = useState('');
-
-  LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.']);
 
   return (
     <>

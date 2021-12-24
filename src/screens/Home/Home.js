@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {Alert, View} from 'react-native';
+import {Alert, LogBox, View} from 'react-native';
 import HomeMarkup from './HomeMarkup';
 import {firebase, Database} from '../.../../../../Setup';
 
@@ -9,6 +9,8 @@ const Home = props => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   let uid = firebase.auth()?.currentUser?.uid;
+
+  LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.']);
 
   const getDataForRemoveToFav = () => {
     let uid = firebase.auth()?.currentUser?.uid;
@@ -19,8 +21,8 @@ const Home = props => {
       .on('value', snapshot => {
           let data = snapshot.val() ? Object.values(snapshot.val()) : [] && setData({});
             data && data?.filter(async(a) => {
-              await arr.push({heart: a.heart, id: a.items.userId})
-              setData(arr.reverse())
+              await arr.push({heart: a.heart, id: a.items.userId, userName: a.items.userName, title: a.items.titile});
+              setData(arr)
             });
             setIsLoading(false);
       });

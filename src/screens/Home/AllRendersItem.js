@@ -29,6 +29,7 @@ export const renderItems = ({item, index}, props) => {
   let images = item.adImages
   let res =  props?.data ? props?.data[index]?.id || props?.data[0]?.id :  '';
   let heartRes = props?.data ? props?.data[index]?.heart || props?.data[0]?.heart : '';
+  let titleRes = props?.data ? props?.data[index]?.title || props?.data[0]?.title : '';
 
   return (
     <>
@@ -49,7 +50,7 @@ export const renderItems = ({item, index}, props) => {
               <TouchableOpacity 
               style={HomeStyles.iconMain} 
               onPress={() => props.uid ? heartRes && res === item.userId ? props.removeToFav(index) : props.addToFav(item, index) : props.navigation.navigate("SignUpAndSignInMenu")}>
-                <MyAdsIcon name={heartRes && res === item.userId ? "heart" : "heart-outlined"} size={16} color="white" />
+                <MyAdsIcon name={heartRes && res === item.userId && titleRes === item.titile ?  "heart" : "heart-outlined"} size={16} color="white" />
               </TouchableOpacity>
             </View>}
           </View>

@@ -49,8 +49,8 @@ const ReviewYourDetails = props => {
       <View style={Styles.imageAndInputContainer}>
         <View style={Styles.imageContainer}>
           <Image
-            source={require('../../../Components/Utility/Images/profile.png')}
-            style={Styles.image}
+            source={userData?.dpImage ? {uri: userData.dpImage} : require('../../../Components/Utility/Images/profile.png')}
+            style={[Styles.image, userData?.dpImage && {borderRadius: 50}]}
           />
         </View>
 

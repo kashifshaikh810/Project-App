@@ -13,7 +13,7 @@ const All = props => {
   });
   const [chatListData, setChatListData] = useState([]);
   const [keys, setKeys] = useState('');
-  const [lastMessage, setlastMessage] = useState('');
+  const [lastMessage, setLastMessage] = useState('');
   const [mark, setMark] = useState('');
   let uid = Auth()?.currentUser?.uid;
 
@@ -63,19 +63,7 @@ const All = props => {
   };
 
   const getMessagesData = () => {
-    let msgArr = [];
-    Database()
-      .ref(`/chatMessages/`)
-      .on('value', async snapshot => {
-        let snap = await snapshot.val();
-        let data = snap ? Object?.values(snap) : [];
-        data.forEach(async (items, i) => {
-          let arr = Object?.values(items);
-          let msg = arr[0].msg;
-          await msgArr.push(msg);
-          setlastMessage(msgArr.reverse());
-        });
-      });
+    // let pathRes = `${senderId}${receiverId}`.split('').sort().join('');
   };
 
   const deleteChat = () => {
@@ -117,9 +105,9 @@ const All = props => {
         deleteChat={deleteChat}
         isLoading={isLoading}
         markAsImportant={markAsImportant}
-        lastMessage={lastMessage}
         RemoveImportant={RemoveImportant}
         mark={mark}
+        getMessagesData={getMessagesData}
       />
     </View>
   );
