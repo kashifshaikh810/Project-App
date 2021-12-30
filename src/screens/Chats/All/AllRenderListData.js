@@ -216,8 +216,6 @@ export const importantChatrenderItems = ({item, index}, props, navigation) => {
   let month = new Date(date);
   let monthName = monthNamesArr[month.getMonth()];
   let msgDate = new Date(date).getDate();
-  let aa = [...props.lastMessage]
-  let message = aa[index];
  
   return (    
     <>
@@ -277,7 +275,7 @@ export const importantChatrenderItems = ({item, index}, props, navigation) => {
             ) : (
               <View style={Styles.iconsContainer}>
                 <Text numberOfLines={1}>
-              {message}
+              {lastMessage}
             </Text>
                 <CheckSingleIcon
                   name="checkmark-outline"

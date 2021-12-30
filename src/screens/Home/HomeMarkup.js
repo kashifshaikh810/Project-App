@@ -78,12 +78,11 @@ const HomeMarkup = props => {
               <Text style={HomeStyles.sellAll}>See all</Text>
             </TouchableOpacity>
           </View>
-
+              
           <FlatList
             data={iconsData}
             renderItem={item => renderIcons(item, props)}
             horizontal={true}
-            scrollEnabled={false}
                 keyExtractor={(item, index) => index.toString()}
           />
 
